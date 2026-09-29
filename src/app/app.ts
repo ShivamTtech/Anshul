@@ -15,7 +15,7 @@ import { SmoothScrollService } from './core/services/smooth-scroll.service';
     FooterComponent
   ],
   template: `
-    <!-- Minimal Floating Luxury Navigation -->
+    <!-- Floating Luxury Royal Navigation -->
     <app-navbar></app-navbar>
 
     <!-- Main Content Outlet -->
@@ -23,7 +23,7 @@ import { SmoothScrollService } from './core/services/smooth-scroll.service';
       <router-outlet></router-outlet>
     </main>
 
-    <!-- Minimal Editorial Footer -->
+    <!-- Royal Editorial Footer -->
     <app-footer></app-footer>
   `,
   styles: [`
