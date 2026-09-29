@@ -1,472 +1,97 @@
 <!-- ==========================================================================
-     HERO SECTION (Matching User Mockup)
-     Couple Portrait, Monogram, Together Forever, Live Countdown Timer
+     CINEMATIC FULLSCREEN HERO SECTION
+     Only: Monogram, Anshul & Vidisha, 15 February 2026, Jaipur, [Confirm Attendance]
      ========================================================================== -->
-<section id="hero" class="royal-hero-section">
-  <!-- Ambient Garlands & Palace Atmosphere Background -->
-  <div class="hero-bg-container">
-    <div class="hero-image-wrap">
-      <img src="assets/images/couple-hero.jpg" alt="Anshul and Vidisha Royal Wedding Portrait" class="hero-couple-img">
-      <div class="hero-vignette-overlay"></div>
-      
-      <!-- Top Decorative Hanging Garlands & Chandelier Motif -->
-      <div class="garlands-decoration">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="garland-svg">
-          <path d="M0,0 Q150,90 300,0 Q450,90 600,0 Q750,90 900,0 Q1050,90 1200,0 L1200,0 L0,0 Z" fill="rgba(212, 175, 55, 0.25)"/>
-          <path d="M0,0 Q150,60 300,0 Q450,60 600,0 Q750,60 900,0 Q1050,60 1200,0 L1200,0 L0,0 Z" fill="rgba(106, 22, 36, 0.4)"/>
-        </svg>
-      </div>
+<section id="hero" class="cinematic-hero">
+  <!-- Fullscreen Photographic Background with Slow Atmospheric Scale -->
+  <div class="hero-media-wrapper">
+    <img 
+      src="assets/images/couple-hero.jpg" 
+      alt="Anshul & Vidisha" 
+      class="hero-media-image">
+    <div class="hero-cinematic-scrim"></div>
+  </div>
+
+  <!-- Hero Content Center Stage -->
+  <div class="hero-content container-minimal">
+    <div class="hero-monogram-top">
+      <span>A · V</span>
     </div>
 
-    <!-- Hero Content Overlay (Right Aligned on Desktop as in Mockup) -->
-    <div class="hero-content-overlay container-royal">
-      <div class="hero-text-card">
-        <div class="hero-motif-top">
-          <span>❦</span>
-        </div>
-        <span class="hero-eyebrow">TOGETHER FOREVER</span>
-        <h1 class="hero-couple-title">Anshul &amp; Vidisha</h1>
-        <p class="hero-invite-tagline">WE INVITE YOU TO BE A PART OF OUR SPECIAL JOURNEY</p>
-        
-        <div class="hero-date-row">
-          <span class="date-digit">15</span>
-          <span class="date-sep">|</span>
-          <span class="date-month">FEB</span>
-          <span class="date-sep">|</span>
-          <span class="date-year">2026</span>
-        </div>
+    <h1 class="hero-main-names">Anshul &amp; Vidisha</h1>
 
-        <div class="ornate-divider hero-mini-divider">
-          <span class="ornate-line"></span>
-          <span class="ornate-motif">❖</span>
-          <span class="ornate-line"></span>
-        </div>
+    <div class="hero-date-location">
+      <span class="hero-date">15 February 2026</span>
+      <span class="hero-divider">·</span>
+      <span class="hero-location">Jaipur</span>
+    </div>
 
-        <!-- Live Countdown Timer (Days, Hours, Minutes, Seconds) -->
-        <div class="countdown-card">
-          <div class="countdown-cell">
-            <span class="timer-num">{{ countdown().days }}</span>
-            <span class="timer-label">Days</span>
-          </div>
-          <div class="timer-colon">:</div>
-          <div class="countdown-cell">
-            <span class="timer-num">{{ countdown().hours }}</span>
-            <span class="timer-label">Hours</span>
-          </div>
-          <div class="timer-colon">:</div>
-          <div class="countdown-cell">
-            <span class="timer-num">{{ countdown().minutes }}</span>
-            <span class="timer-label">Minutes</span>
-          </div>
-          <div class="timer-colon">:</div>
-          <div class="countdown-cell">
-            <span class="timer-num">{{ countdown().seconds }}</span>
-            <span class="timer-label">Seconds</span>
-          </div>
-        </div>
-
-        <div class="hero-cta-group">
-          <button type="button" class="btn-royal-primary" (click)="openRsvpModal()">
-            <span>Confirm Your Presence (RSVP)</span>
-          </button>
-          <a href="#celebrations" (click)="scrollTo('#celebrations', $event)" class="btn-royal-secondary">
-            <span>Explore Events ↓</span>
-          </a>
-        </div>
-      </div>
+    <div class="hero-action-row">
+      <a href="#rsvp" (click)="scrollTo('#rsvp', $event)" class="btn-minimal-light">
+        Confirm Attendance
+      </a>
     </div>
   </div>
 
-  <!-- Deckle Edge Torn Paper Transition to Ivory Section -->
-  <div class="deckle-tear-transition">
-    <svg viewBox="0 0 1200 40" preserveAspectRatio="none" class="tear-svg-bottom">
-      <path d="M0,25 Q35,5 70,22 T140,15 T210,30 T280,12 T350,26 T420,10 T490,28 T560,14 T630,26 T700,8 T770,25 T840,15 T910,32 T980,14 T1050,28 T1120,10 T1200,24 L1200,40 L0,40 Z" fill="#faf6f0"/>
-    </svg>
+  <!-- Quiet Scroll Indicator -->
+  <div class="hero-scroll-hint">
+    <span class="hint-line"></span>
   </div>
 </section>
 
 <!-- ==========================================================================
-     INVITATION BANNER (Matching User Mockup)
-     Royal Rajasthani Elephant (Left) + Cordially Invited + Palace Pavilion (Right)
+     CELEBRATIONS SECTION
+     Clean Horizontal Timeline: Mehendi, Sangeet, Wedding, Reception
+     Minimal details, one image per event, no lengthy descriptions
      ========================================================================== -->
-<section id="invitation" class="invitation-banner-section">
-  <div class="container-royal">
-    <div class="invitation-triptych">
-      <!-- Left: Decorated Royal Elephant Miniature Painting -->
-      <div class="triptych-artwork elephant-art">
-        <div class="art-frame">
-          <img src="assets/images/royal-elephant.jpg" alt="Traditional Royal Rajasthani Elephant" class="miniature-img">
-          <span class="art-caption">Shubh Shobhayatra</span>
-        </div>
-      </div>
-
-      <!-- Center: Cordially Invited Royal Typography -->
-      <div class="triptych-center">
-        <span class="cordial-tag">YOU ARE CORDIALLY INVITED TO</span>
-        <h2 class="wedding-of-tag">THE WEDDING OF</h2>
-        
-        <div class="couple-name-banner">
-          <span class="dulha-name">Anshul</span>
-          <span class="weds-symbol">&amp;</span>
-          <span class="dulhan-name">Vidisha</span>
-        </div>
-
-        <div class="dulha-dulhan-pills">
-          <span class="pill-role">Anshul (Dulha)</span>
-          <span class="pill-dot">✦</span>
-          <span class="pill-role">Vidisha (Dulhan)</span>
-        </div>
-
-        <div class="ornate-divider">
-          <span class="ornate-line"></span>
-          <span class="ornate-motif">❦</span>
-          <span class="ornate-line"></span>
-        </div>
-
-        <p class="invite-quote">"Two hearts, one beautiful journey.<br>Your presence will make our celebration even more special."</p>
-        
-        <p class="invite-venue-line">
-          <strong>15th February 2026</strong> · The Royal Greens, Tonk Road, Jaipur
-        </p>
-      </div>
-
-      <!-- Right: Royal Rajasthani Palace Pavilion Miniature Painting -->
-      <div class="triptych-artwork pavilion-art">
-        <div class="art-frame">
-          <img src="assets/images/royal-pavilion.jpg" alt="Traditional Rajasthani Royal Palace Pavilion" class="miniature-img">
-          <span class="art-caption">Rajwada Greens</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================================
-     OUR CELEBRATIONS SECTION (Matching User Mockup)
-     Mehendi, Sangeet, Wedding, Reception with View Details Modals
-     ========================================================================== -->
-<section id="celebrations" class="celebrations-section">
-  <div class="container-royal">
-    <div class="section-heading-royal">
-      <span class="section-sub-tag">ITINERARY OF HAPPINESS</span>
-      <h2 class="section-main-title">OUR CELEBRATIONS</h2>
-      <div class="ornate-divider">
-        <span class="ornate-line"></span>
-        <span class="ornate-motif">❖</span>
-        <span class="ornate-line"></span>
-      </div>
-      <p class="section-summary-text">
-        Four days of joyous rituals, vibrant music, unforgettable feasting, and sacred vows in the heritage royal Pink City.
-      </p>
+<section id="celebrations" class="celebrations-minimal-section">
+  <div class="container-minimal">
+    <div class="section-header-minimal">
+      <span class="section-label">Celebrations</span>
+      <h2 class="section-title">The Itinerary</h2>
+      <p class="section-subtitle">Four days of joyous rituals in the royal heritage of Jaipur.</p>
     </div>
 
-    <!-- 4 Event Cards Grid -->
-    <div class="celebrations-grid">
-      <div *ngFor="let ev of weddingData.events" class="celebration-card">
-        <!-- Event Illustration Header -->
-        <div class="card-art-box">
-          <img [src]="ev.image" [alt]="ev.title" class="card-art-img">
-          <span class="card-hindi-badge">{{ ev.hindiTitle }}</span>
-        </div>
-
-        <!-- Event Details -->
-        <div class="card-body">
-          <h3 class="event-card-title">{{ ev.title }}</h3>
-          
-          <div class="event-meta-info">
-            <div class="meta-row">
-              <span class="meta-icon">📅</span>
-              <span class="meta-text">{{ ev.date }}</span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-icon">⏰</span>
-              <span class="meta-text">{{ ev.time }}</span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-icon">📍</span>
-              <span class="meta-text">{{ ev.venue }}</span>
-            </div>
-          </div>
-
-          <p class="event-short-desc">{{ ev.description }}</p>
-
-          <!-- Dress Code Hint Pill -->
-          <div class="dress-code-hint">
-            <span class="dress-hint-label">Attire:</span>
-            <span class="dress-hint-val">{{ ev.dressCode }}</span>
-          </div>
-
-          <button type="button" class="btn-royal-primary card-action-btn" (click)="openEventModal(ev)">
-            <span>View Details</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================================
-     MEET THE COUPLE SPOTLIGHT (Anshul [Dulha] & Vidisha [Dulhan])
-     ========================================================================== -->
-<section id="couple" class="couple-spotlight-section">
-  <div class="container-royal">
-    <div class="section-heading-royal">
-      <span class="section-sub-tag">THE STARS OF THE CELEBRATION</span>
-      <h2 class="section-main-title">MEET THE COUPLE</h2>
-      <div class="ornate-divider">
-        <span class="ornate-line"></span>
-        <span class="ornate-motif">❦</span>
-        <span class="ornate-line"></span>
-      </div>
-    </div>
-
-    <div class="couple-cards-row">
-      <!-- Dulha Card: Anshul -->
-      <div class="couple-card groom-card">
-        <div class="couple-pic-frame">
-          <img [src]="weddingData.dulha.image" alt="Anshul Dulha" class="couple-pic">
-          <span class="role-ribbon groom-ribbon">DULHA · THE GROOM</span>
-        </div>
-        <div class="couple-info-body">
-          <h3 class="couple-person-name">{{ weddingData.dulha.name }}</h3>
-          <p class="couple-lineage">{{ weddingData.dulha.title }}</p>
-          <p class="couple-bio-p">{{ weddingData.dulha.bio }}</p>
-          <blockquote class="couple-quote-box">
-            {{ weddingData.dulha.quote }}
-          </blockquote>
-        </div>
-      </div>
-
-      <!-- Decorative Royal Interlocking Hearts Knot -->
-      <div class="couple-knot-center">
-        <div class="knot-circle">
-          <span class="knot-av">A &amp; V</span>
-        </div>
-        <span class="knot-text">WEDS</span>
-      </div>
-
-      <!-- Dulhan Card: Vidisha -->
-      <div class="couple-card bride-card">
-        <div class="couple-pic-frame">
-          <img [src]="weddingData.dulhan.image" alt="Vidisha Dulhan" class="couple-pic">
-          <span class="role-ribbon bride-ribbon">DULHAN · THE BRIDE</span>
-        </div>
-        <div class="couple-info-body">
-          <h3 class="couple-person-name">{{ weddingData.dulhan.name }}</h3>
-          <p class="couple-lineage">{{ weddingData.dulhan.title }}</p>
-          <p class="couple-bio-p">{{ weddingData.dulhan.bio }}</p>
-          <blockquote class="couple-quote-box">
-            {{ weddingData.dulhan.quote }}
-          </blockquote>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================================
-     OUR STORY SECTION (Matching User Mockup)
-     Romantic Story Narrative + Twilight Palace Balcony Photo + Read Our Story
-     ========================================================================== -->
-<section id="story" class="our-story-section">
-  <div class="container-royal">
-    <div class="story-layout-grid">
-      <!-- Left: Story Narrative Text -->
-      <div class="story-narrative-col">
-        <div class="story-arch-motif">
-          <span>❦</span>
-        </div>
-        <h2 class="story-section-title">OUR STORY</h2>
-        
-        <div class="ornate-divider story-left-divider">
-          <span class="ornate-line"></span>
-          <span class="ornate-motif">❖</span>
-          <span class="ornate-line"></span>
-        </div>
-
-        <p class="story-lead-paragraph">
-          From a chance meeting to a lifetime of togetherness, our journey has been nothing short of magical. With the blessings of our families and loved ones, we are excited to begin this new chapter.
-        </p>
-
-        <p class="story-secondary-text">
-          What began with warm laughter over hot cups of chai in the heart of Jaipur blossomed into midnight conversations, shared dreams, and an unspoken realization that we were meant to walk this path hand in hand.
-        </p>
-
-        <div class="story-btn-wrap">
-          <button type="button" class="btn-royal-primary read-story-btn" (click)="openStoryModal()">
-            <span>Read Our Story →</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Right: Romantic Twilight Palace Balcony Photo with Deckle Edge -->
-      <div class="story-photo-col">
-        <div class="story-frame-deckle">
-          <img src="assets/images/couple-story.jpg" alt="Anshul & Vidisha Royal Twilight Moment in Jaipur" class="story-main-pic">
-          <div class="story-photo-badge">
-            <span>Jaipur · Twilight Bliss</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================================
-     OUR MOMENTS GALLERY SECTION (Matching User Mockup)
-     Ring Exchange, Sangeet Beats, Palace Arch Silhouette, Holy Pheras
-     ========================================================================== -->
-<section id="moments" class="moments-section">
-  <div class="container-royal">
-    <div class="section-heading-royal">
-      <span class="section-sub-tag">MEMORIES CAPTURED IN TIME</span>
-      <h2 class="section-main-title">OUR MOMENTS</h2>
-      <div class="ornate-divider">
-        <span class="ornate-line"></span>
-        <span class="ornate-motif">❖</span>
-        <span class="ornate-line"></span>
-      </div>
-    </div>
-
-    <!-- Gallery Category Filter Tabs -->
-    <div class="gallery-filters">
+    <!-- Editorial Horizontal Timeline Selector -->
+    <div class="timeline-nav-row">
       <button 
         type="button" 
-        class="filter-pill" 
-        [class.active]="selectedGalleryCategory() === 'all'"
-        (click)="filterGallery('all')">
-        All Moments
-      </button>
-      <button 
-        type="button" 
-        class="filter-pill" 
-        [class.active]="selectedGalleryCategory() === 'prewedding'"
-        (click)="filterGallery('prewedding')">
-        Pre-Wedding
-      </button>
-      <button 
-        type="button" 
-        class="filter-pill" 
-        [class.active]="selectedGalleryCategory() === 'ceremony'"
-        (click)="filterGallery('ceremony')">
-        Ceremonies
-      </button>
-      <button 
-        type="button" 
-        class="filter-pill" 
-        [class.active]="selectedGalleryCategory() === 'sangeet'"
-        (click)="filterGallery('sangeet')">
-        Sangeet Joy
+        *ngFor="let ev of weddingData.events" 
+        class="timeline-nav-item" 
+        [class.active]="activeEvent().id === ev.id"
+        (click)="setActiveEvent(ev)">
+        <span class="timeline-item-index">{{ ev.name }}</span>
+        <span class="timeline-item-date">{{ ev.dayDate.split(',')[0] }}</span>
       </button>
     </div>
 
-    <!-- Moments Carousel Slider with Left/Right Navigation -->
-    <div class="moments-slider-wrapper">
-      <button type="button" class="slider-arrow arrow-prev" (click)="scrollGallery('left')" aria-label="Previous photos">
-        ‹
-      </button>
-
-      <div #gallerySlider class="moments-carousel">
-        <div *ngFor="let photo of filteredMoments" class="moment-thumb-card" (click)="openLightbox(photo)">
-          <div class="moment-img-wrapper">
-            <img [src]="photo.imageUrl" [alt]="photo.title" class="moment-img">
-            <div class="moment-hover-overlay">
-              <span class="zoom-icon">🔍</span>
-              <span class="hover-title">{{ photo.title }}</span>
-              <span class="hover-sub">{{ photo.subtitle }}</span>
-            </div>
-          </div>
-        </div>
+    <!-- Active Event Showcase (Single Elegant Editorial Composition) -->
+    <div class="event-showcase-panel">
+      <div class="event-image-box">
+        <img [src]="activeEvent().image" [alt]="activeEvent().name" class="event-hero-photo">
       </div>
-
-      <button type="button" class="slider-arrow arrow-next" (click)="scrollGallery('right')" aria-label="Next photos">
-        ›
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================================
-     VENUE SECTION (Matching User Mockup)
-     The Royal Greens, Jaipur, Night Lit Palace Photo, Map & Directions
-     ========================================================================== -->
-<section id="venue" class="venue-section">
-  <div class="container-royal">
-    <div class="section-heading-royal">
-      <span class="section-sub-tag">DESTINATION JAIPUR</span>
-      <h2 class="section-main-title">VENUE</h2>
-      <div class="ornate-divider">
-        <span class="ornate-line"></span>
-        <span class="ornate-motif">❖</span>
-        <span class="ornate-line"></span>
-      </div>
-    </div>
-
-    <div class="venue-showcase-grid">
-      <!-- Left: Lit Night Palace Venue Photo -->
-      <div class="venue-photo-side">
-        <div class="venue-pic-frame">
-          <img src="assets/images/venue-palace.jpg" alt="The Royal Greens, Jaipur" class="venue-pic">
-          <div class="venue-tag-overlay">
-            <span class="venue-tag-title">The Royal Greens, Jaipur</span>
+      <div class="event-details-box">
+        <span class="event-eyebrow">{{ activeEvent().dayDate }} · {{ activeEvent().time }}</span>
+        <h3 class="event-headline">{{ activeEvent().name }}</h3>
+        
+        <div class="event-info-list">
+          <div class="event-info-row">
+            <span class="info-label">Venue</span>
+            <span class="info-val">{{ activeEvent().venue }}</span>
           </div>
-        </div>
-      </div>
-
-      <!-- Right: Venue Details & Navigation Buttons (Matching Mockup) -->
-      <div class="venue-details-side">
-        <div class="venue-title-header">
-          <span class="pin-svg-icon">📍</span>
-          <div class="venue-name-group">
-            <h3 class="venue-name-big">The Royal Greens, Jaipur</h3>
-            <p class="venue-address-p">Tonk Road, Jaipur, Rajasthan - 302018</p>
+          <div class="event-info-row">
+            <span class="info-label">Attire</span>
+            <span class="info-val">{{ activeEvent().dressCode }}</span>
           </div>
         </div>
 
-        <p class="venue-desc-paragraph">
-          A beautiful venue to celebrate love, laughter and new beginnings with all of you. Surrounded by majestic sandstone facades, illuminated chhatris, sparkling fountains, and fragrant gardens.
-        </p>
-
-        <!-- Travel Guide Info Points -->
-        <div class="travel-info-cards">
-          <div class="travel-card">
-            <span class="travel-icon">✈️</span>
-            <div class="travel-text">
-              <span class="travel-label">Jaipur Airport (JAI)</span>
-              <span class="travel-val">18 km (~25 mins drive)</span>
-            </div>
-          </div>
-          <div class="travel-card">
-            <span class="travel-icon">🚆</span>
-            <div class="travel-text">
-              <span class="travel-label">Jaipur Junction Railway</span>
-              <span class="travel-val">22 km (~35 mins drive)</span>
-            </div>
-          </div>
-          <div class="travel-card">
-            <span class="travel-icon">🏨</span>
-            <div class="travel-text">
-              <span class="travel-label">Guest Stay &amp; Concierge</span>
-              <span class="travel-val">Hospitality desk on-site</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Venue Navigation Actions (Matching Mockup: View on Map & Get Directions) -->
-        <div class="venue-btn-group">
+        <div class="event-action-wrap">
           <a 
-            href="https://maps.google.com/?q=The+Royal+Greens+Tonk+Road+Jaipur" 
+            [href]="'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + activeEvent().name + '&location=' + activeEvent().venue" 
             target="_blank" 
             rel="noopener" 
-            class="btn-royal-primary">
-            <span>View on Map →</span>
-          </a>
-          <a 
-            href="https://www.google.com/maps/dir/?api=1&destination=The+Royal+Greens+Tonk+Road+Jaipur" 
-            target="_blank" 
-            rel="noopener" 
-            class="btn-royal-secondary">
-            <span>Get Directions ✈</span>
+            class="btn-minimal-outline">
+            Save to Calendar
           </a>
         </div>
       </div>
@@ -475,204 +100,204 @@
 </section>
 
 <!-- ==========================================================================
-     WISHES & BLESSINGS WALL (Interactive Guestbook)
+     COUPLE SECTION
+     Large photography, Name, One-line introduction, Short story (2-3 lines max)
      ========================================================================== -->
-<section id="wishes" class="wishes-section">
-  <div class="container-royal">
-    <div class="section-heading-royal">
-      <span class="section-sub-tag">WORDS FROM LOVED ONES</span>
-      <h2 class="section-main-title">WISHES &amp; BLESSINGS</h2>
-      <div class="ornate-divider">
-        <span class="ornate-line"></span>
-        <span class="ornate-motif">❦</span>
-        <span class="ornate-line"></span>
-      </div>
-      <p class="section-summary-text">
-        Leave your heartfelt blessings for Anshul &amp; Vidisha as they embark on this sacred journey of lifetime companionship.
-      </p>
+<section id="couple" class="couple-minimal-section">
+  <div class="container-minimal">
+    <div class="section-header-minimal">
+      <span class="section-label">The Couple</span>
+      <h2 class="section-title">Anshul &amp; Vidisha</h2>
     </div>
 
-    <div class="wishes-split-grid">
-      <!-- Left: Form to Leave a Blessing -->
-      <div class="wish-form-card">
-        <h3 class="form-title">Shower Your Blessings</h3>
-        <p class="form-subtitle">Your warm words will be cherished by the couple forever!</p>
+    <div class="couple-editorial-grid">
+      <!-- Groom -->
+      <div class="couple-editorial-col">
+        <div class="couple-large-photo-box">
+          <img [src]="weddingData.groom.image" alt="Anshul" class="couple-large-photo">
+        </div>
+        <div class="couple-caption-box">
+          <span class="couple-role-tag">{{ weddingData.groom.subtitle }}</span>
+          <h3 class="couple-person-title">{{ weddingData.groom.name }}</h3>
+          <p class="couple-one-liner">{{ weddingData.groom.intro }}</p>
+          <p class="couple-short-story">{{ weddingData.groom.story }}</p>
+        </div>
+      </div>
 
-        <form (ngSubmit)="submitWish()" class="wishes-form">
-          <div class="form-field">
-            <label for="wName">Your Name *</label>
+      <!-- Bride -->
+      <div class="couple-editorial-col">
+        <div class="couple-large-photo-box">
+          <img [src]="weddingData.bride.image" alt="Vidisha" class="couple-large-photo">
+        </div>
+        <div class="couple-caption-box">
+          <span class="couple-role-tag">{{ weddingData.bride.subtitle }}</span>
+          <h3 class="couple-person-title">{{ weddingData.bride.name }}</h3>
+          <p class="couple-one-liner">{{ weddingData.bride.intro }}</p>
+          <p class="couple-short-story">{{ weddingData.bride.story }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     STORY SECTION
+     Key moments only (Maximum 3 timeline points, no large paragraphs)
+     ========================================================================== -->
+<section id="story" class="story-minimal-section">
+  <div class="container-minimal">
+    <div class="section-header-minimal">
+      <span class="section-label">Chronicles</span>
+      <h2 class="section-title">Key Moments</h2>
+    </div>
+
+    <div class="story-keypoints-row">
+      <div *ngFor="let pt of weddingData.storyPoints" class="story-point-item">
+        <span class="story-num">{{ pt.index }}</span>
+        <h4 class="story-heading">{{ pt.title }}</h4>
+        <span class="story-location-tag">{{ pt.location }}</span>
+        <p class="story-caption-text">{{ pt.caption }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     GALLERY SECTION
+     Large image-first gallery, minimal text, focus entirely on photography
+     ========================================================================== -->
+<section id="gallery" class="gallery-minimal-section">
+  <div class="container-minimal">
+    <div class="section-header-minimal">
+      <span class="section-label">Gallery</span>
+      <h2 class="section-title">Moments</h2>
+    </div>
+
+    <div class="gallery-minimal-grid">
+      <div 
+        *ngFor="let item of weddingData.galleryItems" 
+        class="gallery-minimal-card" 
+        (click)="openLightbox(item)">
+        <div class="gallery-img-wrap">
+          <img [src]="item.image" [alt]="item.title" class="gallery-photo">
+          <div class="gallery-hover-scrim">
+            <span class="gallery-photo-title">{{ item.title }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     VENUE SECTION
+     Single premium layout, large image, Location, Date, Map button, Directions button
+     ========================================================================== -->
+<section id="venue" class="venue-minimal-section">
+  <div class="container-minimal">
+    <div class="venue-single-layout">
+      <!-- Large Cinematic Venue Photograph -->
+      <div class="venue-hero-image-wrap">
+        <img [src]="weddingData.venue.image" alt="The Royal Greens Jaipur" class="venue-hero-image">
+      </div>
+
+      <!-- Essential Venue Details -->
+      <div class="venue-content-row">
+        <div class="venue-left-info">
+          <span class="section-label">Destination</span>
+          <h2 class="venue-main-name">{{ weddingData.venue.name }}</h2>
+          <p class="venue-location-str">{{ weddingData.venue.address }}</p>
+          <span class="venue-date-badge">{{ weddingData.venue.date }}</span>
+        </div>
+
+        <div class="venue-right-actions">
+          <a [href]="weddingData.venue.mapUrl" target="_blank" rel="noopener" class="btn-minimal-primary">
+            View on Map
+          </a>
+          <a [href]="weddingData.venue.directionsUrl" target="_blank" rel="noopener" class="btn-minimal-outline">
+            Get Directions
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     RSVP SECTION
+     Ultra-clean form with luxury hotel booking feel (Aman / Four Seasons)
+     Only essential fields: Name, Guests, Attendance, Message
+     ========================================================================== -->
+<section id="rsvp" class="rsvp-minimal-section">
+  <div class="container-minimal">
+    <div class="rsvp-reservation-card">
+      <div class="section-header-minimal" style="margin-bottom: 40px;">
+        <span class="section-label">R.S.V.P.</span>
+        <h2 class="section-title">Confirm Attendance</h2>
+        <p class="section-subtitle">Please respond by 15 January 2026</p>
+      </div>
+
+      <!-- Confirmation State -->
+      <div *ngIf="isRsvpSubmitted()" class="rsvp-confirmed-view">
+        <span class="confirmed-check">✓</span>
+        <h3 class="confirmed-title">Thank you, {{ rsvpName }}</h3>
+        <p class="confirmed-message">
+          Your attendance has been graciously recorded. We look forward to welcoming you in Jaipur.
+        </p>
+      </div>
+
+      <!-- Minimal Reservation Form -->
+      <form *ngIf="!isRsvpSubmitted()" (ngSubmit)="submitRsvp()" class="minimal-reservation-form">
+        <div class="form-row-minimal">
+          <div class="form-group-minimal">
+            <label for="mName">Full Name</label>
             <input 
-              id="wName" 
+              id="mName" 
               type="text" 
-              [(ngModel)]="wishName" 
-              name="wishName" 
-              placeholder="e.g. Priya &amp; Aman Sharma" 
+              [(ngModel)]="rsvpName" 
+              name="name" 
+              placeholder="e.g. Ramesh Sharma" 
               required>
           </div>
 
-          <div class="form-field">
-            <label for="wRel">Relation / Connection</label>
-            <input 
-              id="wRel" 
-              type="text" 
-              [(ngModel)]="wishRelation" 
-              name="wishRelation" 
-              placeholder="e.g. Groom's Cousin, College Friend...">
-          </div>
-
-          <div class="form-field">
-            <label>Pick an Auspicious Sticker</label>
-            <div class="emoji-picker-row">
-              <button 
-                type="button" 
-                *ngFor="let em of availableEmojis" 
-                class="emoji-btn" 
-                [class.selected]="selectedEmoji === em"
-                (click)="selectedEmoji = em">
-                {{ em }}
-              </button>
-            </div>
-          </div>
-
-          <div class="form-field">
-            <label for="wMsg">Your Blessing Message *</label>
-            <textarea 
-              id="wMsg" 
-              [(ngModel)]="wishMessage" 
-              name="wishMessage" 
-              rows="3" 
-              placeholder="Wishing Anshul and Vidisha a lifetime of happiness, good health, and togetherness..." 
-              required></textarea>
-          </div>
-
-          <button 
-            type="submit" 
-            class="btn-royal-primary send-wish-btn" 
-            [disabled]="!wishName.trim() || !wishMessage.trim()">
-            <span>Post Blessing &amp; Shower Petals 🌸</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- Right: Live Wishes Cards -->
-      <div class="wishes-stream-col">
-        <div *ngFor="let wish of weddingData.wishesSignal()" class="guest-wish-bubble">
-          <div class="wish-top-row">
-            <div class="wish-author">
-              <span class="wish-emoji-tag">{{ wish.emoji }}</span>
-              <div>
-                <h4 class="wish-name">{{ wish.name }}</h4>
-                <span class="wish-relation-tag">{{ wish.relation }} · {{ wish.date }}</span>
-              </div>
-            </div>
-            <button 
-              type="button" 
-              class="like-btn" 
-              [class.liked]="wish.isLiked"
-              (click)="toggleWishLike(wish.id)">
-              <span>{{ wish.isLiked ? '❤️' : '🤍' }}</span>
-              <span class="likes-count">{{ wish.likes }}</span>
-            </button>
-          </div>
-          <p class="wish-body-msg">{{ wish.message }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================================
-     INLINE RSVP SECTION (Direct on page)
-     ========================================================================== -->
-<section id="rsvp" class="inline-rsvp-section">
-  <div class="container-royal">
-    <div class="rsvp-card-wrapper">
-      <div class="rsvp-card-header">
-        <div class="royal-crest-mini">
-          <span>A ❦ V</span>
-        </div>
-        <h2 class="rsvp-card-title">KINDLY CONFIRM YOUR PRESENCE</h2>
-        <p class="rsvp-card-sub">We look forward to celebrating with you in Jaipur!</p>
-        <div class="ornate-divider">
-          <span class="ornate-line"></span>
-          <span class="ornate-motif">❖</span>
-          <span class="ornate-line"></span>
-        </div>
-      </div>
-
-      <!-- Inline Confirmation State -->
-      <div *ngIf="isInlineRsvpSubmitted()" class="inline-success-box">
-        <div class="success-seal">CONFIRMED</div>
-        <h3 class="success-header">Dhanyawaad, {{ inlineRsvpData.name }}!</h3>
-        <p class="success-note">
-          Your presence for <strong>{{ inlineRsvpData.attendingEvents.join(', ') }}</strong> is warmly registered. We cannot wait to welcome you to The Royal Greens, Jaipur!
-        </p>
-        <div class="pass-info-row">
-          <span>Guests: {{ inlineRsvpData.guestsCount }}</span>
-          <span>·</span>
-          <span>Contact: {{ inlineRsvpData.phone }}</span>
-        </div>
-      </div>
-
-      <!-- Inline RSVP Form -->
-      <form *ngIf="!isInlineRsvpSubmitted()" (ngSubmit)="submitInlineRsvp()" class="inline-rsvp-form">
-        <div class="form-grid-3">
-          <div class="form-group">
-            <label for="iName">Guest Name *</label>
-            <input id="iName" type="text" [(ngModel)]="inlineRsvpData.name" name="iName" placeholder="Your Full Name" required>
-          </div>
-          <div class="form-group">
-            <label for="iPhone">WhatsApp / Mobile *</label>
-            <input id="iPhone" type="tel" [(ngModel)]="inlineRsvpData.phone" name="iPhone" placeholder="+91 98765 43210" required>
-          </div>
-          <div class="form-group">
-            <label for="iGuests">Guests Count</label>
-            <select id="iGuests" [(ngModel)]="inlineRsvpData.guestsCount" name="iGuests">
-              <option [ngValue]="1">1 Person</option>
-              <option [ngValue]="2">2 Persons</option>
-              <option [ngValue]="3">3 Persons</option>
-              <option [ngValue]="4">4 Persons</option>
-              <option [ngValue]="5">5+ Family</option>
+          <div class="form-group-minimal">
+            <label for="mGuests">Number of Guests</label>
+            <select id="mGuests" [(ngModel)]="rsvpGuests" name="guests">
+              <option value="1 Guest">1 Guest</option>
+              <option value="2 Guests">2 Guests</option>
+              <option value="3 Guests">3 Guests</option>
+              <option value="4+ Family">4+ Family</option>
             </select>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="section-label">Events You Will Attend *</label>
-          <div class="events-pill-selector">
-            <button 
-              type="button" 
-              *ngFor="let ev of ['Mehendi (13 Feb)', 'Sangeet (14 Feb)', 'Wedding Pheras (15 Feb)', 'Reception Gala (16 Feb)']"
-              class="event-toggle-pill" 
-              [class.selected]="isInlineEventSelected(ev)"
-              (click)="toggleInlineEvent(ev)">
-              <span class="pill-check">{{ isInlineEventSelected(ev) ? '✓' : '+' }}</span>
-              <span>{{ ev }}</span>
-            </button>
+        <div class="form-group-minimal">
+          <label>Attendance</label>
+          <div class="attendance-options">
+            <label class="attendance-radio" [class.selected]="rsvpAttendance === 'attending'">
+              <input type="radio" [(ngModel)]="rsvpAttendance" name="attendance" value="attending">
+              <span>Joyfully Accepts</span>
+            </label>
+            <label class="attendance-radio" [class.selected]="rsvpAttendance === 'declining'">
+              <input type="radio" [(ngModel)]="rsvpAttendance" name="attendance" value="declining">
+              <span>Regretfully Declines</span>
+            </label>
           </div>
         </div>
 
-        <div class="form-grid-2">
-          <div class="form-group">
-            <label for="iSong">Song for Sangeet DJ! 🎵</label>
-            <input id="iSong" type="text" [(ngModel)]="inlineRsvpData.songRequest" name="iSong" placeholder="Your favorite Bollywood dance track...">
-          </div>
-          <div class="form-group">
-            <label for="iFood">Dietary Preference</label>
-            <select id="iFood" [(ngModel)]="inlineRsvpData.foodPreference" name="iFood">
-              <option value="pure-veg">Pure Vegetarian</option>
-              <option value="jain-veg">Jain Vegetarian</option>
-              <option value="all">All Royal Delicacies</option>
-            </select>
-          </div>
+        <div class="form-group-minimal">
+          <label for="mMsg">A Note for the Couple (Optional)</label>
+          <textarea 
+            id="mMsg" 
+            [(ngModel)]="rsvpMessage" 
+            name="message" 
+            rows="3" 
+            placeholder="Share your warm thoughts or blessings..."></textarea>
         </div>
 
-        <div class="inline-submit-wrap">
-          <button 
-            type="submit" 
-            class="btn-royal-primary inline-submit-btn" 
-            [disabled]="!inlineRsvpData.name || !inlineRsvpData.phone || inlineRsvpData.attendingEvents.length === 0">
-            <span>Send RSVP Confirmation 💌</span>
+        <div class="form-submit-row">
+          <button type="submit" class="btn-minimal-primary submit-btn-large" [disabled]="!rsvpName.trim()">
+            Submit RSVP
           </button>
         </div>
       </form>
@@ -681,35 +306,14 @@
 </section>
 
 <!-- ==========================================================================
-     POPUP MODALS & LIGHTBOX VIEWER
+     MINIMAL LIGHTBOX MODAL
      ========================================================================== -->
-<!-- Event Details Modal -->
-<app-event-modal 
-  *ngIf="selectedEvent()" 
-  [event]="selectedEvent()" 
-  (close)="closeEventModal()">
-</app-event-modal>
-
-<!-- Quick RSVP Modal -->
-<app-rsvp-modal 
-  *ngIf="isRsvpModalOpen()" 
-  (close)="closeRsvpModal()">
-</app-rsvp-modal>
-
-<!-- Story Modal -->
-<app-story-modal 
-  *ngIf="isStoryModalOpen()" 
-  (close)="closeStoryModal()">
-</app-story-modal>
-
-<!-- Gallery Lightbox Modal -->
-<div class="lightbox-backdrop" *ngIf="activeLightboxPhoto()" (click)="closeLightbox()">
-  <div class="lightbox-box" (click)="$event.stopPropagation()">
-    <button type="button" class="lightbox-close" (click)="closeLightbox()">✕</button>
-    <img [src]="activeLightboxPhoto()?.imageUrl" [alt]="activeLightboxPhoto()?.title" class="lightbox-img">
-    <div class="lightbox-meta">
-      <h3>{{ activeLightboxPhoto()?.title }}</h3>
-      <p>{{ activeLightboxPhoto()?.caption }}</p>
+<div class="minimal-lightbox" *ngIf="activeLightboxItem()" (click)="closeLightbox()">
+  <div class="lightbox-dialog" (click)="$event.stopPropagation()">
+    <button type="button" class="lightbox-close-btn" (click)="closeLightbox()" aria-label="Close image">✕</button>
+    <img [src]="activeLightboxItem()?.image" [alt]="activeLightboxItem()?.title" class="lightbox-photo-large">
+    <div class="lightbox-caption">
+      <span>{{ activeLightboxItem()?.title }}</span>
     </div>
   </div>
 </div>
