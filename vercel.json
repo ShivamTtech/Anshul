@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/anshul-vidisha-wedding/browser",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "dist/anshul-vidisha-wedding/**",
+      "memory": 1024,
+      "maxDuration": 15
+    }
+  },
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
+    }
+  ]
+}
