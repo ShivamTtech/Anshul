@@ -28,13 +28,25 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
           <a href="#hero" (click)="scrollTo('#hero', $event)">Home</a>
           <a href="#couple" (click)="scrollTo('#couple', $event)">Couple</a>
           <a href="#ceremonies" (click)="scrollTo('#ceremonies', $event)">Ceremonies</a>
+          <a href="#itinerary" (click)="scrollTo('#itinerary', $event)">Itinerary</a>
           <a href="#venues" (click)="scrollTo('#venues', $event)">Venues</a>
-          <a href="#blessing" (click)="scrollTo('#blessing', $event)">Blessings</a>
+          <a href="#blessings" (click)="scrollTo('#blessings', $event)">Blessings</a>
         </nav>
 
         <!-- Right: Actions -->
         <div class="hud-actions">
           
+          <!-- View Original Card Modal -->
+          <button
+            type="button"
+            class="hud-card-btn"
+            (click)="uiState.openPhysicalCardModal()"
+            title="View Original Printed Wedding Card"
+            aria-label="View Original Wedding Card">
+            <span class="btn-card-icon">📜</span>
+            <span class="btn-card-text">Card</span>
+          </button>
+
           <!-- Ambient Soundscape Toggle -->
           <button
             type="button"
@@ -96,8 +108,12 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
           <a href="#hero" (click)="closeMenuAndScroll('#hero', $event)">Home</a>
           <a href="#couple" (click)="closeMenuAndScroll('#couple', $event)">The Couple</a>
           <a href="#ceremonies" (click)="closeMenuAndScroll('#ceremonies', $event)">Ceremonies</a>
+          <a href="#itinerary" (click)="closeMenuAndScroll('#itinerary', $event)">Itinerary &amp; Rituals</a>
           <a href="#venues" (click)="closeMenuAndScroll('#venues', $event)">Venues</a>
-          <a href="#blessing" (click)="closeMenuAndScroll('#blessing', $event)">Blessings</a>
+          <a href="#blessings" (click)="closeMenuAndScroll('#blessings', $event)">Blessings</a>
+          <button type="button" class="mobile-card-trigger" (click)="uiState.openPhysicalCardModal(); toggleMenu()">
+            📜 View Original Printed Card
+          </button>
         </nav>
       </div>
     </header>
@@ -327,11 +343,54 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       color: var(--gold-warm);
     }
 
+    .hud-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: rgba(120, 29, 44, 0.08);
+      border: 1px solid var(--border-gold);
+      color: var(--crimson-wine);
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .hud-card-btn:hover {
+      background: var(--crimson-wine);
+      color: white;
+      border-color: var(--crimson-wine);
+      transform: translateY(-1px);
+    }
+
+    .mobile-card-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      background: var(--crimson-wine);
+      color: white;
+      border: 1px solid var(--gold-warm);
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
     @media (max-width: 768px) {
       .hud-nav-links { display: none; }
       .mobile-toggle { display: flex; }
       .mobile-overlay { display: block; }
       .brand-text { display: none; }
+      .hud-card-btn { display: none; }
     }
   `]
 })

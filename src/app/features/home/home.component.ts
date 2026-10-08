@@ -8,18 +8,14 @@ import {
   ElementRef, 
   ViewChild, 
   PLATFORM_ID,
-  HostListener,
-  effect
+  HostListener
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { WeddingDataService, WeddingCeremony } from '../../core/services/wedding-data.service';
+import { FormsModule } from '@angular/forms';
+import { WeddingDataService, WeddingCeremony, ProgramStep, SacredRitual, GuestWish } from '../../core/services/wedding-data.service';
 import { AudioService } from '../../core/services/audio.service';
 import { UiStateService } from '../../core/services/ui-state.service';
 import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-declare const THREE: any;
 
 interface CountdownState {
   days: string;
@@ -39,22 +35,22 @@ class FloatingPetal {
   rotSpeed: number;
   color: string;
 
-  constructor(canvasWidth: number, canvasHeight: number) {
+  constructor(canvasWidth: number, canvasHeight: number, startAtTop: boolean = false) {
     this.x = Math.random() * canvasWidth;
-    this.y = Math.random() * canvasHeight - canvasHeight;
-    this.size = Math.random() * 12 + 6;
-    this.opacity = Math.random() * 0.4 + 0.15;
+    this.y = startAtTop ? (Math.random() * -100) : (Math.random() * canvasHeight - canvasHeight);
+    this.size = Math.random() * 11 + 6;
+    this.opacity = Math.random() * 0.35 + 0.15;
     this.rotation = Math.random() * Math.PI * 2;
-    this.speedY = Math.random() * 0.6 + 0.2;
-    this.speedX = (Math.random() - 0.5) * 0.4;
-    this.rotSpeed = (Math.random() - 0.5) * 0.02;
-    const colors = ['#E8B4B8', '#F2D1D4', '#F5DFE1', '#D4AF37', '#C5A059'];
+    this.speedY = Math.random() * 0.55 + 0.25;
+    this.speedX = (Math.random() - 0.5) * 0.35;
+    this.rotSpeed = (Math.random() - 0.5) * 0.018;
+    const colors = ['#E8B4B8', '#F2D1D4', '#F5DFE1', '#D4AF37', '#C5A059', '#E6C280'];
     this.color = colors[Math.floor(Math.random() * colors.length)];
   }
 
   update(canvasWidth: number, canvasHeight: number, time: number) {
     this.y += this.speedY;
-    this.x += this.speedX + Math.sin(time * 0.5 + this.y * 0.01) * 0.3;
+    this.x += this.speedX + Math.sin(time * 0.4 + this.y * 0.008) * 0.25;
     this.rotation += this.rotSpeed;
 
     if (this.y > canvasHeight + 20) {
@@ -70,7 +66,6 @@ class FloatingPetal {
     ctx.rotate(this.rotation);
     ctx.fillStyle = this.color;
     ctx.beginPath();
-    // Petal shape
     ctx.moveTo(0, -this.size / 2);
     ctx.bezierCurveTo(this.size / 2, -this.size / 2, this.size / 2, this.size / 2, 0, this.size / 2);
     ctx.bezierCurveTo(-this.size / 2, this.size / 2, -this.size / 2, -this.size / 2, 0, -this.size / 2);
@@ -90,14 +85,14 @@ export interface StoryChapter {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnDestroy {
-  weddingData = inject(WeddingDataService);
-  audioService = inject(AudioService);
-  uiState = inject(UiStateService);
+  readonly weddingData = inject(WeddingDataService);
+  readonly audioService = inject(AudioService);
+  readonly uiState = inject(UiStateService);
   private smoothScroll = inject(SmoothScrollService);
   private platformId = inject(PLATFORM_ID);
   private el = inject(ElementRef);
@@ -109,8 +104,9 @@ export class HomeComponent implements OnDestroy {
     { id: 'hero', num: '01', roman: 'I', title: 'Sacred Invocation', subtitle: 'Auspicious Blessings' },
     { id: 'couple', num: '02', roman: 'II', title: 'The Couple', subtitle: 'Groom & Bride' },
     { id: 'ceremonies', num: '03', roman: 'III', title: 'Ceremonies', subtitle: 'Sacred Celebrations' },
-    { id: 'venues', num: '04', roman: 'IV', title: 'Venues', subtitle: 'Sacred Locations' },
-    { id: 'blessing', num: '05', roman: 'V', title: 'Blessings', subtitle: 'Family Honour' }
+    { id: 'itinerary', num: '04', roman: 'IV', title: 'Itinerary', subtitle: 'Vedic Rites' },
+    { id: 'venues', num: '05', roman: 'V', title: 'Venues', subtitle: 'Sacred Destinations' },
+    { id: 'blessings', num: '06', roman: 'VI', title: 'Blessings', subtitle: 'Heartfelt Wishes' }
   ];
 
   readonly activeChapterIndex = signal<number>(0);
@@ -121,6 +117,19 @@ export class HomeComponent implements OnDestroy {
   readonly isEnvelopeOpened = signal<boolean>(false);
   readonly isEnvelopeClosing = signal<boolean>(false);
   readonly isEnvelopeFading = signal<boolean>(false);
+
+  // Physical Card Modal
+  readonly isPhysicalCardOpen = computed(() => this.uiState.isPhysicalCardModalOpen());
+
+  // Program Tab ('timeline' | 'rituals')
+  readonly activeProgramTab = signal<'timeline' | 'rituals'>('timeline');
+
+  // Interactive Guest Blessing Form
+  newWishName = '';
+  newWishRelation = '';
+  newWishMessage = '';
+  readonly wishSubmitted = signal<boolean>(false);
+  readonly copiedToast = signal<string | null>(null);
 
   // Active Ceremony Tab
   readonly activeCeremonyIndex = signal<number>(2); // Default to Wedding
@@ -136,8 +145,7 @@ export class HomeComponent implements OnDestroy {
   private petalAnimFrame: number | null = null;
   private petalTime = 0;
 
-  // Scroll & Observer
-  private scrollTriggers: any[] = [];
+  // Observer
   private observer: IntersectionObserver | null = null;
 
   constructor() {
@@ -153,7 +161,6 @@ export class HomeComponent implements OnDestroy {
   ngOnDestroy() {
     if (this.countdownTimer) clearInterval(this.countdownTimer);
     if (this.petalAnimFrame) cancelAnimationFrame(this.petalAnimFrame);
-    this.scrollTriggers.forEach(st => st.kill?.());
     if (this.observer) this.observer.disconnect();
   }
 
@@ -161,10 +168,7 @@ export class HomeComponent implements OnDestroy {
   // 1. ROYAL ENVELOPE OPENING CEREMONY
   // =========================================================================
   breakRoyalSeal(event: MouseEvent) {
-    // Play ambient wedding music
     this.audioService.play();
-
-    // Unfold & smoothly transition
     this.isEnvelopeOpened.set(true);
 
     setTimeout(() => {
@@ -208,7 +212,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   // =========================================================================
-  // 3. FLOATING ROSE PETALS CANVAS
+  // 3. FLOATING ROSE PETALS CANVAS (Minimal, Smooth Ambient Rain)
   // =========================================================================
   private initFloatingPetals() {
     if (!this.petalCanvasRef) return;
@@ -217,8 +221,7 @@ export class HomeComponent implements OnDestroy {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Create petals
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 22; i++) {
       this.floatingPetals.push(new FloatingPetal(canvas.width, canvas.height));
     }
 
@@ -244,8 +247,20 @@ export class HomeComponent implements OnDestroy {
     this.petalAnimFrame = requestAnimationFrame(() => this.animatePetals());
   }
 
+  showerCelebratoryPetals() {
+    if (!this.petalCanvasRef) return;
+    const canvas = this.petalCanvasRef.nativeElement;
+    for (let i = 0; i < 24; i++) {
+      this.floatingPetals.push(new FloatingPetal(canvas.width, canvas.height, true));
+    }
+    // Trim if too many
+    if (this.floatingPetals.length > 55) {
+      this.floatingPetals.splice(0, 20);
+    }
+  }
+
   // =========================================================================
-  // 4. CEREMONY TAB SELECTOR & CALENDAR
+  // 4. CEREMONIES & CALENDAR
   // =========================================================================
   selectCeremony(idx: number) {
     this.activeCeremonyIndex.set(idx);
@@ -257,39 +272,64 @@ export class HomeComponent implements OnDestroy {
   }
 
   // =========================================================================
-  // 5. 3D GYROSCOPE SPECULAR TILT CARD
+  // 5. PHYSICAL CARD MODAL CONTROLS
   // =========================================================================
-  onCardMouseMove(event: MouseEvent, card: HTMLElement) {
-    const bounds = card.getBoundingClientRect();
-    const mouseX = event.clientX - bounds.left;
-    const mouseY = event.clientY - bounds.top;
-
-    const centerX = bounds.width / 2;
-    const centerY = bounds.height / 2;
-
-    const rotateX = ((mouseY - centerY) / centerY) * -5;
-    const rotateY = ((mouseX - centerX) / centerX) * 5;
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+  openPhysicalCardModal() {
+    this.uiState.openPhysicalCardModal();
   }
 
-  onCardMouseLeave(card: HTMLElement) {
-    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  closePhysicalCardModal() {
+    this.uiState.closePhysicalCardModal();
   }
 
   // =========================================================================
-  // 6. SCROLL REVEALS & STORY CHAPTERS OBSERVER
+  // 6. GUEST BLESSING SUBMISSION
+  // =========================================================================
+  submitBlessing() {
+    if (!this.newWishName.trim() || !this.newWishMessage.trim()) return;
+
+    this.weddingData.addGuestWish(
+      this.newWishName,
+      this.newWishRelation || 'Well Wisher',
+      this.newWishMessage
+    );
+
+    this.newWishName = '';
+    this.newWishRelation = '';
+    this.newWishMessage = '';
+    this.wishSubmitted.set(true);
+
+    // Play subtle chime & trigger petal shower
+    this.audioService.playSacredChime(523.25, 1.5, 0.1);
+    this.showerCelebratoryPetals();
+
+    setTimeout(() => {
+      this.wishSubmitted.set(false);
+    }, 4500);
+  }
+
+  // =========================================================================
+  // 7. COPY ADDRESS HELPER
+  // =========================================================================
+  copyAddress(text: string, label: string) {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      this.copiedToast.set(`${label} copied to clipboard! ✓`);
+      setTimeout(() => this.copiedToast.set(null), 2800);
+    }
+  }
+
+  // =========================================================================
+  // 8. SCROLL & CHAPTER NAVIGATION
   // =========================================================================
   @HostListener('window:scroll')
   onWindowScroll() {
     if (typeof window === 'undefined') return;
 
-    // 1. Calculate scroll progress %
     const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
     this.scrollProgressPercent.set(Math.min(100, Math.max(0, progress)));
 
-    // 2. Detect active chapter based on section scroll positions
     const scrollPos = window.scrollY + window.innerHeight * 0.35;
     for (let i = this.storyChapters.length - 1; i >= 0; i--) {
       const section = document.getElementById(this.storyChapters[i].id);
@@ -321,7 +361,7 @@ export class HomeComponent implements OnDestroy {
           this.observer?.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.1 });
 
     const root = this.el.nativeElement;
     root.querySelectorAll('.reveal-elem').forEach((el: Element) => {

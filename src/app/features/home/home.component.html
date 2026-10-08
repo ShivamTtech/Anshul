@@ -15,7 +15,7 @@
       <span class="pulse-dot"></span>
       <span class="font-cinzel prompt-text">Tap the Seal to Open</span>
     </div>
-    <p class="font-editorial prompt-sub">A sacred wedding invitation awaits within</p>
+    <p class="font-editorial prompt-sub">A sacred royal wedding invitation awaits within</p>
     <button type="button" class="btn-skip-intro" (click)="dismissEnvelope()" aria-label="Skip introduction">
       <span>Skip to Invitation ➔</span>
     </button>
@@ -35,7 +35,7 @@
       <div class="invitation-letter-card">
         <div class="letter-header">
           <span class="letter-line"></span>
-          <span class="font-editorial letter-om">|| श्री गणेशाय नमः ||</span>
+          <span class="font-editorial letter-om">॥ श्री गणेशाय नमः ॥</span>
           <span class="letter-line"></span>
         </div>
 
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <!-- Envelope Side Wings -->
+      <!-- Envelope Side Wings (Completely Opaque) -->
       <div class="envelope-wings">
         <div class="wing-left"></div>
         <div class="wing-right"></div>
@@ -89,338 +89,639 @@
   </div>
 </div>
 
-<!-- Floating Rose Petals Canvas -->
+<!-- =========================================================================
+     2. FLOATING ROSE PETALS CANVAS (Delicate & Celebratory)
+     ========================================================================= -->
 <canvas #petalCanvas id="petal-canvas" class="petal-canvas"></canvas>
 
-<!-- =========================================================================
-     VERTICAL STORYLINE CHAPTER RAIL (DESKTOP STORYBOOK NAVIGATOR)
-     ========================================================================= -->
-<aside class="story-chapter-rail hidden-xs" aria-label="Story Chapters">
-  <div class="rail-track">
-    <div class="rail-progress" [style.height.%]="scrollProgressPercent()"></div>
-  </div>
+<!-- Toast Notification -->
+<div *ngIf="copiedToast()" class="toast-notification">
+  <span>{{ copiedToast() }}</span>
+</div>
 
-  <div class="chapter-nodes">
-    <button *ngFor="let ch of storyChapters; let i = index"
-            type="button"
-            class="chapter-node"
-            [class.active]="activeChapterIndex() === i"
-            (click)="goToChapter(i, $event)"
-            [attr.aria-label]="ch.title">
+<!-- =========================================================================
+     3. ORIGINAL PRINTED CARD MODAL
+     ========================================================================= -->
+<div *ngIf="isPhysicalCardOpen()" class="physical-card-modal fixed-overlay" (click)="closePhysicalCardModal()">
+  <div class="modal-card-box" (click)="$event.stopPropagation()">
+    <div class="modal-card-header">
+      <div class="modal-title-group">
+        <span class="badge-gold">AUTHENTIC CARD</span>
+        <h3 class="font-cinzel text-crimson">The Printed Wedding Invitation</h3>
+      </div>
+      <button type="button" class="btn-close-modal" (click)="closePhysicalCardModal()" aria-label="Close modal">✕</button>
+    </div>
+
+    <div class="modal-card-body">
+      <img src="assets/images/physical-card.jpg" 
+           alt="Anshul Verma and Vidisha Singh Official Wedding Invitation Card" 
+           class="printed-card-image" />
+    </div>
+
+    <div class="modal-card-footer">
+      <p class="font-editorial text-muted">Original Wedding Card · Lucknow &amp; Prayagraj · November 2026</p>
+      <button type="button" class="btn-royal-crimson" (click)="closePhysicalCardModal()">Close Preview</button>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================================
+     4. CHAPTER TRACKING SIDEBAR (Desktop)
+     ========================================================================= -->
+<aside class="story-chapter-rail" aria-label="Section Navigation">
+  <div class="rail-track">
+    <div class="rail-indicator" [style.height.%]="scrollProgressPercent()"></div>
+  </div>
+  
+  <div class="rail-nodes">
+    <button
+      *ngFor="let ch of storyChapters; let i = index"
+      type="button"
+      class="rail-node"
+      [class.active]="activeChapterIndex() === i"
+      (click)="goToChapter(i, $event)"
+      [attr.aria-label]="ch.title">
       <span class="node-bullet"></span>
       <span class="node-roman font-cinzel">{{ ch.roman }}</span>
-      <div class="node-tooltip">
-        <span class="tt-num font-cinzel">CHAPTER {{ ch.num }}</span>
-        <span class="tt-title font-cinzel">{{ ch.title }}</span>
-      </div>
+      <span class="node-tooltip">
+        <span class="tooltip-num font-cinzel">{{ ch.num }}</span>
+        <span class="tooltip-title">{{ ch.title }}</span>
+      </span>
     </button>
   </div>
 </aside>
 
-<main class="page-content">
+<!-- =========================================================================
+     5. MAIN ROYAL INVITATION FOLIO
+     ========================================================================= -->
+<main class="invitation-main-container">
 
-  <!-- =========================================================================
-       2. HERO SECTION: SACRED INVOCATION & MONOGRAM
-       ========================================================================= -->
-  <section id="hero" class="hero-section">
+  <!-- =======================================================================
+       CHAPTER 01: HERO & SACRED INVOCATION
+       ======================================================================= -->
+  <section id="hero" class="folio-card hero-section reveal-elem">
     
-    <!-- Decorative Botanical Corners -->
-    <div class="botanical-corner top-left" aria-hidden="true"></div>
-    <div class="botanical-corner top-right" aria-hidden="true"></div>
-    <div class="botanical-corner bottom-left" aria-hidden="true"></div>
-    <div class="botanical-corner bottom-right" aria-hidden="true"></div>
+    <!-- Botanical Watercolor Corners -->
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tl" />
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tr" />
 
-    <!-- Gold Monogram Crest -->
-    <div class="hero-monogram reveal-elem">
-      <div class="monogram-circle">
-        <span class="font-cinzel-deco monogram-text">A<span class="monogram-amp">&amp;</span>V</span>
+    <!-- Ornate Gold Filigree Inner Frame -->
+    <div class="inner-filigree-frame"></div>
+
+    <div class="hero-content">
+      
+      <!-- Circular Floral Wreath Crest with Monogram -->
+      <div class="wreath-crest-container">
+        <img src="assets/images/floral-wreath.jpg" alt="Floral Wreath Crest" class="wreath-img" />
+        <div class="wreath-inner-monogram">
+          <span class="wreath-av font-cinzel-deco">A<span class="amp">&amp;</span>V</span>
+        </div>
       </div>
+
+      <!-- Sacred Ganesha Invocation -->
+      <div class="sacred-ganesha-badge">
+        <div class="ganesha-icon-lineart">
+          <svg viewBox="0 0 40 40" class="ganesha-svg" fill="currentColor">
+            <path d="M20 3C16 3 13 6 13 10C13 12 14 13.5 15.5 14.5C14 15.5 13 17 13 19C13 22 15 24 18 24.8V27C17 27.5 16 28.5 16 30C16 32 18 34 20 34C22 34 24 32 24 30C24 28.5 23 27.5 22 27V24.8C25 24 27 22 27 19C27 17 26 15.5 24.5 14.5C26 13.5 27 12 27 10C27 6 24 3 20 3ZM20 5C22.8 5 25 7.2 25 10C25 12.8 22.8 15 20 15C17.2 15 15 12.8 15 10C15 7.2 17.2 5 20 5Z"/>
+          </svg>
+        </div>
+        <h2 class="shloka-main font-editorial">॥ श्री गणेशाय नमः ॥</h2>
+        <p class="shloka-sub font-editorial">
+          वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ। निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥
+        </p>
+      </div>
+
+      <div class="ornate-divider">
+        <span class="divider-gem">✦</span>
+      </div>
+
+      <!-- Couple Big Names in Calligraphy -->
+      <div class="couple-title-block">
+        <span class="invitation-intro-label font-cinzel">TOGETHER WITH THEIR FAMILIES</span>
+        
+        <h1 class="couple-headline">
+          <span class="name-groom font-calligraphy text-crimson">Anshul</span>
+          <span class="name-amp font-cinzel">&amp;</span>
+          <span class="name-bride font-calligraphy text-crimson">Vidisha</span>
+        </h1>
+
+        <p class="invitation-request font-cinzel">
+          REQUEST THE PLEASURE OF YOUR COMPANY TO CELEBRATE THEIR WEDDING
+        </p>
+        
+        <p class="invitation-dates-place font-editorial">
+          16th – 21st November 2026 · Lucknow &amp; Prayagraj
+        </p>
+      </div>
+
+      <!-- Divine Blessing Note -->
+      <div class="divine-quote-card">
+        <p class="font-editorial quote-text">
+          “With the divine grace of Almighty God and the cherished blessings of our ancestors, 
+          two lives, two hearts, and two families join together in holy matrimony.”
+        </p>
+      </div>
+
+      <!-- Live Countdown Card -->
+      <div class="countdown-ornate-card">
+        <div class="countdown-badge">
+          <span class="countdown-dot"></span>
+          <span class="font-cinzel">COUNTDOWN TO SACRED WEDDING · 20 NOV 2026</span>
+        </div>
+
+        <div class="countdown-grid">
+          <div class="timer-cell">
+            <span class="timer-val font-cinzel text-crimson">{{ countdown().days }}</span>
+            <span class="timer-lbl font-cinzel">Days</span>
+          </div>
+          <span class="timer-colon">:</span>
+          <div class="timer-cell">
+            <span class="timer-val font-cinzel text-crimson">{{ countdown().hours }}</span>
+            <span class="timer-lbl font-cinzel">Hours</span>
+          </div>
+          <span class="timer-colon">:</span>
+          <div class="timer-cell">
+            <span class="timer-val font-cinzel text-crimson">{{ countdown().minutes }}</span>
+            <span class="timer-lbl font-cinzel">Minutes</span>
+          </div>
+          <span class="timer-colon">:</span>
+          <div class="timer-cell">
+            <span class="timer-val font-cinzel text-crimson">{{ countdown().seconds }}</span>
+            <span class="timer-lbl font-cinzel">Seconds</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Actions -->
+      <div class="hero-actions-bar">
+        <button type="button" class="btn-royal-crimson" (click)="openPhysicalCardModal()">
+          <span>📜 View Original Card</span>
+        </button>
+        <button type="button" class="btn-royal-outline" (click)="scrollTo('#ceremonies', $event)">
+          <span>🪔 View Ceremonies</span>
+        </button>
+        <button type="button" class="btn-royal-outline" (click)="scrollTo('#blessings', $event)">
+          <span>🌸 Send Blessings</span>
+        </button>
+      </div>
+
     </div>
-
-    <!-- Sacred Invocation -->
-    <div class="sacred-invocation reveal-elem">
-      <span class="om-symbol">ॐ</span>
-      <span class="font-editorial invocation-text">|| श्री गणेशाय नमः ||</span>
-      <span class="om-symbol">ॐ</span>
-    </div>
-
-    <!-- Couple Names -->
-    <div class="hero-names-block reveal-elem">
-      <h1 class="hero-name font-calligraphy text-crimson">
-        Anshul
-      </h1>
-
-      <div class="hero-conjunction">
-        <span class="conjunction-line"></span>
-        <div class="conjunction-circle">
-          <span class="font-editorial">&amp;</span>
-        </div>
-        <span class="conjunction-line"></span>
-      </div>
-
-      <h1 class="hero-name font-calligraphy text-crimson">
-        Vidisha
-      </h1>
-    </div>
-
-    <p class="hero-tagline font-cinzel tracking-royal uppercase reveal-elem">
-      REQUEST THE PLEASURE OF YOUR COMPANY
-    </p>
-
-    <!-- Countdown Timer -->
-    <div class="countdown-card reveal-elem">
-      <div class="countdown-header font-cinzel tracking-celestial">
-        <svg class="countdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 6 12 12 16 14"></polyline>
-        </svg>
-        <span>Countdown to Sacred Wedding</span>
-      </div>
-
-      <div class="countdown-grid">
-        <div class="time-block">
-          <span class="time-val font-cinzel">{{ countdown().days }}</span>
-          <span class="time-lbl font-sans">Days</span>
-        </div>
-        <div class="time-sep">:</div>
-        <div class="time-block">
-          <span class="time-val font-cinzel">{{ countdown().hours }}</span>
-          <span class="time-lbl font-sans">Hours</span>
-        </div>
-        <div class="time-sep">:</div>
-        <div class="time-block">
-          <span class="time-val font-cinzel">{{ countdown().minutes }}</span>
-          <span class="time-lbl font-sans">Minutes</span>
-        </div>
-        <div class="time-sep">:</div>
-        <div class="time-block">
-          <span class="time-val font-cinzel">{{ countdown().seconds }}</span>
-          <span class="time-lbl font-sans">Seconds</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scroll Prompt -->
-    <a href="#couple" class="hero-scroll-action" (click)="scrollTo('#couple', $event)">
-      <span class="font-cinzel scroll-lbl tracking-celestial uppercase">Scroll to Begin</span>
-      <div class="scroll-mouse-pill">
-        <div class="mouse-wheel"></div>
-      </div>
-    </a>
   </section>
 
-  <!-- =========================================================================
-       3. GROOM & BRIDE LINEAGE PANEL
-       ========================================================================= -->
-  <section id="couple" class="couple-section">
-    <div class="container-royal">
+  <!-- =======================================================================
+       CHAPTER 02: THE COUPLE (GROOM & BRIDE DETAILS)
+       ======================================================================= -->
+  <section id="couple" class="folio-card couple-section reveal-elem">
+    
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-bl" />
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-br" />
+    
+    <div class="inner-filigree-frame"></div>
 
-      <div class="section-header-block reveal-elem">
-        <div class="section-ornament">✦</div>
-        <h2 class="section-title font-cinzel text-crimson">THE COUPLE</h2>
-        <div class="gold-accent-line"></div>
+    <div class="section-header-box">
+      <span class="section-tag font-cinzel">CHAPTER 02</span>
+      <h2 class="section-title font-cinzel text-crimson">THE SACRED UNION</h2>
+      <div class="ornate-divider"><span class="divider-gem">✦</span></div>
+    </div>
+
+    <!-- Couple Cards Layout -->
+    <div class="couple-profile-layout">
+      
+      <!-- Groom Card -->
+      <div class="person-card groom-card">
+        <div class="person-badge font-cinzel">✤ GROOM ✤</div>
+        
+        <h3 class="person-name font-calligraphy text-crimson">
+          {{ weddingData.groom.name }}
+        </h3>
+        
+        <p class="person-parentage font-editorial">
+          {{ weddingData.groom.parentage }}
+        </p>
+
+        <div class="person-city font-cinzel">
+          <span>Him City, Lucknow</span>
+        </div>
+
+        <p class="person-bio font-editorial">
+          "Embracing life with deep filial reverence, wisdom, and steadfast devotion to family tradition."
+        </p>
       </div>
 
-      <!-- Groom Card -->
-      <div class="couple-card reveal-elem">
-        <div class="couple-card-ornament-top">✦ ✦ ✦</div>
-        <span class="couple-label font-cinzel tracking-celestial uppercase">GROOM</span>
-        <h3 class="couple-name font-calligraphy text-crimson">{{ weddingData.groom.name }}</h3>
-        <p class="couple-parentage font-editorial">
-          ({{ weddingData.groom.parentage }})
-        </p>
-        <div class="couple-divider">
-          <span class="divider-line"></span>
-          <span class="divider-symbol">❦</span>
-          <span class="divider-line"></span>
+      <!-- Center Auspicious Knot -->
+      <div class="union-centerpiece">
+        <div class="sacred-knot-icon">
+          <svg viewBox="0 0 48 48" class="knot-svg" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="20" cy="24" r="12" stroke="var(--crimson-wine)"></circle>
+            <circle cx="28" cy="24" r="12" stroke="var(--gold-warm)"></circle>
+          </svg>
+        </div>
+        
+        <div class="knot-shloka">
+          <p class="font-editorial shloka-sanskrit">
+            माङ्गल्यं तन्तुनानेन जगन्मङ्गलकारिणी।<br>
+            कण्ठे बध्नामि सुभगे सञ्जीव शरदः शतम्॥
+          </p>
+          <span class="shloka-meaning font-editorial">
+            “With this sacred thread of auspiciousness, our souls unite for a hundred blissful seasons.”
+          </span>
         </div>
       </div>
 
       <!-- Bride Card -->
-      <div class="couple-card reveal-elem">
-        <span class="couple-label font-cinzel tracking-celestial uppercase">BRIDE</span>
-        <h3 class="couple-name font-calligraphy text-crimson">{{ weddingData.bride.name }}</h3>
-        <p class="couple-parentage font-editorial">
-          ({{ weddingData.bride.parentage }})
+      <div class="person-card bride-card">
+        <div class="person-badge font-cinzel">✤ BRIDE ✤</div>
+        
+        <h3 class="person-name font-calligraphy text-crimson">
+          {{ weddingData.bride.name }}
+        </h3>
+        
+        <p class="person-parentage font-editorial">
+          {{ weddingData.bride.parentage }}
         </p>
-        <div class="couple-card-ornament-bottom">✦ ✦ ✦</div>
+
+        <div class="person-city font-cinzel">
+          <span>Prayagraj, Uttar Pradesh</span>
+        </div>
+
+        <p class="person-bio font-editorial">
+          "Adorned with gentle grace, luminous warmth, and eternal devotion to sacred family values."
+        </p>
       </div>
 
     </div>
   </section>
 
-  <!-- =========================================================================
-       4. SACRED CEREMONIES TIMELINE
-       ========================================================================= -->
-  <section id="ceremonies" class="ceremonies-section">
-    <div class="container-royal">
+  <!-- =======================================================================
+       CHAPTER 03: SACRED CEREMONIES (MATCHING PHYSICAL CARD PANELS)
+       ======================================================================= -->
+  <section id="ceremonies" class="folio-card ceremonies-section reveal-elem">
+    
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tl" />
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tr" />
+    
+    <div class="inner-filigree-frame"></div>
+
+    <div class="section-header-box">
+      <span class="section-tag font-cinzel">CHAPTER 03</span>
+      <h2 class="section-title font-cinzel text-crimson">SACRED CEREMONIES</h2>
+      <p class="section-subtitle font-editorial">Auspicious rituals and joyous celebrations across Lucknow &amp; Prayagraj</p>
+      <div class="ornate-divider"><span class="divider-gem">✦</span></div>
+    </div>
+
+    <!-- PANEL A: TEL POOJA & HALDI/MEHENDI (LUCKNOW) -->
+    <div class="card-panel-traditional panel-prewedding">
       
-      <div class="section-header-block reveal-elem">
-        <div class="section-ornament">✦</div>
-        <h2 class="section-title font-cinzel text-crimson">SACRED CEREMONIES</h2>
-        <div class="gold-accent-line"></div>
-        <p class="section-subtitle font-editorial">
-          16th – 21st November 2026
-        </p>
-      </div>
+      <div class="dual-ceremony-row">
+        
+        <!-- Tel Pooja -->
+        <div class="traditional-event-box event-left">
+          <div class="event-icon-badge">🪔</div>
+          <h3 class="traditional-event-title font-calligraphy text-crimson">Tel Pooja</h3>
+          <p class="traditional-date font-cinzel">16TH NOVEMBER 2026</p>
+          <p class="traditional-time font-editorial">Monday · 10:00 AM Onwards</p>
+          <p class="traditional-desc font-editorial">
+            Sacred oil anointing ceremony invoking divine protection and auspicious health.
+          </p>
+          <button type="button" class="btn-micro-cal" (click)="downloadCalendar(weddingData.ceremonies[0])">
+            📅 Add to Calendar
+          </button>
+        </div>
 
-      <!-- Ceremony Timeline Cards -->
-      <div class="ceremony-timeline">
+        <!-- Vertical Ornate Filigree Divider -->
+        <div class="traditional-vertical-divider">
+          <span class="v-line"></span>
+          <span class="v-diamond">✦</span>
+          <span class="v-line"></span>
+        </div>
 
-        <div *ngFor="let ceremony of weddingData.ceremonies; let idx = index"
-             class="ceremony-card reveal-elem"
-             [class.highlight]="ceremony.id === 'wedding'"
-             #ceremonyCard
-             (mousemove)="onCardMouseMove($event, ceremonyCard)"
-             (mouseleave)="onCardMouseLeave(ceremonyCard)">
-          
-          <div class="ceremony-icon-wrap">
-            <span class="ceremony-icon">{{ ceremony.icon }}</span>
-          </div>
-
-          <div class="ceremony-content">
-            <h3 class="ceremony-title font-calligraphy text-crimson">{{ ceremony.title }}</h3>
-
-            <!-- Wedding gets a special date badge -->
-            <div class="ceremony-date-badge" *ngIf="ceremony.id === 'wedding'">
-              <span class="font-cinzel">{{ ceremony.date }}</span>
-            </div>
-            <div class="ceremony-date" *ngIf="ceremony.id !== 'wedding'">
-              <span class="font-cinzel">{{ ceremony.date }}</span>
-            </div>
-
-            <p class="ceremony-desc font-editorial" *ngIf="ceremony.id === 'wedding'">
-              The Baraat will depart from our home at<br>
-              B-42, Him City Part 1, Dewa Road, Lucknow.
-            </p>
-
-            <div class="ceremony-venue">
-              <div class="venue-label font-cinzel tracking-royal uppercase" *ngIf="ceremony.id !== 'wedding' && ceremony.id !== 'vidai'">
-                <span class="venue-ornament">— ✦ —</span>
-                <span>VENUE</span>
-                <span class="venue-ornament">— ✦ —</span>
-              </div>
-              <div class="venue-label font-cinzel tracking-royal uppercase" *ngIf="ceremony.id === 'wedding'">
-                <span class="venue-ornament">— ✦ —</span>
-                <span>WEDDING VENUE</span>
-                <span class="venue-ornament">— ✦ —</span>
-              </div>
-              <p class="venue-address font-sans">{{ ceremony.venueAddress }}</p>
-            </div>
-
-            <!-- Actions -->
-            <div class="ceremony-actions">
-              <a [href]="ceremony.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-royal-glass btn-sm">
-                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-                </svg>
-                <span>Directions</span>
-              </a>
-              <button type="button" class="btn-royal-glass btn-sm" (click)="downloadCalendar(ceremony)">
-                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                <span>Add to Calendar</span>
-              </button>
-            </div>
-          </div>
-
+        <!-- Haldi & Mehendi -->
+        <div class="traditional-event-box event-right">
+          <div class="event-icon-badge">🌿</div>
+          <h3 class="traditional-event-title font-calligraphy text-crimson">Haldi &amp; Mehendi</h3>
+          <p class="traditional-date font-cinzel">19TH NOVEMBER 2026</p>
+          <p class="traditional-time font-editorial">Thursday · 11:00 AM &amp; Evening Sangeet</p>
+          <p class="traditional-desc font-editorial">
+            Golden turmeric rituals followed by celebratory henna patterns, folk music &amp; festivities.
+          </p>
+          <button type="button" class="btn-micro-cal" (click)="downloadCalendar(weddingData.ceremonies[1])">
+            📅 Add to Calendar
+          </button>
         </div>
 
       </div>
 
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       5. VENUES — LUCKNOW & PRAYAGRAJ
-       ========================================================================= -->
-  <section id="venues" class="venues-section">
-    <div class="container-royal">
-      
-      <div class="section-header-block reveal-elem">
-        <div class="section-ornament">✦</div>
-        <h2 class="section-title font-cinzel text-crimson">VENUE LOCATIONS</h2>
-        <div class="gold-accent-line"></div>
+      <!-- Lucknow Venue Strip -->
+      <div class="traditional-venue-strip">
+        <span class="venue-tag font-cinzel">✤ VENUE ✤</span>
+        <h4 class="venue-name font-cinzel">Family Residence</h4>
+        <p class="venue-address font-editorial">{{ weddingData.venues.lucknow.address }}</p>
+        
+        <div class="venue-action-buttons">
+          <a [href]="weddingData.venues.lucknow.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-traditional-act">
+            🧭 Directions
+          </a>
+          <button type="button" class="btn-traditional-act" (click)="copyAddress(weddingData.venues.lucknow.address, 'Lucknow Address')">
+            📋 Copy Address
+          </button>
+        </div>
       </div>
 
-      <div class="venue-cards-grid">
+    </div>
 
-        <!-- Lucknow Venue -->
-        <div class="venue-card reveal-elem" #venueCard1
-             (mousemove)="onCardMouseMove($event, venueCard1)"
-             (mouseleave)="onCardMouseLeave(venueCard1)">
-          <div class="venue-card-header">
-            <span class="venue-city-badge font-cinzel tracking-royal uppercase">Lucknow</span>
-          </div>
-          <h3 class="venue-name font-cinzel">{{ weddingData.venues.lucknow.name }}</h3>
-          <p class="venue-address-text font-sans">{{ weddingData.venues.lucknow.address }}</p>
-          <div class="venue-events-tag font-editorial">
-            {{ weddingData.venues.lucknow.events }}
-          </div>
-          <a [href]="weddingData.venues.lucknow.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-royal-primary btn-sm venue-btn">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-            </svg>
-            <span>Open in Google Maps</span>
-          </a>
+    <!-- PANEL B: WEDDING & VIDAI (PRAYAGRAJ) -->
+    <div class="card-panel-traditional panel-wedding-main">
+      
+      <div class="wedding-ceremony-showcase">
+        
+        <div class="event-icon-badge">💍</div>
+        <h3 class="grand-wedding-title font-calligraphy text-crimson">Wedding</h3>
+
+        <!-- Crimson Velvet Date Ribbon -->
+        <div class="crimson-ribbon-badge">
+          <span class="ribbon-filigree-left">✤</span>
+          <span class="ribbon-text font-cinzel">20TH NOVEMBER 2026</span>
+          <span class="ribbon-filigree-right">✤</span>
+        </div>
+
+        <!-- Baraat Departure Notice -->
+        <div class="baraat-departure-banner">
+          <span class="baraat-icon">🎺</span>
+          <p class="font-editorial text-crimson">
+            <strong>The Baraat will depart from our home at B-42, Him City Part 1, Dewa Road, Lucknow.</strong>
+          </p>
         </div>
 
         <!-- Prayagraj Venue -->
-        <div class="venue-card reveal-elem" #venueCard2
-             (mousemove)="onCardMouseMove($event, venueCard2)"
-             (mouseleave)="onCardMouseLeave(venueCard2)">
-          <div class="venue-card-header">
-            <span class="venue-city-badge font-cinzel tracking-royal uppercase">Prayagraj</span>
+        <div class="traditional-venue-strip wedding-venue-highlight">
+          <span class="venue-tag font-cinzel">✤ WEDDING VENUE ✤</span>
+          <h4 class="venue-name font-cinzel">{{ weddingData.venues.prayagraj.name }}</h4>
+          <p class="venue-address font-editorial">{{ weddingData.venues.prayagraj.address }}</p>
+          
+          <div class="venue-action-buttons">
+            <a [href]="weddingData.venues.prayagraj.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-traditional-act">
+              🧭 Directions (Google Maps)
+            </a>
+            <button type="button" class="btn-traditional-act" (click)="downloadCalendar(weddingData.ceremonies[2])">
+              📅 Add to Calendar
+            </button>
+            <button type="button" class="btn-traditional-act" (click)="copyAddress(weddingData.venues.prayagraj.address, 'Bhola Garden Address')">
+              📋 Copy Address
+            </button>
           </div>
-          <h3 class="venue-name font-cinzel">{{ weddingData.venues.prayagraj.name }}</h3>
-          <p class="venue-address-text font-sans">{{ weddingData.venues.prayagraj.address }}</p>
-          <div class="venue-events-tag font-editorial">
-            {{ weddingData.venues.prayagraj.events }}
-          </div>
-          <a [href]="weddingData.venues.prayagraj.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-royal-primary btn-sm venue-btn">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-            </svg>
-            <span>Open in Google Maps</span>
-          </a>
+        </div>
+
+        <div class="horizontal-filigree-divider">
+          <span>❧ ✦ ☙</span>
+        </div>
+
+        <!-- Vidai Ceremony -->
+        <div class="vidai-ceremony-box">
+          <h4 class="vidai-title font-calligraphy text-crimson">Vidai</h4>
+          <p class="vidai-date font-cinzel">21ST NOVEMBER 2026</p>
+          <p class="vidai-desc font-editorial">
+            Early morning sacred farewell as the bride enters her new home with eternal prayers and joy.
+          </p>
         </div>
 
       </div>
 
     </div>
+
   </section>
 
-  <!-- =========================================================================
-       6. HUMBLE REQUEST & FAMILY BLESSING
-       ========================================================================= -->
-  <section id="blessing" class="blessing-section">
-    <div class="container-royal">
+  <!-- =======================================================================
+       CHAPTER 04: WEDDING ITINERARY & SACRED RITUALS (RICH CONTENT)
+       ======================================================================= -->
+  <section id="itinerary" class="folio-card itinerary-section reveal-elem">
+    
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-bl" />
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-br" />
+    
+    <div class="inner-filigree-frame"></div>
 
-      <div class="blessing-card reveal-elem">
-        <div class="blessing-ornament-top">✦ ✦ ✦</div>
+    <div class="section-header-box">
+      <span class="section-tag font-cinzel">CHAPTER 04</span>
+      <h2 class="section-title font-cinzel text-crimson">ITINERARY &amp; SACRED RITUALS</h2>
+      <p class="section-subtitle font-editorial">The divine timeline and spiritual significance of the Vivaha Sanskar</p>
+      
+      <!-- Interactive Selector Tabs -->
+      <div class="program-tab-switch">
+        <button type="button" 
+                class="tab-btn font-cinzel" 
+                [class.active]="activeProgramTab() === 'timeline'"
+                (click)="activeProgramTab.set('timeline')">
+          ⏰ Wedding Day Timeline
+        </button>
+        <button type="button" 
+                class="tab-btn font-cinzel" 
+                [class.active]="activeProgramTab() === 'rituals'"
+                (click)="activeProgramTab.set('rituals')">
+          🕉️ Sacred Mandap Rituals
+        </button>
+      </div>
 
-        <h2 class="blessing-title font-calligraphy text-crimson">Humble Request</h2>
+      <div class="ornate-divider"><span class="divider-gem">✦</span></div>
+    </div>
+
+    <!-- TAB 1: WEDDING TIMELINE -->
+    <div *ngIf="activeProgramTab() === 'timeline'" class="timeline-container">
+      <div class="timeline-line"></div>
+
+      <div *ngFor="let step of weddingData.weddingTimeline; let i = index" 
+           class="timeline-node-card" 
+           [class.reverse]="i % 2 === 1">
         
-        <div class="gold-accent-line"></div>
+        <div class="node-time-badge font-cinzel">
+          <span class="time-clock">{{ step.time }}</span>
+        </div>
 
-        <p class="blessing-from font-editorial">
-          From
-        </p>
-        <h3 class="blessing-name font-cinzel">
-          Mr. Brijendra Verma
-        </h3>
-        <p class="blessing-family font-editorial">
-          and Verma Family
-        </p>
+        <div class="node-card-body">
+          <div class="node-icon-header">
+            <span class="node-emoji">{{ step.icon }}</span>
+            <div class="node-titles">
+              <h4 class="node-title font-cinzel text-crimson">{{ step.title }}</h4>
+              <span class="node-subtitle font-editorial">{{ step.subtitle }}</span>
+            </div>
+          </div>
+          <p class="node-desc font-editorial">{{ step.desc }}</p>
+        </div>
 
-        <div class="blessing-ornament-bottom">✦ ✦ ✦</div>
+      </div>
+    </div>
+
+    <!-- TAB 2: SACRED MANDAP RITUALS -->
+    <div *ngIf="activeProgramTab() === 'rituals'" class="rituals-grid">
+      
+      <div *ngFor="let ritual of weddingData.mandapRituals" class="ritual-card">
+        <div class="ritual-symbol-box">
+          <span class="ritual-symbol">{{ ritual.symbol }}</span>
+        </div>
+        <h4 class="ritual-title font-cinzel text-crimson">{{ ritual.name }}</h4>
+        <p class="ritual-desc font-editorial">{{ ritual.desc }}</p>
       </div>
 
     </div>
+
+  </section>
+
+  <!-- =======================================================================
+       CHAPTER 05: SACRED VENUE LOCATIONS & TRAVEL LOGISTICS
+       ======================================================================= -->
+  <section id="venues" class="folio-card venues-section reveal-elem">
+    
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tl" />
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tr" />
+    
+    <div class="inner-filigree-frame"></div>
+
+    <div class="section-header-box">
+      <span class="section-tag font-cinzel">CHAPTER 05</span>
+      <h2 class="section-title font-cinzel text-crimson">VENUE LOCATIONS</h2>
+      <p class="section-subtitle font-editorial">Driving directions, landmarks, and navigation assistance</p>
+      <div class="ornate-divider"><span class="divider-gem">✦</span></div>
+    </div>
+
+    <div class="venues-two-col-grid">
+      
+      <!-- Venue 1: Lucknow -->
+      <div class="destination-card">
+        <div class="dest-badge font-cinzel">LUCKNOW · RESIDENCE</div>
+        <h3 class="dest-title font-cinzel text-crimson">{{ weddingData.venues.lucknow.name }}</h3>
+        <p class="dest-events font-editorial">Tel Pooja · Haldi &amp; Mehendi · Baraat Departure</p>
+        
+        <div class="dest-info-box">
+          <span class="info-label font-cinzel">ADDRESS:</span>
+          <p class="info-val font-editorial">{{ weddingData.venues.lucknow.address }}</p>
+          <span class="info-tip font-editorial">📌 {{ weddingData.venues.lucknow.travelTip }}</span>
+        </div>
+
+        <div class="dest-btn-group">
+          <a [href]="weddingData.venues.lucknow.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-royal-crimson">
+            🧭 Open in Google Maps
+          </a>
+          <button type="button" class="btn-royal-outline" (click)="copyAddress(weddingData.venues.lucknow.address, 'Lucknow Residence')">
+            📋 Copy Address
+          </button>
+        </div>
+      </div>
+
+      <!-- Venue 2: Prayagraj -->
+      <div class="destination-card">
+        <div class="dest-badge font-cinzel">PRAYAGRAJ · WEDDING VENUE</div>
+        <h3 class="dest-title font-cinzel text-crimson">{{ weddingData.venues.prayagraj.name }}</h3>
+        <p class="dest-events font-editorial">Wedding Ceremony · Jayamala · Pheras · Vidai</p>
+        
+        <div class="dest-info-box">
+          <span class="info-label font-cinzel">ADDRESS:</span>
+          <p class="info-val font-editorial">{{ weddingData.venues.prayagraj.address }}</p>
+          <span class="info-tip font-editorial">📌 {{ weddingData.venues.prayagraj.travelTip }}</span>
+        </div>
+
+        <div class="dest-btn-group">
+          <a [href]="weddingData.venues.prayagraj.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-royal-crimson">
+            🧭 Open in Google Maps
+          </a>
+          <button type="button" class="btn-royal-outline" (click)="copyAddress(weddingData.venues.prayagraj.address, 'Bhola Garden Prayagraj')">
+            📋 Copy Address
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =======================================================================
+       CHAPTER 06: HUMBLE REQUEST & GUEST BLESSINGS
+       ======================================================================= -->
+  <section id="blessings" class="folio-card blessings-section reveal-elem">
+    
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-bl" />
+    <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-br" />
+    
+    <div class="inner-filigree-frame"></div>
+
+    <div class="section-header-box">
+      <span class="section-tag font-cinzel">CHAPTER 06</span>
+      <h2 class="section-title font-cinzel text-crimson">BLESSINGS &amp; WISHES</h2>
+      <div class="ornate-divider"><span class="divider-gem">✦</span></div>
+    </div>
+
+    <!-- Official Family Plaque (Matching Card) -->
+    <div class="royal-family-plaque">
+      <h3 class="humble-title font-calligraphy text-crimson">Humble Request</h3>
+      <span class="humble-from font-cinzel">FROM</span>
+      
+      <div class="plaque-inner-box">
+        <h4 class="host-name font-cinzel text-crimson">{{ weddingData.familyBlessing.from }}</h4>
+        <p class="host-family font-editorial">{{ weddingData.familyBlessing.family }}</p>
+      </div>
+
+      <div class="solicitation-note">
+        <span class="font-cinzel text-gold">✤ SOLICITED BY ✤</span>
+        <p class="font-editorial">{{ weddingData.familyBlessing.solicitation }}</p>
+      </div>
+    </div>
+
+    <!-- Interactive Guest Blessing Wall -->
+    <div class="guest-wishes-module">
+      
+      <div class="wishes-form-container">
+        <h4 class="wishes-heading font-cinzel text-crimson">Shower Warm Wishes on the Couple</h4>
+        <p class="wishes-sub font-editorial">Send your personal blessings, congratulations, or auspicious prayers</p>
+        
+        <form (submit)="submitBlessing(); $event.preventDefault()" class="blessing-form">
+          <div class="form-row">
+            <input type="text" 
+                   [(ngModel)]="newWishName" 
+                   name="senderName" 
+                   placeholder="Your Name (e.g. Ramesh Verma)" 
+                   required 
+                   class="form-input font-editorial" />
+            
+            <input type="text" 
+                   [(ngModel)]="newWishRelation" 
+                   name="senderRelation" 
+                   placeholder="Relation / City (e.g. Lucknow / Elder)" 
+                   class="form-input font-editorial" />
+          </div>
+
+          <textarea [(ngModel)]="newWishMessage" 
+                    name="senderMessage" 
+                    rows="3" 
+                    placeholder="Write your blessings and congratulations for Anshul &amp; Vidisha..." 
+                    required 
+                    class="form-textarea font-editorial"></textarea>
+
+          <button type="submit" class="btn-shower-petals">
+            <span>🌸 Shower Rose Petals &amp; Send Blessings</span>
+          </button>
+
+          <p *ngIf="wishSubmitted()" class="wish-success-msg font-editorial">
+            ✓ Your warm blessings have been showered upon Anshul &amp; Vidisha!
+          </p>
+        </form>
+      </div>
+
+      <!-- Feed of Blessings -->
+      <div class="wishes-feed">
+        <h5 class="feed-title font-cinzel">Heartfelt Blessings From Family &amp; Friends</h5>
+        
+        <div class="wishes-list">
+          <div *ngFor="let wish of weddingData.guestWishes()" class="wish-item-card">
+            <div class="wish-card-header">
+              <span class="wish-sender font-cinzel text-crimson">{{ wish.sender }}</span>
+              <span class="wish-relation font-editorial">{{ wish.relation }}</span>
+            </div>
+            <p class="wish-text font-editorial">“{{ wish.message }}”</p>
+            <span class="wish-date font-cinzel">{{ wish.date }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </section>
 
 </main>
