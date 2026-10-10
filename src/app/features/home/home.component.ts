@@ -164,13 +164,6 @@ export class HomeComponent implements OnDestroy {
 
   readonly copiedToast = signal<string | null>(null);
 
-  // WhatsApp RSVP State
-  rsvpName = '';
-  rsvpAttendance = 'All Ceremonies (Lucknow & Prayagraj)';
-  rsvpGuests = '2';
-  rsvpNote = '';
-  readonly rsvpConfirmed = signal<boolean>(false);
-
   // Active Ceremony Tab
   readonly activeCeremonyIndex = signal<number>(2); // Default to Wedding
   readonly currentCeremony = computed<WeddingCeremony>(() => this.weddingData.ceremonies[this.activeCeremonyIndex()]);
@@ -330,31 +323,6 @@ export class HomeComponent implements OnDestroy {
       navigator.clipboard.writeText(text);
       this.copiedToast.set(`${label} copied to clipboard! ✓`);
       setTimeout(() => this.copiedToast.set(null), 2800);
-    }
-  }
-
-  // =========================================================================
-  // 8. WHATSAPP RSVP & INVITATION SHARING
-  // =========================================================================
-  sendWhatsAppRsvp() {
-    const url = this.weddingData.generateWhatsAppRsvpUrl(
-      this.rsvpName,
-      this.rsvpAttendance,
-      this.rsvpGuests,
-      this.rsvpNote
-    );
-    this.audioService.playSacredChime(523.25, 1.2, 0.1);
-    this.showerCelebratoryPetals();
-    this.rsvpConfirmed.set(true);
-    if (typeof window !== 'undefined') {
-      window.open(url, '_blank');
-    }
-  }
-
-  shareOnWhatsApp() {
-    const url = this.weddingData.generateWhatsAppShareUrl();
-    if (typeof window !== 'undefined') {
-      window.open(url, '_blank');
     }
   }
 
