@@ -1088,19 +1088,74 @@
   line-height: 1.6;
 }
 
-/* Center Union Knot */
+/* Center Union Knot & Arched Couple Centerpiece */
 .union-centerpiece {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 240px;
-  padding: 0 12px;
+  max-width: 280px;
+  padding: 0 8px;
+}
+
+/* Royal Arched Portrait of Couple */
+.couple-portrait-arch {
+  position: relative;
+  width: 220px;
+  height: 290px;
+  border-radius: 110px 110px 18px 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(58, 50, 45, 0.16), 0 0 0 2px var(--border-gold-bright), 0 0 22px rgba(212, 175, 55, 0.25);
+  margin-bottom: 16px;
+  cursor: pointer;
+  background: var(--bg-parchment);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.couple-portrait-arch:hover {
+  transform: translateY(-4px) scale(1.025);
+  box-shadow: 0 16px 38px rgba(58, 50, 45, 0.22), 0 0 0 3px var(--gold-bright), 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+.arch-filigree-rim {
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  border-radius: 104px 104px 12px 12px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.arch-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.couple-portrait-arch:hover .arch-photo {
+  transform: scale(1.06);
+}
+
+.arch-overlay-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(20, 16, 15, 0.85) 50%, rgba(20, 16, 15, 0.96) 100%);
+  padding: 24px 10px 10px;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--gold-warm);
+  font-weight: 700;
+  text-align: center;
+  z-index: 3;
 }
 
 .sacred-knot-icon {
-  width: 52px;
-  height: 52px;
-  margin-bottom: 12px;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 10px;
 }
 
 .knot-svg {
@@ -1135,6 +1190,140 @@
   }
   .groom-card { order: 1; }
   .bride-card { order: 3; }
+}
+
+/* Celebration Moments Showcase Gallery */
+.moments-showcase-container {
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid var(--border-warm);
+  position: relative;
+  z-index: 3;
+}
+
+.moments-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.moments-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.moments-title {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.moments-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.moments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+@media (min-width: 860px) {
+  .moments-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+  }
+}
+
+.moment-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border-gold);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(58, 50, 45, 0.06);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.moment-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold-bright);
+  box-shadow: 0 12px 28px rgba(58, 50, 45, 0.14), 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+.moment-img-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #f0ece5;
+}
+
+.moment-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.moment-card:hover .moment-img {
+  transform: scale(1.08);
+}
+
+.moment-zoom-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(20, 16, 15, 0.65);
+  backdrop-filter: blur(4px);
+  color: var(--gold-warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
+
+.moment-card:hover .moment-zoom-badge {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.moment-info {
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.moment-title {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--crimson-wine);
+  font-weight: 700;
+  margin-bottom: 3px;
+  line-height: 1.25;
+}
+
+.moment-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.3;
 }
 
 /* ---------- Ceremonies Section (Traditional Card Panels) ---------- */
@@ -1867,3 +2056,265 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ==========================================================================
+   PHOTO LIGHTBOX MODAL
+   ========================================================================== */
+.photo-lightbox-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(18, 14, 12, 0.94);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.photo-lightbox-card {
+  position: relative;
+  background: #FAF7F2;
+  border: 2px solid var(--border-gold-bright);
+  border-radius: 20px;
+  max-width: 680px;
+  width: 100%;
+  max-height: 92vh;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 35px rgba(212, 175, 55, 0.3);
+  display: flex;
+  flex-direction: column;
+  animation: lightboxScale 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes lightboxScale {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.btn-close-lightbox {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(20, 16, 15, 0.8);
+  border: 1px solid var(--gold-warm);
+  color: var(--gold-warm);
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s ease;
+}
+
+.btn-close-lightbox:hover {
+  background: var(--crimson-wine);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.lightbox-image-wrap {
+  width: 100%;
+  max-height: 68vh;
+  background: #14100E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 68vh;
+  object-fit: contain;
+  display: block;
+}
+
+.lightbox-caption {
+  padding: 16px 24px;
+  text-align: center;
+  background: #FAF7F2;
+  border-top: 1px solid var(--border-warm);
+}
+
+.lightbox-badge {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--gold-deep);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.lightbox-title {
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.lightbox-sub {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   WHATSAPP RSVP & INVITATION SHARING CARD
+   ========================================================================== */
+.whatsapp-rsvp-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid var(--border-gold-bright);
+  border-radius: 20px;
+  padding: 32px 28px;
+  margin: 32px auto;
+  max-width: 720px;
+  box-shadow: 0 10px 36px rgba(58, 50, 45, 0.07);
+  overflow: hidden;
+  text-align: center;
+  z-index: 3;
+}
+
+.rsvp-card-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold-warm), #25D366, var(--gold-warm));
+}
+
+.rsvp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  color: #128C7E;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.whatsapp-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #25D366;
+  box-shadow: 0 0 8px rgba(37, 211, 102, 0.8);
+}
+
+.rsvp-title {
+  font-size: clamp(1.3rem, 2.8vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.rsvp-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  max-width: 540px;
+  margin: 0 auto 24px;
+  line-height: 1.5;
+}
+
+.rsvp-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 640px) {
+  .rsvp-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rsvp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: var(--gold-deep);
+  font-weight: 700;
+}
+
+.select-input {
+  cursor: pointer;
+}
+
+.rsvp-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-whatsapp-confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-family: var(--font-cinzel);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 22px rgba(37, 211, 102, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-whatsapp-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.45);
+  background: linear-gradient(135deg, #2ae16e 0%, #179e8e 100%);
+}
+
+.btn-whatsapp-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #128C7E;
+  border: 1.5px solid #25D366;
+  font-family: var(--font-cinzel);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-whatsapp-share:hover {
+  background: rgba(37, 211, 102, 0.1);
+  transform: translateY(-1px);
+}
+
+.rsvp-success-note {
+  font-size: 0.95rem;
+  color: #128C7E;
+  font-style: italic;
+  margin-top: 14px;
+}
+

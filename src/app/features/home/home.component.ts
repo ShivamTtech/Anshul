@@ -121,6 +121,44 @@ export class HomeComponent implements OnDestroy {
   // Physical Card Modal
   readonly isPhysicalCardOpen = computed(() => this.uiState.isPhysicalCardModalOpen());
 
+  // Real Couple Photos & Lightbox
+  readonly coupleMoments: Array<{ src: string; title: string; subtitle: string }> = [
+    {
+      src: 'assets/images/real-couple-portrait.jpg',
+      title: 'Anshul & Vidisha',
+      subtitle: 'The Royal Couple'
+    },
+    {
+      src: 'assets/images/real-couple-ring.jpg',
+      title: 'Sacred Ring Ceremony',
+      subtitle: 'A Sacred Promise of Eternal Love'
+    },
+    {
+      src: 'assets/images/real-bride-portrait.jpg',
+      title: 'The Radiant Bride',
+      subtitle: 'Vidisha Singh'
+    },
+    {
+      src: 'assets/images/real-celebration-dance.jpg',
+      title: 'Celebration & Sangeet',
+      subtitle: 'Joyous Family Festivities'
+    },
+    {
+      src: 'assets/images/real-celebration-joy.jpg',
+      title: 'Candid Happiness',
+      subtitle: 'Laughter, Harmony & Blessings'
+    }
+  ];
+  readonly selectedPhoto = signal<{ src: string; title: string; subtitle: string } | null>(null);
+
+  openPhotoLightbox(photo: { src: string; title: string; subtitle: string }) {
+    this.selectedPhoto.set(photo);
+  }
+
+  closePhotoLightbox() {
+    this.selectedPhoto.set(null);
+  }
+
   // Program Tab ('timeline' | 'rituals')
   readonly activeProgramTab = signal<'timeline' | 'rituals'>('timeline');
 
