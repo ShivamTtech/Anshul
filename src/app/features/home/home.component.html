@@ -281,7 +281,7 @@
           <span>📅 Add to Calendar</span>
         </button>
         <button type="button" class="btn-royal-outline" (click)="scrollTo('#blessings', $event)">
-          <span>🌸 Send Blessings</span>
+          <span>🌸 RSVP &amp; Blessings</span>
         </button>
       </div>
 
@@ -794,64 +794,6 @@
       <p *ngIf="rsvpConfirmed()" class="rsvp-success-note font-editorial">
         ✓ WhatsApp opened to confirm your attendance with the hosts!
       </p>
-    </div>
-
-    <!-- Interactive Guest Blessing Wall -->
-    <div class="guest-wishes-module">
-      
-      <div class="wishes-form-container">
-        <h4 class="wishes-heading font-cinzel text-crimson">Shower Warm Wishes on the Couple</h4>
-        <p class="wishes-sub font-editorial">Send your personal blessings, congratulations, or auspicious prayers</p>
-        
-        <form (submit)="submitBlessing(); $event.preventDefault()" class="blessing-form">
-          <div class="form-row">
-            <input type="text" 
-                   [(ngModel)]="newWishName" 
-                   name="senderName" 
-                   placeholder="Your Name (e.g. Ramesh Verma)" 
-                   required 
-                   class="form-input font-editorial" />
-            
-            <input type="text" 
-                   [(ngModel)]="newWishRelation" 
-                   name="senderRelation" 
-                   placeholder="Relation / City (e.g. Lucknow / Elder)" 
-                   class="form-input font-editorial" />
-          </div>
-
-          <textarea [(ngModel)]="newWishMessage" 
-                    name="senderMessage" 
-                    rows="3" 
-                    placeholder="Write your blessings and congratulations for Anshul &amp; Vidisha..." 
-                    required 
-                    class="form-textarea font-editorial"></textarea>
-
-          <button type="submit" class="btn-shower-petals">
-            <span>🌸 Shower Rose Petals &amp; Send Blessings</span>
-          </button>
-
-          <p *ngIf="wishSubmitted()" class="wish-success-msg font-editorial">
-            ✓ Your warm blessings have been showered upon Anshul &amp; Vidisha!
-          </p>
-        </form>
-      </div>
-
-      <!-- Feed of Blessings -->
-      <div class="wishes-feed">
-        <h5 class="feed-title font-cinzel">Heartfelt Blessings From Family &amp; Friends</h5>
-        
-        <div class="wishes-list">
-          <div *ngFor="let wish of weddingData.guestWishes()" class="wish-item-card">
-            <div class="wish-card-header">
-              <span class="wish-sender font-cinzel text-crimson">{{ wish.sender }}</span>
-              <span class="wish-relation font-editorial">{{ wish.relation }}</span>
-            </div>
-            <p class="wish-text font-editorial">“{{ wish.message }}”</p>
-            <span class="wish-date font-cinzel">{{ wish.date }}</span>
-          </div>
-        </div>
-      </div>
-
     </div>
 
   </section>

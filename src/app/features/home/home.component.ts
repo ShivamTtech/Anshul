@@ -162,11 +162,6 @@ export class HomeComponent implements OnDestroy {
   // Program Tab ('timeline' | 'rituals')
   readonly activeProgramTab = signal<'timeline' | 'rituals'>('timeline');
 
-  // Interactive Guest Blessing Form
-  newWishName = '';
-  newWishRelation = '';
-  newWishMessage = '';
-  readonly wishSubmitted = signal<boolean>(false);
   readonly copiedToast = signal<string | null>(null);
 
   // WhatsApp RSVP State
@@ -328,33 +323,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   // =========================================================================
-  // 6. GUEST BLESSING SUBMISSION
-  // =========================================================================
-  submitBlessing() {
-    if (!this.newWishName.trim() || !this.newWishMessage.trim()) return;
-
-    this.weddingData.addGuestWish(
-      this.newWishName,
-      this.newWishRelation || 'Well Wisher',
-      this.newWishMessage
-    );
-
-    this.newWishName = '';
-    this.newWishRelation = '';
-    this.newWishMessage = '';
-    this.wishSubmitted.set(true);
-
-    // Play subtle chime & trigger petal shower
-    this.audioService.playSacredChime(523.25, 1.5, 0.1);
-    this.showerCelebratoryPetals();
-
-    setTimeout(() => {
-      this.wishSubmitted.set(false);
-    }, 4500);
-  }
-
-  // =========================================================================
-  // 7. COPY ADDRESS HELPER
+  // 6. COPY ADDRESS HELPER
   // =========================================================================
   copyAddress(text: string, label: string) {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
