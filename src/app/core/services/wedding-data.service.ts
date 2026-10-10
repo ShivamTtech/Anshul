@@ -120,7 +120,7 @@ export class WeddingDataService {
       subtitle: 'The Sacred Vivaha Sanskar',
       date: '20th November 2026',
       dateShort: '20 Nov',
-      time: 'Baraat 1:00 PM · Varmala 7:30 PM · Pheras 11:00 PM',
+      time: 'Baraat 11:00 AM · Varmala 7:30 PM · Pheras 11:00 PM',
       venue: 'Bhola Garden',
       venueAddress: 'Kaserua Khurd, Sadmapur, Sahson, Jaunpur Road, Prayagraj',
       mapsUrl: 'https://maps.google.com/?q=Bhola+Garden+Kaserua+Khurd+Sadmapur+Sahson+Jaunpur+Road+Prayagraj',
@@ -153,7 +153,7 @@ export class WeddingDataService {
   // =========================================================================
   readonly weddingTimeline: ProgramStep[] = [
     {
-      time: '1:00 PM',
+      time: '11:00 AM',
       title: 'Baraat Prasthan',
       subtitle: 'Departure from Lucknow Residence',
       desc: 'The joyous procession of the groom accompanied by family, dhol, and elders departs Lucknow for Prayagraj.',

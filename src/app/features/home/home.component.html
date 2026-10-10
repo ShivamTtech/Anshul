@@ -285,18 +285,17 @@
 
       <!-- Hero Actions -->
       <div class="hero-actions-bar">
-        <button type="button" class="btn-royal-crimson" (click)="openPhysicalCardModal()">
+        <button type="button" class="btn-royal-crimson hero-btn-card" (click)="openPhysicalCardModal()">
           <span>📜 View Original Card</span>
         </button>
-        <button type="button" class="btn-royal-outline" (click)="scrollTo('#ceremonies', $event)">
-          <span>🪔 View Ceremonies</span>
-        </button>
-        <button type="button" class="btn-royal-outline" (click)="downloadFullCalendar()">
-          <span>📅 Add to Calendar</span>
-        </button>
-        <button type="button" class="btn-royal-outline" (click)="scrollTo('#blessings', $event)">
-          <span>🌸 Family Blessings</span>
-        </button>
+        <div class="hero-actions-subrow">
+          <button type="button" class="btn-royal-minimal" (click)="scrollTo('#ceremonies', $event)">
+            <span>🪔 Ceremonies</span>
+          </button>
+          <button type="button" class="btn-royal-minimal" (click)="downloadFullCalendar()">
+            <span>📅 Add to Calendar</span>
+          </button>
+        </div>
       </div>
 
     </div>
