@@ -4,7 +4,7 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class UiStateService {
-  readonly isEnvelopeOpen = signal<boolean>(false);
+  readonly isEnvelopeOpen = signal<boolean>(true);
   readonly isPhysicalCardModalOpen = signal<boolean>(false);
   readonly geometryShapeIndex = signal<number>(0);
 

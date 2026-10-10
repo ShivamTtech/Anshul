@@ -35,7 +35,6 @@ import { SmoothScrollService } from './core/services/smooth-scroll.service';
     }
     main {
       position: relative;
-      z-index: 1;
     }
   `]
 })

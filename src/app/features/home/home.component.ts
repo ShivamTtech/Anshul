@@ -24,37 +24,77 @@ interface CountdownState {
   seconds: string;
 }
 
-class FloatingPetal {
+type BotanicalKind = 'rose-petal' | 'sage-leaf' | 'gold-flake';
+
+class BotanicalParticle {
+  kind: BotanicalKind;
   x: number;
   y: number;
+  z: number;
   size: number;
   opacity: number;
-  rotation: number;
+  rotationZ: number;
+  rotationY: number;
+  flipSpeed: number;
   speedY: number;
   speedX: number;
   rotSpeed: number;
+  swayFrequency: number;
+  swayPhase: number;
   color: string;
+  secondaryColor?: string;
 
   constructor(canvasWidth: number, canvasHeight: number, startAtTop: boolean = false) {
+    const rand = Math.random();
+    if (rand < 0.5) {
+      this.kind = 'rose-petal';
+    } else if (rand < 0.85) {
+      this.kind = 'sage-leaf';
+    } else {
+      this.kind = 'gold-flake';
+    }
+
+    this.z = Math.random() * 0.7 + 0.6;
     this.x = Math.random() * canvasWidth;
-    this.y = startAtTop ? (Math.random() * -100) : (Math.random() * canvasHeight - canvasHeight);
-    this.size = Math.random() * 11 + 6;
-    this.opacity = Math.random() * 0.35 + 0.15;
-    this.rotation = Math.random() * Math.PI * 2;
-    this.speedY = Math.random() * 0.55 + 0.25;
-    this.speedX = (Math.random() - 0.5) * 0.35;
-    this.rotSpeed = (Math.random() - 0.5) * 0.018;
-    const colors = ['#E8B4B8', '#F2D1D4', '#F5DFE1', '#D4AF37', '#C5A059', '#E6C280'];
-    this.color = colors[Math.floor(Math.random() * colors.length)];
+    this.y = startAtTop ? (Math.random() * -120) : (Math.random() * (canvasHeight + 100) - 100);
+
+    if (this.kind === 'rose-petal') {
+      this.size = (Math.random() * 10 + 8) * this.z;
+      this.opacity = (Math.random() * 0.35 + 0.28) * (this.z * 0.95);
+      const roseColors = ['#E8A5AC', '#F2C2C6', '#DDA0A7', '#D4AF37', '#E5C068', '#C98A93', '#F9E2E5'];
+      this.color = roseColors[Math.floor(Math.random() * roseColors.length)];
+      this.speedY = (Math.random() * 0.7 + 0.45) * this.z;
+    } else if (this.kind === 'sage-leaf') {
+      this.size = (Math.random() * 12 + 9) * this.z;
+      this.opacity = (Math.random() * 0.32 + 0.26) * (this.z * 0.95);
+      const leafColors = ['#8FA489', '#7D9577', '#A3B89D', '#6D8568', '#B7C9B2'];
+      this.color = leafColors[Math.floor(Math.random() * leafColors.length)];
+      this.secondaryColor = '#556B50';
+      this.speedY = (Math.random() * 0.8 + 0.5) * this.z;
+    } else {
+      this.size = (Math.random() * 3 + 1.8) * this.z;
+      this.opacity = Math.random() * 0.5 + 0.35;
+      this.color = '#F2D379';
+      this.speedY = (Math.random() * 0.4 + 0.3) * this.z;
+    }
+
+    this.rotationZ = Math.random() * Math.PI * 2;
+    this.rotationY = Math.random() * Math.PI * 2;
+    this.rotSpeed = (Math.random() - 0.5) * 0.024;
+    this.flipSpeed = Math.random() * 0.035 + 0.015;
+    this.speedX = (Math.random() - 0.5) * 0.45;
+    this.swayFrequency = Math.random() * 0.012 + 0.006;
+    this.swayPhase = Math.random() * Math.PI * 2;
   }
 
   update(canvasWidth: number, canvasHeight: number, time: number) {
     this.y += this.speedY;
-    this.x += this.speedX + Math.sin(time * 0.4 + this.y * 0.008) * 0.25;
-    this.rotation += this.rotSpeed;
+    this.x += this.speedX + Math.sin(time * 1.8 + this.swayPhase + this.y * this.swayFrequency) * (0.65 * this.z);
+    this.rotationZ += this.rotSpeed;
+    this.rotationY += this.flipSpeed;
 
-    if (this.y > canvasHeight + 20) {
-      this.y = -20;
+    if (this.y > canvasHeight + 35) {
+      this.y = -35;
       this.x = Math.random() * canvasWidth;
     }
   }
@@ -63,13 +103,42 @@ class FloatingPetal {
     ctx.save();
     ctx.globalAlpha = this.opacity;
     ctx.translate(this.x, this.y);
-    ctx.rotate(this.rotation);
-    ctx.fillStyle = this.color;
-    ctx.beginPath();
-    ctx.moveTo(0, -this.size / 2);
-    ctx.bezierCurveTo(this.size / 2, -this.size / 2, this.size / 2, this.size / 2, 0, this.size / 2);
-    ctx.bezierCurveTo(-this.size / 2, this.size / 2, -this.size / 2, -this.size / 2, 0, -this.size / 2);
-    ctx.fill();
+    ctx.rotate(this.rotationZ);
+
+    const scaleX = Math.cos(this.rotationY);
+    ctx.scale(scaleX, 1);
+
+    if (this.kind === 'rose-petal') {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -this.size * 0.6);
+      ctx.bezierCurveTo(this.size * 0.65, -this.size * 0.6, this.size * 0.7, this.size * 0.5, 0, this.size * 0.6);
+      ctx.bezierCurveTo(-this.size * 0.7, this.size * 0.5, -this.size * 0.65, -this.size * 0.6, 0, -this.size * 0.6);
+      ctx.fill();
+    } else if (this.kind === 'sage-leaf') {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -this.size * 0.85);
+      ctx.quadraticCurveTo(this.size * 0.45, 0, 0, this.size * 0.85);
+      ctx.quadraticCurveTo(-this.size * 0.45, 0, 0, -this.size * 0.85);
+      ctx.fill();
+
+      if (this.secondaryColor) {
+        ctx.strokeStyle = this.secondaryColor;
+        ctx.globalAlpha = this.opacity * 0.5;
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(0, -this.size * 0.7);
+        ctx.lineTo(0, this.size * 0.7);
+        ctx.stroke();
+      }
+    } else {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
     ctx.restore();
   }
 }
@@ -151,6 +220,15 @@ export class HomeComponent implements OnDestroy {
   ];
   readonly selectedPhoto = signal<{ src: string; title: string; subtitle: string } | null>(null);
 
+  // Active Ambient Background Moment (Minimalist Editorial Story)
+  readonly activeBgMomentIndex = signal<number>(0);
+  readonly activeBgMoment = computed(() => this.coupleMoments[this.activeBgMomentIndex()]);
+
+  setActiveBgMoment(idx: number) {
+    this.activeBgMomentIndex.set(idx);
+    this.audioService.playSacredChime(440, 0.7, 0.04);
+  }
+
   openPhotoLightbox(photo: { src: string; title: string; subtitle: string }) {
     this.selectedPhoto.set(photo);
   }
@@ -172,10 +250,11 @@ export class HomeComponent implements OnDestroy {
   readonly countdown = signal<CountdownState>({ days: '00', hours: '00', minutes: '00', seconds: '00' });
   private countdownTimer: any = null;
 
-  // Floating Petals Canvas State
+  // Floating Botanical Canvas State (Petals, Leaves & Gold Dust)
   private petalCtx: CanvasRenderingContext2D | null = null;
-  private floatingPetals: FloatingPetal[] = [];
+  private botanicalParticles: BotanicalParticle[] = [];
   private petalAnimFrame: number | null = null;
+  private lastFrameTime = 0;
   private petalTime = 0;
 
   // Observer
@@ -198,26 +277,31 @@ export class HomeComponent implements OnDestroy {
   }
 
   // =========================================================================
-  // 1. ROYAL ENVELOPE OPENING CEREMONY
+  // 1. ROYAL ENVELOPE OPENING CEREMONY (120 FPS FLUID MOTION)
   // =========================================================================
   breakRoyalSeal(event: MouseEvent) {
-    this.audioService.play();
+    this.audioService.playSacredChime(587.33, 1.4, 0.12);
+    this.showerCelebratoryPetals();
     this.isEnvelopeOpened.set(true);
 
     setTimeout(() => {
       this.isEnvelopeClosing.set(true);
       setTimeout(() => {
         this.isEnvelopeFading.set(true);
-        this.uiState.closeEnvelope();
+        setTimeout(() => {
+          this.uiState.closeEnvelope();
+        }, 300);
       }, 450);
-    }, 700);
+    }, 1300);
   }
 
   dismissEnvelope() {
     this.audioService.play();
     this.isEnvelopeClosing.set(true);
     this.isEnvelopeFading.set(true);
-    this.uiState.closeEnvelope();
+    setTimeout(() => {
+      this.uiState.closeEnvelope();
+    }, 250);
   }
 
   // =========================================================================
@@ -245,36 +329,56 @@ export class HomeComponent implements OnDestroy {
   }
 
   // =========================================================================
-  // 3. FLOATING ROSE PETALS CANVAS (Minimal, Smooth Ambient Rain)
+  // 3. FLOATING PETALS & BOTANICAL LEAF RAIN ENGINE (120 FPS Simulation)
   // =========================================================================
   private initFloatingPetals() {
     if (!this.petalCanvasRef) return;
     const canvas = this.petalCanvasRef.nativeElement;
-    this.petalCtx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    this.petalCtx = canvas.getContext('2d', { alpha: true });
+    
+    const updateSize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      if (this.petalCtx) {
+        this.petalCtx.scale(dpr, dpr);
+      }
+    };
 
-    for (let i = 0; i < 22; i++) {
-      this.floatingPetals.push(new FloatingPetal(canvas.width, canvas.height));
+    updateSize();
+
+    // Spawn rich canopy of 52 multi-layer petals and eucalyptus leaves
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    this.botanicalParticles = [];
+    for (let i = 0; i < 52; i++) {
+      this.botanicalParticles.push(new BotanicalParticle(w, h));
     }
 
     window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      updateSize();
     });
 
+    this.lastFrameTime = performance.now();
     this.animatePetals();
   }
 
   private animatePetals() {
     if (!this.petalCtx || !this.petalCanvasRef) return;
     const canvas = this.petalCanvasRef.nativeElement;
-    this.petalCtx.clearRect(0, 0, canvas.width, canvas.height);
-    this.petalTime += 0.016;
+    const now = performance.now();
+    const dt = Math.min((now - this.lastFrameTime) / 16.67, 2.5); // normalize for 60/120Hz
+    this.lastFrameTime = now;
 
-    for (const petal of this.floatingPetals) {
-      petal.update(canvas.width, canvas.height, this.petalTime);
-      petal.draw(this.petalCtx);
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    this.petalCtx.clearRect(0, 0, w, h);
+    this.petalTime += 0.016 * dt;
+
+    for (const particle of this.botanicalParticles) {
+      particle.update(w, h, this.petalTime);
+      particle.draw(this.petalCtx);
     }
 
     this.petalAnimFrame = requestAnimationFrame(() => this.animatePetals());
@@ -282,13 +386,13 @@ export class HomeComponent implements OnDestroy {
 
   showerCelebratoryPetals() {
     if (!this.petalCanvasRef) return;
-    const canvas = this.petalCanvasRef.nativeElement;
-    for (let i = 0; i < 24; i++) {
-      this.floatingPetals.push(new FloatingPetal(canvas.width, canvas.height, true));
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    for (let i = 0; i < 30; i++) {
+      this.botanicalParticles.push(new BotanicalParticle(w, h, true));
     }
-    // Trim if too many
-    if (this.floatingPetals.length > 55) {
-      this.floatingPetals.splice(0, 20);
+    if (this.botanicalParticles.length > 80) {
+      this.botanicalParticles.splice(0, 25);
     }
   }
 

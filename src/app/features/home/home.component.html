@@ -178,6 +178,9 @@
        ======================================================================= -->
   <section id="hero" class="folio-card hero-section reveal-elem">
     
+    <!-- Ambient Photographic Background Layer -->
+    <div class="ambient-photo-canvas hero-ambient-bg" aria-hidden="true"></div>
+
     <!-- Botanical Watercolor Corners -->
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tl" />
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tr" />
@@ -289,10 +292,15 @@
   </section>
 
   <!-- =======================================================================
-       CHAPTER 02: THE COUPLE (GROOM & BRIDE DETAILS)
+       CHAPTER 02: THE COUPLE (SOBER MINIMAL EDITORIAL WITH AMBIENT BG)
        ======================================================================= -->
   <section id="couple" class="folio-card couple-section reveal-elem">
     
+    <!-- Ambient Photographic Canvas (Smooth Crossfades Between Moments) -->
+    <div class="ambient-photo-canvas couple-ambient-bg" 
+         [style.background-image]="'url(' + activeBgMoment().src + ')'" 
+         aria-hidden="true"></div>
+
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-bl" />
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-br" />
     
@@ -304,12 +312,12 @@
       <div class="ornate-divider"><span class="divider-gem">✦</span></div>
     </div>
 
-    <!-- Couple Cards Layout -->
-    <div class="couple-profile-layout">
+    <!-- Sober Minimal Editorial Couple Profiles -->
+    <div class="couple-editorial-layout">
       
-      <!-- Groom Card -->
-      <div class="person-card groom-card">
-        <div class="person-badge font-cinzel">✤ GROOM ✤</div>
+      <!-- Groom Profile (Pure Typographic Luxury) -->
+      <div class="person-editorial groom-editorial">
+        <span class="person-role font-cinzel">✤ GROOM ✤</span>
         
         <h3 class="person-name font-calligraphy text-crimson">
           {{ weddingData.groom.name }}
@@ -319,33 +327,23 @@
           {{ weddingData.groom.parentage }}
         </p>
 
-        <div class="person-city font-cinzel">
+        <div class="person-city-tag font-cinzel">
           <span>Him City, Lucknow</span>
         </div>
 
         <p class="person-bio font-editorial">
-          "Embracing life with deep filial reverence, wisdom, and steadfast devotion to family tradition."
+          “Embracing life with filial reverence, wisdom, and steadfast devotion to family values.”
         </p>
       </div>
 
-      <!-- Center Auspicious Knot & Real Couple Portrait Arched Centerpiece -->
-      <div class="union-centerpiece">
-        <!-- Royal Arched Portrait of Bride & Groom -->
-        <div class="couple-portrait-arch" (click)="openPhotoLightbox(coupleMoments[0])" role="button" tabindex="0" title="Click to view full portrait of Anshul & Vidisha">
-          <div class="arch-filigree-rim"></div>
-          <img src="assets/images/real-couple-portrait.jpg" 
-               alt="Anshul Verma and Vidisha Singh - The Royal Couple" 
-               class="arch-photo" />
-          <div class="arch-overlay-badge font-cinzel">
-            <span>✤ Anshul &amp; Vidisha ✤</span>
-          </div>
-        </div>
-
-        <div class="sacred-knot-icon">
-          <svg viewBox="0 0 48 48" class="knot-svg" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="20" cy="24" r="12" stroke="var(--crimson-wine)"></circle>
-            <circle cx="28" cy="24" r="12" stroke="var(--gold-warm)"></circle>
+      <!-- Center Minimal Medallion Portal -->
+      <div class="union-medallion-center">
+        <div class="portal-halo-ring">
+          <svg viewBox="0 0 100 100" class="halo-svg" width="104" height="104">
+            <circle cx="50" cy="50" r="46" fill="none" stroke="var(--gold-warm)" stroke-width="1.2" stroke-dasharray="3 3"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="var(--crimson-wine)" stroke-width="0.8"/>
           </svg>
+          <div class="portal-initials font-cinzel-deco">A &amp; V</div>
         </div>
         
         <div class="knot-shloka">
@@ -359,9 +357,9 @@
         </div>
       </div>
 
-      <!-- Bride Card -->
-      <div class="person-card bride-card">
-        <div class="person-badge font-cinzel">✤ BRIDE ✤</div>
+      <!-- Bride Profile (Pure Typographic Luxury) -->
+      <div class="person-editorial bride-editorial">
+        <span class="person-role font-cinzel">✤ BRIDE ✤</span>
         
         <h3 class="person-name font-calligraphy text-crimson">
           {{ weddingData.bride.name }}
@@ -371,47 +369,40 @@
           {{ weddingData.bride.parentage }}
         </p>
 
-        <div class="person-city font-cinzel">
+        <div class="person-city-tag font-cinzel">
           <span>Prayagraj, Uttar Pradesh</span>
         </div>
 
         <p class="person-bio font-editorial">
-          "Adorned with gentle grace, luminous warmth, and eternal devotion to sacred family values."
+          “Adorned with gentle grace, luminous warmth, and eternal devotion to sacred traditions.”
         </p>
       </div>
 
     </div>
 
-    <!-- Celebration Moments & Glimpses of Joy Gallery -->
-    <div class="moments-showcase-container">
-      <div class="moments-header">
-        <span class="font-cinzel text-gold moments-tag">✤ GLIMPSES OF JOY ✤</span>
-        <h3 class="moments-title font-cinzel text-crimson">Celebration Moments</h3>
-        <p class="moments-subtitle font-editorial">Treasured memories of laughter, sacred promises, and joyous family celebrations</p>
+    <!-- Ambient Moments In Motion (Sober Minimal Background Selector) -->
+    <div class="ambient-moments-navigator">
+      <div class="nav-eyebrow font-cinzel">
+        <span>✤ GLIMPSES IN TIME · AMBIENT BACKDROP ✤</span>
       </div>
 
-      <div class="moments-grid">
-        <div *ngFor="let moment of coupleMoments; let idx = index" 
-             class="moment-card" 
-             (click)="openPhotoLightbox(moment)"
-             role="button" 
-             tabindex="0"
-             [attr.aria-label]="moment.title">
-          <div class="moment-img-container">
-            <img [src]="moment.src" [alt]="moment.title" class="moment-img" loading="lazy" />
-            <div class="moment-zoom-badge">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="M21 21l-4.35-4.35"></path>
-                <path d="M11 8v6M8 11h6"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="moment-info">
-            <h4 class="moment-title font-cinzel">{{ moment.title }}</h4>
-            <p class="moment-sub font-editorial">{{ moment.subtitle }}</p>
-          </div>
-        </div>
+      <div class="moments-pill-strip">
+        <button *ngFor="let moment of coupleMoments; let idx = index" 
+                type="button" 
+                class="ambient-pill-btn" 
+                [class.active]="activeBgMomentIndex() === idx"
+                (click)="setActiveBgMoment(idx)"
+                [attr.aria-label]="moment.title">
+          <span class="pill-dot">✦</span>
+          <span class="pill-name font-cinzel">{{ moment.title }}</span>
+        </button>
+      </div>
+
+      <div class="active-moment-caption">
+        <p class="caption-sub font-editorial">“{{ activeBgMoment().subtitle }}”</p>
+        <button type="button" class="btn-expand-moment" (click)="openPhotoLightbox(activeBgMoment())">
+          <span>View High-Res Lightbox ➔</span>
+        </button>
       </div>
     </div>
   </section>
@@ -421,6 +412,9 @@
        ======================================================================= -->
   <section id="ceremonies" class="folio-card ceremonies-section reveal-elem">
     
+    <!-- Ambient Photographic Background Layer -->
+    <div class="ambient-photo-canvas ceremonies-ambient-bg" aria-hidden="true"></div>
+
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tl" />
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tr" />
     
