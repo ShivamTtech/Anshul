@@ -101,22 +101,22 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
         </div>
 
       </div>
-
-      <!-- Mobile Fullscreen Overlay -->
-      <div class="mobile-overlay" [class.open]="isMenuOpen()">
-        <nav class="mobile-nav">
-          <a href="#hero" (click)="closeMenuAndScroll('#hero', $event)">Home</a>
-          <a href="#couple" (click)="closeMenuAndScroll('#couple', $event)">The Couple</a>
-          <a href="#ceremonies" (click)="closeMenuAndScroll('#ceremonies', $event)">Ceremonies</a>
-          <a href="#itinerary" (click)="closeMenuAndScroll('#itinerary', $event)">Itinerary &amp; Rituals</a>
-          <a href="#venues" (click)="closeMenuAndScroll('#venues', $event)">Venues</a>
-          <a href="#blessings" (click)="closeMenuAndScroll('#blessings', $event)">Blessings</a>
-          <button type="button" class="mobile-card-trigger" (click)="uiState.openPhysicalCardModal(); toggleMenu()">
-            📜 View Original Printed Card
-          </button>
-        </nav>
-      </div>
     </header>
+
+    <!-- Mobile Fullscreen Overlay (Sibling of header so position:fixed covers full viewport) -->
+    <div class="mobile-overlay" [class.open]="isMenuOpen()">
+      <nav class="mobile-nav">
+        <a href="#hero" (click)="closeMenuAndScroll('#hero', $event)">Home</a>
+        <a href="#couple" (click)="closeMenuAndScroll('#couple', $event)">The Couple</a>
+        <a href="#ceremonies" (click)="closeMenuAndScroll('#ceremonies', $event)">Ceremonies</a>
+        <a href="#itinerary" (click)="closeMenuAndScroll('#itinerary', $event)">Itinerary &amp; Rituals</a>
+        <a href="#venues" (click)="closeMenuAndScroll('#venues', $event)">Venues</a>
+        <a href="#blessings" (click)="closeMenuAndScroll('#blessings', $event)">Blessings</a>
+        <button type="button" class="mobile-card-trigger" (click)="uiState.openPhysicalCardModal(); toggleMenu()">
+          📜 View Original Printed Card
+        </button>
+      </nav>
+    </div>
   `,
   styles: [`
     .royal-hud-wrapper {
@@ -306,12 +306,17 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       display: none;
       position: fixed;
       inset: 0;
-      top: 70px;
-      background: rgba(255, 255, 255, 0.97);
-      backdrop-filter: blur(20px);
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: radial-gradient(circle at top, rgba(250, 247, 242, 0.99) 0%, rgba(240, 232, 222, 0.99) 100%);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      z-index: 90;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .mobile-overlay.open {
@@ -324,8 +329,11 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100%;
-      gap: 32px;
+      min-height: 100%;
+      gap: clamp(16px, 3vh, 26px);
+      padding: 96px 20px 40px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .mobile-nav a {

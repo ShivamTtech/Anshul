@@ -87,6 +87,7 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       color: var(--text-secondary);
       max-width: 480px;
       margin: 0 auto 24px;
+      padding: 0 16px;
       line-height: 1.6;
     }
 
@@ -95,7 +96,8 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 14px;
+      gap: 10px 14px;
+      padding: 0 16px;
       font-family: var(--font-display);
       font-size: 0.62rem;
       letter-spacing: 0.18em;

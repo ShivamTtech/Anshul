@@ -2067,4 +2067,731 @@
   font-style: italic;
 }
 
+/* ==========================================================================
+   MOBILE PHONE RESPONSIVE ARCHITECTURE (< 640px & < 380px)
+   Engineered for flawless iPhone, Android, and compact touchscreen viewports
+   ========================================================================== */
+@media (max-width: 640px) {
+
+  /* 1. Intro Opening Ceremony Modal */
+  .fixed-overlay.envelope-modal {
+    padding: 12px 10px;
+  }
+
+  .envelope-prompt {
+    top: clamp(14px, 4vh, 26px);
+    width: 95%;
+    max-width: 360px;
+  }
+
+  .prompt-badge {
+    padding: 6px 16px;
+    margin-bottom: 6px;
+  }
+
+  .prompt-text {
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+  }
+
+  .prompt-sub {
+    font-size: 0.82rem;
+    margin-bottom: 4px;
+  }
+
+  .btn-skip-intro {
+    font-size: 0.65rem;
+    padding: 4px 6px;
+  }
+
+  .envelope-perspective {
+    width: 100%;
+    max-width: 360px;
+    height: clamp(280px, 44vh, 320px);
+  }
+
+  .envelope-plate {
+    border-radius: 16px;
+  }
+
+  .invitation-letter-card {
+    inset: 10px;
+    border-radius: 14px;
+    padding: 16px 12px;
+  }
+
+  .envelope-wrapper.unfolded .invitation-letter-card {
+    transform: translate3d(0, -42px, 15px) scale(1.01);
+  }
+
+  .letter-line {
+    width: 24px;
+  }
+
+  .letter-om {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+  }
+
+  .letter-eyebrow {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+  }
+
+  .letter-title {
+    font-size: clamp(1.8rem, 7vw, 2.2rem);
+    line-height: 1.15;
+  }
+
+  .letter-location {
+    font-size: 0.86rem;
+    margin-top: 4px;
+  }
+
+  .letter-footer {
+    font-size: 0.58rem;
+    padding-top: 8px;
+  }
+
+  .btn-enter-realm {
+    font-size: 0.68rem;
+  }
+
+  .wax-seal-btn {
+    width: clamp(74px, 19vw, 84px);
+    height: clamp(74px, 19vw, 84px);
+  }
+
+  .seal-initials {
+    font-size: 1.15rem;
+  }
+
+  .seal-label {
+    font-size: 0.42rem;
+  }
+
+  /* 2. Main Invitation Folio & Card Framing */
+  .invitation-main-container {
+    padding: 76px 12px 30px;
+    max-width: 100%;
+  }
+
+  .folio-card {
+    padding: 26px 14px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+    border-width: 1.5px;
+  }
+
+  .corner-flora {
+    width: 65px !important;
+    opacity: 0.72;
+  }
+
+  .inner-filigree-frame {
+    inset: 6px;
+    border-radius: 13px;
+  }
+
+  /* 3. Section Headers */
+  .section-header-box {
+    margin-bottom: 20px;
+  }
+
+  .section-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 5.5vw, 1.95rem);
+    letter-spacing: 0.12em;
+  }
+
+  .section-subtitle {
+    font-size: 0.86rem;
+    line-height: 1.4;
+  }
+
+  .ornate-divider {
+    margin: 10px auto;
+  }
+
+  /* 4. Chapter 01: Hero Section */
+  .wreath-crest-container {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 12px;
+  }
+
+  .wreath-av {
+    font-size: 1.25rem;
+  }
+
+  .sacred-ganesha-badge {
+    margin: 0 auto 16px;
+  }
+
+  .ganesha-svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .shloka-main {
+    font-size: 1.25rem;
+    margin: 6px 0 4px;
+  }
+
+  .shloka-sub {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .invitation-intro-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+  }
+
+  .couple-headline {
+    margin: 10px 0 8px;
+  }
+
+  .name-groom,
+  .name-bride {
+    font-size: clamp(2.3rem, 8.5vw, 3.2rem);
+  }
+
+  .name-amp {
+    font-size: 1.25rem;
+    margin: 0 4px;
+  }
+
+  .invitation-request {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    line-height: 1.45;
+    margin-top: 6px;
+  }
+
+  .invitation-dates-place {
+    font-size: 0.95rem;
+    margin-top: 4px;
+  }
+
+  .divine-quote-card {
+    padding: 12px 14px;
+    margin: 16px auto;
+    border-radius: 12px;
+  }
+
+  .quote-text {
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+
+  .countdown-ornate-card {
+    padding: 14px 10px;
+    margin: 16px auto;
+    border-radius: 14px;
+  }
+
+  .countdown-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+
+  .countdown-grid {
+    gap: 4px;
+  }
+
+  .timer-cell {
+    min-width: 44px;
+  }
+
+  .timer-val {
+    font-size: 1.35rem;
+  }
+
+  .timer-lbl {
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+  }
+
+  .timer-colon {
+    font-size: 1.1rem;
+    margin-top: -6px;
+  }
+
+  .hero-actions-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  .hero-actions-bar .btn-royal-crimson {
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-content: center;
+    padding: 11px 18px;
+    font-size: 0.72rem;
+  }
+
+  .hero-actions-bar .btn-royal-outline {
+    width: 100%;
+    justify-content: center;
+    padding: 9px 8px;
+    font-size: 0.63rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* 5. Chapter 02: Couple Section */
+  .couple-editorial-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 22px 12px;
+    border-radius: 18px;
+  }
+
+  .groom-editorial,
+  .bride-editorial {
+    align-items: center;
+    text-align: center;
+  }
+
+  .groom-editorial { order: 1; }
+  .union-medallion-center { order: 2; margin: 4px auto; }
+  .bride-editorial { order: 3; }
+
+  .person-role {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    margin-bottom: 4px;
+  }
+
+  .person-name {
+    font-size: clamp(2rem, 7.5vw, 2.6rem);
+    margin-bottom: 4px;
+  }
+
+  .person-parentage {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    max-width: 100%;
+  }
+
+  .person-city-tag {
+    font-size: 0.62rem;
+    padding: 3px 12px;
+    margin-bottom: 10px;
+  }
+
+  .person-bio {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    max-width: 100%;
+  }
+
+  .portal-halo-ring {
+    width: 84px !important;
+    height: 84px !important;
+    min-width: 84px;
+    max-width: 84px;
+    min-height: 84px;
+    max-height: 84px;
+    flex: 0 0 84px;
+    margin-bottom: 10px;
+  }
+
+  .halo-svg {
+    width: 84px !important;
+    height: 84px !important;
+  }
+
+  .portal-initials {
+    font-size: 1.2rem;
+  }
+
+  .shloka-sanskrit {
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+
+  .shloka-meaning {
+    font-size: 0.74rem;
+    line-height: 1.35;
+  }
+
+  /* Ambient Backdrop Pills - Smooth Touch Carousel */
+  .ambient-moments-navigator {
+    margin-top: 22px;
+    padding-top: 18px;
+  }
+
+  .nav-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 10px;
+  }
+
+  .moments-pill-strip {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+    padding: 4px 6px 10px;
+    justify-content: flex-start;
+    scroll-snap-type: x mandatory;
+  }
+
+  .moments-pill-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ambient-pill-btn {
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    white-space: nowrap;
+    font-size: 0.65rem;
+    padding: 7px 14px;
+  }
+
+  .caption-sub {
+    font-size: 0.88rem;
+  }
+
+  .btn-expand-moment {
+    font-size: 0.66rem;
+    padding: 4px 8px;
+  }
+
+  /* 6. Chapter 03: Ceremonies */
+  .card-panel-traditional {
+    padding: 20px 12px;
+    border-radius: 16px;
+    margin-bottom: 18px;
+    border-width: 1.5px;
+  }
+
+  .dual-ceremony-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-bottom: 16px;
+  }
+
+  .traditional-event-box {
+    padding: 4px;
+    text-align: center;
+  }
+
+  .event-icon-badge {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+
+  .traditional-event-title {
+    font-size: clamp(1.8rem, 6.5vw, 2.3rem);
+  }
+
+  .traditional-date {
+    font-size: 0.74rem;
+    letter-spacing: 0.15em;
+  }
+
+  .traditional-time {
+    font-size: 0.86rem;
+    margin-bottom: 6px;
+  }
+
+  .traditional-desc {
+    font-size: 0.86rem;
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+
+  .grand-wedding-title {
+    font-size: clamp(2.2rem, 7vw, 2.9rem);
+  }
+
+  .crimson-ribbon-badge {
+    padding: 7px 16px;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ribbon-text {
+    font-size: 0.74rem;
+    letter-spacing: 0.15em;
+  }
+
+  .baraat-departure-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 12px;
+    gap: 4px;
+    font-size: 0.84rem;
+  }
+
+  .traditional-venue-strip {
+    margin-top: 14px;
+  }
+
+  .venue-name {
+    font-size: 1rem;
+  }
+
+  .venue-address {
+    font-size: 0.86rem;
+    margin: 4px 0 10px;
+  }
+
+  .venue-action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .btn-traditional-act {
+    justify-content: center;
+    width: 100%;
+    padding: 7px 8px;
+    font-size: 0.63rem;
+  }
+
+  .vidai-title {
+    font-size: clamp(1.9rem, 6.5vw, 2.4rem);
+  }
+
+  .vidai-desc {
+    font-size: 0.86rem;
+  }
+
+  /* 7. Chapter 04: Itinerary & Rituals */
+  .program-tab-switch {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 7px 10px;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+  }
+
+  .timeline-container {
+    padding-left: 0;
+    margin-top: 20px;
+  }
+
+  .timeline-line {
+    display: none;
+  }
+
+  .timeline-node-card {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .node-time-badge {
+    width: auto;
+    align-self: flex-start;
+    padding: 4px 10px;
+    font-size: 0.64rem;
+  }
+
+  .node-card-body {
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+
+  .node-emoji {
+    font-size: 1.3rem;
+  }
+
+  .node-title {
+    font-size: 0.95rem;
+  }
+
+  .node-desc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .rituals-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .ritual-card {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+
+  .ritual-symbol-box {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+  }
+
+  .ritual-title {
+    font-size: 0.95rem;
+  }
+
+  .ritual-desc {
+    font-size: 0.84rem;
+  }
+
+  /* 8. Chapter 05: Venues */
+  .venues-two-col-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .destination-card {
+    padding: 20px 14px;
+    border-radius: 16px;
+  }
+
+  .dest-title {
+    font-size: 1.15rem;
+  }
+
+  .dest-info-box {
+    padding: 12px 12px;
+    margin-bottom: 14px;
+  }
+
+  .info-val {
+    font-size: 0.9rem;
+  }
+
+  .dest-btn-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  /* 9. Chapter 06: Blessings & Family Plaque */
+  .royal-family-plaque {
+    padding: 22px 14px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+
+  .humble-title {
+    font-size: clamp(1.9rem, 6vw, 2.5rem);
+  }
+
+  .plaque-inner-box {
+    padding: 10px 12px;
+    margin-bottom: 12px;
+  }
+
+  .host-name {
+    font-size: 1.15rem;
+  }
+
+  .host-family {
+    font-size: 0.88rem;
+  }
+
+  .solicitation-note p {
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+
+  /* 10. Modals on Mobile Phones */
+  .modal-card-box {
+    padding: 14px 10px;
+    width: 98%;
+    max-height: 94vh;
+    border-radius: 16px;
+  }
+
+  .modal-card-header h3 {
+    font-size: 1.05rem;
+  }
+
+  .printed-card-image {
+    max-height: 56vh;
+  }
+
+  .photo-lightbox-card {
+    width: 98%;
+    max-height: 94vh;
+    border-radius: 16px;
+  }
+
+  .lightbox-image-wrap {
+    max-height: 52vh;
+  }
+
+  .lightbox-caption {
+    padding: 10px 14px;
+  }
+
+  .lightbox-title {
+    font-size: 1.1rem;
+  }
+
+  .lightbox-sub {
+    font-size: 0.86rem;
+  }
+}
+
+/* ==========================================================================
+   EXTRA COMPACT PHONE SCREENS (< 380px — e.g. iPhone SE, Galaxy Fold)
+   ========================================================================== */
+@media (max-width: 380px) {
+  .invitation-main-container {
+    padding: 72px 8px 24px;
+  }
+
+  .folio-card {
+    padding: 20px 10px;
+    border-radius: 14px;
+  }
+
+  .countdown-grid {
+    gap: 2px;
+  }
+
+  .timer-cell {
+    min-width: 38px;
+  }
+
+  .timer-val {
+    font-size: 1.15rem;
+  }
+
+  .hero-actions-bar,
+  .venue-action-buttons,
+  .dest-btn-group {
+    grid-template-columns: 1fr;
+  }
+
+  .wreath-crest-container {
+    width: 84px;
+    height: 84px;
+  }
+
+  .envelope-perspective {
+    max-width: 310px;
+    height: 270px;
+  }
+}
+
 
