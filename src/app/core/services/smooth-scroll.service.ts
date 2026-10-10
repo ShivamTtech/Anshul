@@ -12,6 +12,13 @@ export class SmoothScrollService {
   init() {
     if (typeof window === 'undefined') return;
 
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+
     gsap.registerPlugin(ScrollTrigger);
 
     try {
@@ -24,6 +31,8 @@ export class SmoothScrollService {
         touchMultiplier: 2.0
       });
 
+      this.lenis.scrollTo(0, { immediate: true });
+
       // Synchronize Lenis with GSAP ScrollTrigger
       this.lenis.on('scroll', ScrollTrigger.update);
 
@@ -34,6 +43,17 @@ export class SmoothScrollService {
       gsap.ticker.lagSmoothing(0);
     } catch (e) {
       console.warn('Smooth scroll fallback to native', e);
+    }
+  }
+
+  scrollToTop(immediate = true) {
+    if (this.lenis) {
+      this.lenis.scrollTo(0, { immediate });
+    }
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+      if (document.documentElement) document.documentElement.scrollTop = 0;
+      if (document.body) document.body.scrollTop = 0;
     }
   }
 

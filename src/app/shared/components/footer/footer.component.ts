@@ -33,8 +33,6 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
           <span class="sep">✦</span>
           <a href="#itinerary" (click)="scrollTo('#itinerary', $event)">Itinerary</a>
           <span class="sep">✦</span>
-          <a href="#venues" (click)="scrollTo('#venues', $event)">Venues</a>
-          <span class="sep">✦</span>
           <a href="#blessings" (click)="scrollTo('#blessings', $event)">Blessings</a>
         </div>
 

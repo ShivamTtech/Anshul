@@ -24,14 +24,51 @@ interface CountdownState {
   seconds: string;
 }
 
-type BotanicalKind = 'rose-petal' | 'marigold-petal' | 'sage-leaf' | 'gold-flake';
+interface RoseColorPalette {
+  primary: string;      // Deep velvety base/body
+  secondary: string;    // Rich radiant rose body
+  rim: string;          // Delicate highlight on rim
+  back: string;         // Matte underside tone when flipped in 3D
+}
+
+const ROSE_PALETTES: RoseColorPalette[] = [
+  // Deep Royal Velvet Rose (Indian Gulab)
+  {
+    primary: '#781020',
+    secondary: '#9E1C32',
+    rim: '#DE6075',
+    back: '#8A1E2E'
+  },
+  // Classic Bridal Crimson
+  {
+    primary: '#8C1526',
+    secondary: '#B5253D',
+    rim: '#E86E82',
+    back: '#9A2335'
+  },
+  // Soft Romantic Rose
+  {
+    primary: '#962035',
+    secondary: '#C23D57',
+    rim: '#F08B9C',
+    back: '#A83248'
+  },
+  // Heritage Burgundy Velvet
+  {
+    primary: '#600C19',
+    secondary: '#821627',
+    rim: '#C8445C',
+    back: '#6E1322'
+  }
+];
 
 class BotanicalParticle {
-  kind: BotanicalKind;
   x: number;
   y: number;
   z: number;
   size: number;
+  aspectRatio: number;
+  notchDepth: number;
   opacity: number;
   rotationZ: number;
   rotationY: number;
@@ -41,67 +78,44 @@ class BotanicalParticle {
   rotSpeed: number;
   swayFrequency: number;
   swayPhase: number;
-  color: string;
-  secondaryColor?: string;
+  palette: RoseColorPalette;
 
   constructor(canvasWidth: number, canvasHeight: number, startAtTop: boolean = false) {
-    const rand = Math.random();
-    if (rand < 0.42) {
-      this.kind = 'rose-petal';
-    } else if (rand < 0.68) {
-      this.kind = 'marigold-petal';
-    } else if (rand < 0.88) {
-      this.kind = 'sage-leaf';
-    } else {
-      this.kind = 'gold-flake';
-    }
-
-    this.z = Math.random() * 0.7 + 0.6;
+    this.z = Math.random() * 0.4 + 0.65; // depth scale 0.65 to 1.05
     this.x = Math.random() * canvasWidth;
-    this.y = startAtTop ? (Math.random() * -120) : (Math.random() * (canvasHeight + 100) - 100);
+    this.y = startAtTop ? -(Math.random() * 80 + 20) : Math.random() * (canvasHeight + 100) - 50;
 
-    if (this.kind === 'rose-petal') {
-      this.size = (Math.random() * 10 + 9) * this.z;
-      this.opacity = (Math.random() * 0.38 + 0.32) * (this.z * 0.95);
-      const roseColors = ['#9E2A3B', '#BA384D', '#D96576', '#E8909D', '#F4B8C1', '#781523'];
-      this.color = roseColors[Math.floor(Math.random() * roseColors.length)];
-      this.speedY = (Math.random() * 0.75 + 0.45) * this.z;
-    } else if (this.kind === 'marigold-petal') {
-      this.size = (Math.random() * 9 + 7) * this.z;
-      this.opacity = (Math.random() * 0.42 + 0.35) * (this.z * 0.95);
-      const marigoldColors = ['#F59E0B', '#FBBF24', '#D97706', '#FCD34D', '#EF4444'];
-      this.color = marigoldColors[Math.floor(Math.random() * marigoldColors.length)];
-      this.speedY = (Math.random() * 0.8 + 0.5) * this.z;
-    } else if (this.kind === 'sage-leaf') {
-      this.size = (Math.random() * 13 + 9) * this.z;
-      this.opacity = (Math.random() * 0.34 + 0.28) * (this.z * 0.95);
-      const leafColors = ['#6B8E62', '#7D9F74', '#55754C', '#8BAF82', '#A4C49B'];
-      this.color = leafColors[Math.floor(Math.random() * leafColors.length)];
-      this.secondaryColor = '#3D5537';
-      this.speedY = (Math.random() * 0.85 + 0.5) * this.z;
-    } else {
-      this.size = (Math.random() * 3.5 + 2) * this.z;
-      this.opacity = Math.random() * 0.6 + 0.4;
-      this.color = '#F5D061';
-      this.speedY = (Math.random() * 0.45 + 0.3) * this.z;
-    }
+    // Elegant realistic petal sizes: 11px to 17px scaled by depth
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const baseSize = isMobile ? (Math.random() * 4 + 10) : (Math.random() * 5 + 12);
+    this.size = baseSize * this.z;
+    this.aspectRatio = Math.random() * 0.22 + 0.88; // natural organic variety
+    this.notchDepth = Math.random() * 0.08 + 0.08;
 
+    // Soft translucent opacity (0.26 - 0.40) so website text and details remain 100% visible
+    this.opacity = (Math.random() * 0.14 + 0.26) * this.z;
+
+    this.palette = ROSE_PALETTES[Math.floor(Math.random() * ROSE_PALETTES.length)];
+
+    // Serene, realistic drifting aerodynamics
     this.rotationZ = Math.random() * Math.PI * 2;
     this.rotationY = Math.random() * Math.PI * 2;
-    this.rotSpeed = (Math.random() - 0.5) * 0.024;
-    this.flipSpeed = Math.random() * 0.038 + 0.016;
-    this.speedX = (Math.random() - 0.5) * 0.48;
-    this.swayFrequency = Math.random() * 0.012 + 0.006;
+    this.rotSpeed = (Math.random() - 0.5) * 0.014;
+    this.flipSpeed = Math.random() * 0.022 + 0.012;
+    this.speedY = (Math.random() * 0.3 + 0.45) * this.z; // gentle slow drift
+    this.speedX = (Math.random() - 0.5) * 0.32;
+    this.swayFrequency = Math.random() * 0.01 + 0.006;
     this.swayPhase = Math.random() * Math.PI * 2;
   }
 
   update(canvasWidth: number, canvasHeight: number, time: number) {
     this.y += this.speedY;
-    this.x += this.speedX + Math.sin(time * 1.8 + this.swayPhase + this.y * this.swayFrequency) * (0.75 * this.z);
+    // Ambient gentle air sway
+    this.x += this.speedX + Math.sin(time * 1.4 + this.swayPhase + this.y * this.swayFrequency) * (0.65 * this.z);
     this.rotationZ += this.rotSpeed;
     this.rotationY += this.flipSpeed;
 
-    if (this.y > canvasHeight + 40) {
+    if (this.y > canvasHeight + 50) {
       this.y = -40;
       this.x = Math.random() * canvasWidth;
     }
@@ -113,46 +127,59 @@ class BotanicalParticle {
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rotationZ);
 
-    const scaleX = Math.cos(this.rotationY);
-    ctx.scale(scaleX, 1);
+    // 3D flip illusion using cosine of Y rotation
+    const cosY = Math.cos(this.rotationY);
+    const isFront = cosY >= 0;
+    const scaleX = Math.max(Math.abs(cosY), 0.06);
+    ctx.scale(isFront ? scaleX : -scaleX, 1);
 
-    if (this.kind === 'rose-petal') {
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.moveTo(0, -this.size * 0.6);
-      ctx.bezierCurveTo(this.size * 0.65, -this.size * 0.6, this.size * 0.7, this.size * 0.5, 0, this.size * 0.6);
-      ctx.bezierCurveTo(-this.size * 0.7, this.size * 0.5, -this.size * 0.65, -this.size * 0.6, 0, -this.size * 0.6);
-      ctx.fill();
-    } else if (this.kind === 'marigold-petal') {
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.moveTo(0, -this.size * 0.75);
-      ctx.bezierCurveTo(this.size * 0.5, -this.size * 0.5, this.size * 0.6, this.size * 0.3, 0, this.size * 0.75);
-      ctx.bezierCurveTo(-this.size * 0.6, this.size * 0.3, -this.size * 0.5, -this.size * 0.5, 0, -this.size * 0.75);
-      ctx.fill();
-    } else if (this.kind === 'sage-leaf') {
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.moveTo(0, -this.size * 0.85);
-      ctx.quadraticCurveTo(this.size * 0.45, 0, 0, this.size * 0.85);
-      ctx.quadraticCurveTo(-this.size * 0.45, 0, 0, -this.size * 0.85);
-      ctx.fill();
+    const w = this.size * this.aspectRatio;
+    const h = this.size * 1.25;
 
-      if (this.secondaryColor) {
-        ctx.strokeStyle = this.secondaryColor;
-        ctx.globalAlpha = this.opacity * 0.5;
-        ctx.lineWidth = 0.8;
-        ctx.beginPath();
-        ctx.moveTo(0, -this.size * 0.7);
-        ctx.lineTo(0, this.size * 0.7);
-        ctx.stroke();
-      }
+    // Realistic botanical rose petal curve:
+    // Narrow pedicel base, voluptuous curved waist, delicate notched crown
+    ctx.beginPath();
+    ctx.moveTo(0, h * 0.52);
+    // Left flank curve
+    ctx.bezierCurveTo(-w * 0.72, h * 0.35, -w * 0.85, -h * 0.15, -w * 0.55, -h * 0.45);
+    // Left crown lobe to center cleft
+    ctx.bezierCurveTo(-w * 0.3, -h * 0.62, -w * 0.08, -h * (0.54 - this.notchDepth), 0, -h * (0.46 - this.notchDepth));
+    // Right crown lobe from center cleft
+    ctx.bezierCurveTo(w * 0.08, -h * (0.54 - this.notchDepth), w * 0.3, -h * 0.62, w * 0.55, -h * 0.45);
+    // Right flank curve back to base
+    ctx.bezierCurveTo(w * 0.85, -h * 0.15, w * 0.72, h * 0.35, 0, h * 0.52);
+    ctx.closePath();
+
+    // Dimensional velvet gradient fill
+    const grad = ctx.createRadialGradient(-w * 0.15, -h * 0.1, this.size * 0.1, 0, 0, this.size * 1.05);
+    if (isFront) {
+      grad.addColorStop(0, this.palette.secondary);
+      grad.addColorStop(0.65, this.palette.primary);
+      grad.addColorStop(1, this.palette.rim);
     } else {
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-      ctx.fill();
+      // Underside: softer, matte tone
+      grad.addColorStop(0, this.palette.back);
+      grad.addColorStop(0.7, this.palette.primary);
+      grad.addColorStop(1, this.palette.secondary);
     }
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Subtle curled edge highlight along top rim
+    ctx.beginPath();
+    ctx.moveTo(-w * 0.45, -h * 0.45);
+    ctx.bezierCurveTo(-w * 0.22, -h * 0.58, w * 0.22, -h * 0.58, w * 0.45, -h * 0.45);
+    ctx.strokeStyle = `rgba(255, 235, 240, ${isFront ? 0.35 : 0.18})`;
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+
+    // Delicate central crease line
+    ctx.beginPath();
+    ctx.moveTo(0, h * 0.48);
+    ctx.quadraticCurveTo(w * 0.05, 0, 0, -h * (0.4 - this.notchDepth));
+    ctx.strokeStyle = isFront ? 'rgba(60, 5, 15, 0.16)' : 'rgba(90, 15, 25, 0.12)';
+    ctx.lineWidth = 0.6;
+    ctx.stroke();
 
     ctx.restore();
   }
@@ -189,8 +216,7 @@ export class HomeComponent implements OnDestroy {
     { id: 'couple', num: '02', roman: 'II', title: 'The Couple', subtitle: 'Groom & Bride' },
     { id: 'ceremonies', num: '03', roman: 'III', title: 'Ceremonies', subtitle: 'Sacred Celebrations' },
     { id: 'itinerary', num: '04', roman: 'IV', title: 'Itinerary', subtitle: 'Vedic Rites' },
-    { id: 'venues', num: '05', roman: 'V', title: 'Venues', subtitle: 'Sacred Destinations' },
-    { id: 'blessings', num: '06', roman: 'VI', title: 'Blessings', subtitle: 'Heartfelt Wishes' }
+    { id: 'blessings', num: '05', roman: 'V', title: 'Blessings', subtitle: 'Heartfelt Wishes' }
   ];
 
   readonly activeChapterIndex = signal<number>(0);
@@ -267,6 +293,7 @@ export class HomeComponent implements OnDestroy {
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
 
+      this.smoothScroll.scrollToTop(true);
       this.startCountdown();
       this.initFloatingPetals();
       this.initScrollReveals();
@@ -279,9 +306,6 @@ export class HomeComponent implements OnDestroy {
     if (this.observer) this.observer.disconnect();
   }
 
-  // =========================================================================
-  // 1. ROYAL ENVELOPE OPENING CEREMONY (120 FPS FLUID MOTION)
-  // =========================================================================
   // =========================================================================
   // 1. ROYAL ENVELOPE OPENING CEREMONY (120 FPS FLUID MOTION)
   // =========================================================================
@@ -306,6 +330,7 @@ export class HomeComponent implements OnDestroy {
   dismissEnvelope() {
     this.audioService.play();
     this.uiState.closeEnvelope();
+    this.smoothScroll.scrollToTop(true);
   }
 
   // =========================================================================
@@ -333,7 +358,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   // =========================================================================
-  // 3. FLOATING PETALS & BOTANICAL LEAF RAIN ENGINE (120 FPS Simulation)
+  // 3. MINIMAL FLOATING ROSE PETALS (Sacred & Ambient, Non-Intrusive)
   // =========================================================================
   private initFloatingPetals() {
     if (!this.petalCanvasRef) return;
@@ -350,11 +375,13 @@ export class HomeComponent implements OnDestroy {
 
     updateSize();
 
-    // Spawn rich celebratory canopy of 75 botanical petals and leaves
+    // Spawn minimal, very sparse canopy of authentic rose petals (never obscures text)
     const w = window.innerWidth;
     const h = window.innerHeight;
+    const isMobile = w < 768;
+    const petalCount = isMobile ? 10 : 16;
     this.botanicalParticles = [];
-    for (let i = 0; i < 75; i++) {
+    for (let i = 0; i < petalCount; i++) {
       this.botanicalParticles.push(new BotanicalParticle(w, h));
     }
 
@@ -395,11 +422,15 @@ export class HomeComponent implements OnDestroy {
     if (!this.petalCanvasRef) return;
     const w = window.innerWidth;
     const h = window.innerHeight;
-    for (let i = 0; i < 45; i++) {
+    const isMobile = w < 768;
+    const extraPetals = isMobile ? 4 : 6;
+    const maxPetals = isMobile ? 14 : 20;
+
+    for (let i = 0; i < extraPetals; i++) {
       this.botanicalParticles.push(new BotanicalParticle(w, h, true));
     }
-    if (this.botanicalParticles.length > 120) {
-      this.botanicalParticles.splice(0, 45);
+    if (this.botanicalParticles.length > maxPetals) {
+      this.botanicalParticles.splice(0, this.botanicalParticles.length - maxPetals);
     }
   }
 

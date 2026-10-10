@@ -173,13 +173,7 @@ export class WeddingDataService {
       desc: 'An exquisite culinary feast celebrating the union of both families with rich Awadhi & Purvanchal delicacies.',
       icon: '🍽️'
     },
-    {
-      time: '11:00 PM',
-      title: 'Kanyadaan & Sacred Pheras',
-      subtitle: 'Vedic Rites Around The Agni',
-      desc: 'The seven holy vows around the sacred sacrificial fire officiated by learned priests under the flower-decked Mandap.',
-      icon: '🔥'
-    },
+
     {
       time: 'Dawn',
       title: 'Vidai Ceremony',

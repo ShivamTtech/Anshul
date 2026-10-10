@@ -442,29 +442,44 @@
   to { opacity: 1; transform: translate(-50%, 0); }
 }
 
-/* ---------- 3. Physical Card Modal ---------- */
+/* ---------- 3. Physical Card Modal (Ultra Clean & Simple) ---------- */
 .physical-card-modal {
-  background: rgba(40, 30, 25, 0.75);
-  backdrop-filter: blur(12px);
+  position: fixed;
+  inset: 0;
   z-index: 1500;
+  background: rgba(18, 12, 10, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  animation: modalFadeIn 0.25s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .modal-card-box {
   background: #FAF7F2;
-  border: 2px solid var(--border-gold-bright);
-  border-radius: 20px;
-  max-width: 680px;
+  border: 1px solid var(--border-gold-bright);
+  border-radius: 18px;
+  max-width: 500px;
   width: 100%;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
-  animation: modalScaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
-@keyframes modalScaleUp {
-  from { transform: scale(0.92); opacity: 0; }
+@keyframes modalPop {
+  from { transform: scale(0.96); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
@@ -472,26 +487,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
+  padding: 12px 18px;
   border-bottom: 1px solid var(--border-warm);
-  background: #F5EFEB;
+  background: #FAF7F2;
+  flex-shrink: 0;
 }
 
-.modal-title-group h3 {
-  font-size: 1.15rem;
-  letter-spacing: 0.1em;
-  margin-top: 4px;
-}
-
-.badge-gold {
-  font-family: var(--font-cinzel);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  background: var(--gold-subtle);
-  color: var(--gold-deep);
-  padding: 2px 8px;
-  border-radius: 4px;
-  border: 1px solid var(--border-gold);
+.modal-card-title {
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--crimson-wine, #781D2C);
+  margin: 0;
+  line-height: 1.2;
 }
 
 .btn-close-modal {
@@ -499,41 +508,105 @@
   height: 32px;
   border-radius: 50%;
   border: 1px solid var(--border-warm);
-  background: white;
+  background: #FFFFFF;
   cursor: pointer;
-  font-size: 1rem;
-  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: var(--crimson-wine, #781D2C);
   transition: all 0.2s ease;
+  padding: 0;
+  flex-shrink: 0;
 }
 
 .btn-close-modal:hover {
-  background: var(--crimson-wine);
-  color: white;
+  background: var(--crimson-wine, #781D2C);
+  color: #FFFFFF;
+  border-color: var(--crimson-wine, #781D2C);
 }
 
 .modal-card-body {
   overflow-y: auto;
-  padding: 20px;
+  padding: 16px;
   display: flex;
   justify-content: center;
-  background: #ECE5DC;
+  align-items: flex-start;
+  background: #F4EFE6;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
 }
 
 .printed-card-image {
+  display: block;
   max-width: 100%;
+  width: auto;
   height: auto;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(58, 50, 45, 0.25);
+  box-shadow: 0 8px 24px rgba(58, 50, 45, 0.18);
   border: 1px solid var(--border-gold);
 }
 
 .modal-card-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 14px 24px;
+  justify-content: center;
+  padding: 12px 18px;
   border-top: 1px solid var(--border-warm);
   background: #FAF7F2;
+  flex-shrink: 0;
+}
+
+.btn-royal-close {
+  min-width: 140px;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  background: var(--crimson-wine, #781D2C);
+  border: 1px solid var(--gold-warm, #C5A059);
+  color: #FFFFFF;
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 12px rgba(120, 29, 44, 0.2);
+}
+
+.btn-royal-close:hover {
+  background: var(--crimson-deep, #6A0D1E);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(120, 29, 44, 0.3);
+}
+
+.btn-royal-close:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .physical-card-modal {
+    padding: 12px;
+  }
+  .modal-card-box {
+    max-height: 94vh;
+  }
+  .modal-card-header {
+    padding: 10px 14px;
+  }
+  .modal-card-title {
+    font-size: 0.88rem;
+  }
+  .modal-card-body {
+    padding: 12px;
+  }
+  .modal-card-footer {
+    padding: 10px 14px;
+  }
+  .btn-royal-close {
+    width: 100%;
+    padding: 10px 18px;
+  }
 }
 
 /* ---------- 4. Story Chapter Rail (Desktop) ---------- */
@@ -834,19 +907,53 @@
 }
 
 .sacred-ganesha-badge {
+  margin-top: 14px;
   margin-bottom: 20px;
 }
 
-.ganesha-icon-lineart {
-  width: 44px;
-  height: 44px;
-  margin: 0 auto 8px;
-  color: var(--gold-warm);
+.cute-ganesha-wrapper {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.ganesha-svg {
+.ganesha-halo-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(197, 160, 89, 0.6);
+  box-shadow: 0 0 18px rgba(245, 208, 97, 0.28);
+  animation: haloAuspiciousPulse 7s ease-in-out infinite;
+}
+
+.cute-ganesha-img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2.5px solid var(--border-gold, #C5A059);
+  box-shadow: 0 8px 24px rgba(120, 29, 44, 0.16), 0 2px 8px rgba(197, 160, 89, 0.3);
+  background: #FFFDF9;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cute-ganesha-wrapper:hover .cute-ganesha-img {
+  transform: scale(1.05);
+}
+
+@keyframes haloAuspiciousPulse {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.04);
+    opacity: 1;
+  }
 }
 
 .shloka-main {
@@ -2110,29 +2217,97 @@
   border-color: var(--crimson-wine);
 }
 
-/* Panel B: Wedding Showcase */
+/* Panel B: Wedding Showcase (Elevated Royal Heirloom Card) */
+.panel-wedding-main {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FDFBF7 45%, #FAF5EB 100%);
+  border: 2px solid rgba(212, 175, 55, 0.65);
+  border-radius: 22px;
+  padding: clamp(34px, 5.5vw, 50px) clamp(20px, 4vw, 36px);
+  box-shadow: 
+    0 18px 44px rgba(58, 50, 45, 0.08), 
+    0 4px 16px rgba(212, 175, 55, 0.15),
+    inset 0 0 50px rgba(255, 255, 255, 0.85);
+  position: relative;
+}
+
+.panel-wedding-main::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px dashed rgba(197, 160, 89, 0.35);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
 .wedding-ceremony-showcase {
   text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Luxury Wedding Rings Vector Crest */
+.luxury-wedding-rings-crest {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  width: 86px;
+  height: 86px;
+  position: relative;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 248, 225, 0.95) 0%, rgba(245, 235, 215, 0.45) 65%, transparent 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.18);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.luxury-wedding-rings-crest:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 8px 28px rgba(212, 175, 55, 0.28);
+}
+
+.rings-crest-svg {
+  width: 78px;
+  height: 78px;
+  display: block;
+}
+
+.wedding-sanskar-tag {
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  color: var(--gold-deep);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
 }
 
 .grand-wedding-title {
-  font-size: clamp(2.8rem, 5.5vw, 4rem);
+  font-size: clamp(3.2rem, 6.5vw, 4.5rem);
   font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 8px;
+  line-height: 1.08;
+  margin-bottom: 4px;
+}
+
+.wedding-blessing-verse {
+  font-size: 0.96rem;
+  color: var(--text-muted);
+  font-style: italic;
+  max-width: 500px;
+  margin: 0 auto 18px;
+  line-height: 1.55;
 }
 
 .crimson-ribbon-badge {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  background: linear-gradient(135deg, var(--crimson-deep) 0%, var(--crimson-wine) 100%);
+  background: linear-gradient(135deg, #781523 0%, #9E2A3B 50%, #68101E 100%);
   color: white;
-  padding: 9px 28px;
+  padding: 10px 30px;
   border-radius: 9999px;
-  border: 2px solid var(--gold-bright);
-  box-shadow: 0 6px 20px rgba(106, 13, 30, 0.25);
-  margin-bottom: 16px;
+  border: 1.5px solid #F3DA8E;
+  box-shadow: 0 8px 24px rgba(120, 29, 44, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  margin-bottom: 18px;
 }
 
 .ribbon-text {
@@ -2147,21 +2322,91 @@
   font-size: 0.75rem;
 }
 
-.baraat-departure-banner {
-  background: rgba(120, 29, 44, 0.06);
-  border: 1px dashed var(--border-gold);
-  border-radius: 12px;
-  padding: 12px 20px;
-  max-width: 540px;
-  margin: 12px auto 20px;
+/* Event Icon Vector Crests (Replacing cartoon emojis) */
+.event-icon-crest {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: rgba(245, 235, 215, 0.55);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.12);
+  transition: transform 0.3s ease;
 }
 
-.baraat-icon {
-  font-size: 1.2rem;
+.event-icon-crest:hover {
+  transform: translateY(-2px) scale(1.06);
+}
+
+.event-icon-crest svg {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+/* Shehnai Crest in Baraat Banner */
+.shehnai-icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FAF4E6 0%, #F5E8CB 100%);
+  border: 1px solid var(--border-gold);
+  color: var(--crimson-wine);
+  box-shadow: 0 3px 10px rgba(120, 29, 44, 0.12);
+}
+
+.shehnai-svg {
+  width: 22px;
+  height: 22px;
+}
+
+.baraat-departure-banner {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(254, 250, 242, 0.95) 100%);
+  border: 1px solid rgba(197, 160, 89, 0.45);
+  border-left: 4px solid var(--crimson-wine);
+  border-radius: 14px;
+  padding: 14px 22px;
+  max-width: 560px;
+  margin: 16px auto 24px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 16px;
+  box-shadow: 0 6px 20px rgba(58, 50, 45, 0.05);
+}
+
+.baraat-banner-content {
+  flex: 1;
+}
+
+.baraat-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: var(--crimson-wine);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.baraat-text {
+  font-size: 0.94rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Button Inline SVGs */
+.btn-svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: currentColor;
 }
 
 .horizontal-filigree-divider {
@@ -2197,31 +2442,36 @@
 /* ---------- 6. Itinerary & Rituals Section ---------- */
 .program-tab-switch {
   display: inline-flex;
-  gap: 10px;
+  gap: 6px;
   padding: 4px;
-  background: rgba(197, 160, 89, 0.12);
+  background: rgba(246, 238, 227, 0.85);
   border: 1px solid var(--border-gold);
   border-radius: 9999px;
   margin-top: 16px;
+  box-shadow: inset 0 1px 3px rgba(58, 50, 45, 0.05);
 }
 
 .tab-btn {
-  padding: 8px 20px;
+  padding: 8px 24px;
   border-radius: 9999px;
   border: none;
   background: transparent;
   color: var(--text-secondary);
   font-size: 0.72rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.14em;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tab-btn.active {
   background: var(--crimson-wine);
-  color: white;
-  box-shadow: 0 4px 15px rgba(120, 29, 44, 0.2);
+  color: #FFFDF9;
+  box-shadow: 0 4px 15px rgba(120, 29, 44, 0.22);
 }
 
 /* Timeline Cards */
@@ -2799,12 +3049,17 @@
   }
 
   .sacred-ganesha-badge {
-    margin: 0 auto 16px;
+    margin: 8px auto 16px;
   }
 
-  .ganesha-svg {
-    width: 28px;
-    height: 28px;
+  .cute-ganesha-wrapper {
+    width: 104px;
+    height: 104px;
+    margin: 0 auto 10px;
+  }
+
+  .ganesha-halo-ring {
+    inset: -5px;
   }
 
   .shloka-main {
@@ -3156,8 +3411,29 @@
     margin-bottom: 10px;
   }
 
+  .luxury-wedding-rings-crest {
+    width: 74px;
+    height: 74px;
+    margin-bottom: 10px;
+  }
+
+  .rings-crest-svg {
+    width: 66px;
+    height: 66px;
+  }
+
+  .wedding-sanskar-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+  }
+
+  .wedding-blessing-verse {
+    font-size: 0.88rem;
+    margin-bottom: 14px;
+  }
+
   .grand-wedding-title {
-    font-size: clamp(2.2rem, 7vw, 2.9rem);
+    font-size: clamp(2.4rem, 7.5vw, 3.2rem);
   }
 
   .crimson-ribbon-badge {
@@ -3218,16 +3494,22 @@
   /* 7. Chapter 04: Itinerary & Rituals */
   .program-tab-switch {
     width: 100%;
+    max-width: 320px;
+    margin: 14px auto 0;
     display: flex;
     justify-content: center;
-    margin-top: 12px;
+    padding: 3px;
+    gap: 4px;
+    border-radius: 9999px;
   }
 
   .tab-btn {
     flex: 1;
-    padding: 7px 10px;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
+    padding: 8px 12px;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    text-align: center;
   }
 
   .timeline-container {
