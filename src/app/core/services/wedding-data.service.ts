@@ -322,4 +322,60 @@ export class WeddingDataService {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   }
+
+  // =========================================================================
+  // 10. DOWNLOAD ALL WEDDING EVENTS AT ONCE (.ics)
+  // =========================================================================
+  downloadAllCeremoniesIcs() {
+    if (typeof window === 'undefined') return;
+    const eventsIcs = this.ceremonies.map(c => [
+      'BEGIN:VEVENT',
+      `SUMMARY:Anshul & Vidisha — ${c.title}`,
+      `DESCRIPTION:${c.description}`,
+      `LOCATION:${c.venueAddress}`,
+      `DTSTART:${c.dtStart}`,
+      `DTEND:${c.dtEnd}`,
+      'STATUS:CONFIRMED',
+      'END:VEVENT'
+    ].join('\r\n')).join('\r\n');
+
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Anshul Verma & Vidisha Singh Wedding//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      eventsIcs,
+      'END:VCALENDAR'
+    ].join('\r\n');
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'Anshul_Vidisha_Wedding_Full_Schedule.ics');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
+  // =========================================================================
+  // 11. WHATSAPP RSVP & SHARE HELPERS
+  // =========================================================================
+  generateWhatsAppRsvpUrl(name: string, attendance: string, count: string, note?: string): string {
+    const text = `Namaste! 🙏\n\nI am delighted to confirm our presence for *Anshul Verma & Vidisha Singh's Royal Wedding Celebrations*.\n\n👤 *Guest Name:* ${name || 'Family Guest'}\n✨ *Attending:* ${attendance || 'All Ceremonies'}\n👥 *Total Guests:* ${count || '2'}${note ? `\n💬 *Note:* ${note}` : ''}\n\nLooking forward to celebrating with the Verma & Singh families! 🎉`;
+    return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  }
+
+  generateWhatsAppShareUrl(): string {
+    const text = `🌸 *Wedding Invitation* 🌸\n\nYou are cordially invited to celebrate the sacred wedding of\n*Anshul Verma & Vidisha Singh*\n\n📅 16th – 21st November 2026\n📍 Lucknow & Prayagraj\n\nView the royal digital invitation card here:\n${typeof window !== 'undefined' ? window.location.href : 'http://localhost:4200'}`;
+    return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  }
+
+  readonly weatherAndAttire = {
+    season: 'Autumn / Early Winter in Awadh & Sangam',
+    forecast: '18°C – 28°C (Pleasant days, crisp breezy evenings)',
+    attireAdvice: 'Traditional festive Indian attire. A light festive shawl or coat is recommended for outdoor evening mandap ceremonies in Prayagraj.'
+  };
 }
