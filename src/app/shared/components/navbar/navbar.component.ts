@@ -394,6 +394,13 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
     }
 
     @media (max-width: 768px) {
+      .royal-hud-wrapper {
+        top: 10px;
+        width: calc(100% - 24px);
+      }
+      .royal-hud-inner {
+        padding: 6px 14px;
+      }
       .hud-nav-links { display: none; }
       .mobile-toggle { display: flex; }
       .mobile-overlay { display: block; }

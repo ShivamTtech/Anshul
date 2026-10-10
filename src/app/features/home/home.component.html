@@ -94,6 +94,9 @@
      ========================================================================= -->
 <canvas #petalCanvas id="petal-canvas" class="petal-canvas"></canvas>
 
+<!-- SVG filter definitions removed — using clean elegant photo frames -->
+
+
 <!-- Toast Notification -->
 <div *ngIf="copiedToast()" class="toast-notification">
   <span>{{ copiedToast() }}</span>
@@ -178,8 +181,10 @@
        ======================================================================= -->
   <section id="hero" class="folio-card hero-section reveal-elem">
     
-    <!-- Ambient Photographic Background Layer -->
-    <div class="ambient-photo-canvas hero-ambient-bg" aria-hidden="true"></div>
+    <!-- Sober Minimal Ambient Couple Backdrop in Hero -->
+    <div class="hero-ambient-couple-bg" aria-hidden="true">
+      <div class="hero-bg-overlay"></div>
+    </div>
 
     <!-- Botanical Watercolor Corners -->
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tl" />
@@ -292,15 +297,10 @@
   </section>
 
   <!-- =======================================================================
-       CHAPTER 02: THE COUPLE (SOBER MINIMAL EDITORIAL WITH AMBIENT BG)
+       CHAPTER 02: THE COUPLE (REGAL EDITORIAL UNION SHOWCASE)
        ======================================================================= -->
   <section id="couple" class="folio-card couple-section reveal-elem">
     
-    <!-- Ambient Photographic Canvas (Smooth Crossfades Between Moments) -->
-    <div class="ambient-photo-canvas couple-ambient-bg" 
-         [style.background-image]="'url(' + activeBgMoment().src + ')'" 
-         aria-hidden="true"></div>
-
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-bl" />
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-br" />
     
@@ -309,111 +309,141 @@
     <div class="section-header-box">
       <span class="section-tag font-cinzel">CHAPTER 02</span>
       <h2 class="section-title font-cinzel text-crimson">THE SACRED UNION</h2>
+      <p class="section-subtitle font-editorial">Two souls destined by divine grace, stepping forward into eternal companionship</p>
       <div class="ornate-divider"><span class="divider-gem">✦</span></div>
     </div>
 
-    <!-- Sober Minimal Editorial Couple Profiles -->
-    <div class="couple-editorial-layout">
+    <!-- Grand Editorial Union Showcase (Zero Text-Over-Image Overlap) -->
+    <div class="couple-grand-showcase">
       
-      <!-- Groom Profile (Pure Typographic Luxury) -->
-      <div class="person-editorial groom-editorial">
-        <span class="person-role font-cinzel">✤ GROOM ✤</span>
-        
-        <h3 class="person-name font-calligraphy text-crimson">
-          {{ weddingData.groom.name }}
-        </h3>
-        
-        <p class="person-parentage font-editorial">
-          {{ weddingData.groom.parentage }}
-        </p>
-
-        <div class="person-city-tag font-cinzel">
-          <span>Him City, Lucknow</span>
-        </div>
-
-        <p class="person-bio font-editorial">
-          “Embracing life with filial reverence, wisdom, and steadfast devotion to family values.”
-        </p>
-      </div>
-
-      <!-- Center Minimal Medallion Portal -->
-      <div class="union-medallion-center">
-        <div class="portal-halo-ring">
-          <svg viewBox="0 0 100 100" class="halo-svg" width="104" height="104">
-            <circle cx="50" cy="50" r="46" fill="none" stroke="var(--gold-warm)" stroke-width="1.2" stroke-dasharray="3 3"/>
-            <circle cx="50" cy="50" r="40" fill="none" stroke="var(--crimson-wine)" stroke-width="0.8"/>
-          </svg>
-          <div class="portal-initials font-cinzel-deco">A &amp; V</div>
-        </div>
-        
-        <div class="knot-shloka">
-          <p class="font-editorial shloka-sanskrit">
-            माङ्गल्यं तन्तुनानेन जगन्मङ्गलकारिणी।<br>
-            कण्ठे बध्नामि सुभगे सञ्जीव शरदः शतम्॥
+      <!-- Groom Presentation Card -->
+      <div class="person-presentation groom-presentation">
+        <div class="person-presentation-inner">
+          <span class="person-role-badge font-cinzel">✤ GROOM ✤</span>
+          
+          <h3 class="person-name font-calligraphy text-crimson">
+            {{ weddingData.groom.name }}
+          </h3>
+          
+          <p class="person-parentage font-editorial">
+            {{ weddingData.groom.parentage }}
           </p>
-          <span class="shloka-meaning font-editorial">
-            “With this sacred thread of auspiciousness, our souls unite for a hundred blissful seasons.”
-          </span>
+
+          <div class="person-city-tag font-cinzel">
+            <span class="city-icon">📍</span>
+            <span>Him City, Lucknow</span>
+          </div>
+
+          <div class="person-filigree-flourish">❧ ✦ ☙</div>
+
+          <p class="person-bio font-editorial">
+            “Embracing life with filial reverence, wisdom, and steadfast devotion to family values.”
+          </p>
         </div>
       </div>
 
-      <!-- Bride Profile (Pure Typographic Luxury) -->
-      <div class="person-editorial bride-editorial">
-        <span class="person-role font-cinzel">✤ BRIDE ✤</span>
-        
-        <h3 class="person-name font-calligraphy text-crimson">
-          {{ weddingData.bride.name }}
-        </h3>
-        
-        <p class="person-parentage font-editorial">
-          {{ weddingData.bride.parentage }}
-        </p>
+      <!-- Sober Minimal Luxury Couple Photo Frame -->
+      <div class="couple-portrait-monument">
+        <div class="modern-photo-card portrait-mount" 
+             (click)="openPhotoLightbox(couplePortrait)" 
+             title="Click to view full portrait"
+             role="button"
+             tabindex="0"
+             (keydown.enter)="openPhotoLightbox(couplePortrait)">
+          
+          <!-- Ambient Glow Behind Image (Apple / Modern Luxury style) -->
+          <div class="photo-ambient-backdrop" [style.background-image]="'url(' + couplePortrait.src + ')'" aria-hidden="true"></div>
 
-        <div class="person-city-tag font-cinzel">
-          <span>Prayagraj, Uttar Pradesh</span>
+          <div class="photo-card-inner">
+            <div class="photo-media portrait-media">
+              <img [src]="couplePortrait.src" 
+                   [alt]="couplePortrait.title" 
+                   class="couple-main-img" 
+                   loading="eager" />
+              <div class="photo-hover-badge">
+                <span class="hint-icon">🔍</span>
+                <span class="font-cinzel">View Full</span>
+              </div>
+            </div>
+
+            <div class="photo-caption-clean">
+              <h4 class="caption-names font-calligraphy text-crimson">Anshul &amp; Vidisha</h4>
+              <p class="caption-tag font-cinzel">UNITED IN SACRED MATRIMONY</p>
+              <span class="caption-date font-editorial">20th November 2026 · Prayagraj</span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <p class="person-bio font-editorial">
-          “Adorned with gentle grace, luminous warmth, and eternal devotion to sacred traditions.”
-        </p>
+      <!-- Bride Presentation Card -->
+      <div class="person-presentation bride-presentation">
+        <div class="person-presentation-inner">
+          <span class="person-role-badge font-cinzel">✤ BRIDE ✤</span>
+          
+          <h3 class="person-name font-calligraphy text-crimson">
+            {{ weddingData.bride.name }}
+          </h3>
+          
+          <p class="person-parentage font-editorial">
+            {{ weddingData.bride.parentage }}
+          </p>
+
+          <div class="person-city-tag font-cinzel">
+            <span class="city-icon">📍</span>
+            <span>Prayagraj, Uttar Pradesh</span>
+          </div>
+
+          <!-- Clean Elegant Bride Cameo Portrait -->
+          <div class="bride-cameo-clean" 
+               (click)="openPhotoLightbox(bridePortrait)" 
+               title="Click to view bride portrait"
+               role="button"
+               tabindex="0"
+               (keydown.enter)="openPhotoLightbox(bridePortrait)">
+            <div class="cameo-photo-wrap">
+              <img [src]="bridePortrait.src" [alt]="bridePortrait.title" class="cameo-bride-img" loading="lazy" />
+              <div class="cameo-hover-hint">🔍</div>
+            </div>
+            <span class="cameo-label font-cinzel">VIDISHA · BRIDE</span>
+          </div>
+
+          <div class="person-filigree-flourish">❧ ✦ ☙</div>
+
+          <p class="person-bio font-editorial">
+            “Adorned with gentle grace, luminous warmth, and eternal devotion to sacred traditions.”
+          </p>
+        </div>
       </div>
 
     </div>
 
-    <!-- Ambient Moments In Motion (Sober Minimal Background Selector) -->
-    <div class="ambient-moments-navigator">
-      <div class="nav-eyebrow font-cinzel">
-        <span>✤ GLIMPSES IN TIME · AMBIENT BACKDROP ✤</span>
+    <!-- Sacred Vedic Shloka Ribbon Below Profiles (Zero Overlap) -->
+    <div class="union-shloka-banner">
+      <div class="banner-monogram-circle">
+        <svg viewBox="0 0 100 100" class="monogram-halo-svg" width="68" height="68">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="var(--gold-warm)" stroke-width="1.2" stroke-dasharray="3 3"/>
+          <circle cx="50" cy="50" r="41" fill="none" stroke="var(--crimson-wine)" stroke-width="0.8"/>
+        </svg>
+        <div class="monogram-initials font-cinzel-deco">A &amp; V</div>
       </div>
 
-      <div class="moments-pill-strip">
-        <button *ngFor="let moment of coupleMoments; let idx = index" 
-                type="button" 
-                class="ambient-pill-btn" 
-                [class.active]="activeBgMomentIndex() === idx"
-                (click)="setActiveBgMoment(idx)"
-                [attr.aria-label]="moment.title">
-          <span class="pill-dot">✦</span>
-          <span class="pill-name font-cinzel">{{ moment.title }}</span>
-        </button>
-      </div>
-
-      <div class="active-moment-caption">
-        <p class="caption-sub font-editorial">“{{ activeBgMoment().subtitle }}”</p>
-        <button type="button" class="btn-expand-moment" (click)="openPhotoLightbox(activeBgMoment())">
-          <span>View High-Res Lightbox ➔</span>
-        </button>
+      <div class="banner-verse-box">
+        <p class="font-editorial shloka-sanskrit">
+          माङ्गल्यं तन्तुनानेन जगन्मङ्गलकारिणी।<br>
+          कण्ठे बध्नामि सुभगे सञ्जीव शरदः शतम्॥
+        </p>
+        <p class="shloka-meaning font-editorial">
+          “With this sacred thread of auspiciousness, our souls unite for a hundred blissful seasons.”
+        </p>
       </div>
     </div>
+
   </section>
 
   <!-- =======================================================================
        CHAPTER 03: SACRED CEREMONIES (MATCHING PHYSICAL CARD PANELS)
        ======================================================================= -->
   <section id="ceremonies" class="folio-card ceremonies-section reveal-elem">
-    
-    <!-- Ambient Photographic Background Layer -->
-    <div class="ambient-photo-canvas ceremonies-ambient-bg" aria-hidden="true"></div>
 
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tl" />
     <img src="assets/images/floral-bouquet.jpg" alt="Botanical Roses" class="corner-flora corner-flora-tr" />
@@ -487,6 +517,56 @@
 
     </div>
 
+    <!-- PANEL: THE SACRED RING CEREMONY (CRAFTED BURNT-EDGE HEIRLOOM · ZERO TEXT OVERLAP) -->
+    <div class="card-panel-traditional panel-ring-feature">
+      <div class="ring-feature-grid">
+        
+        <!-- Modern Elegant Ring Ceremony Photo Showcase -->
+        <div class="modern-photo-card landscape-mount" 
+             (click)="openPhotoLightbox(ringCeremonyPhoto)" 
+             title="Click to view full photo in high resolution"
+             role="button"
+             tabindex="0"
+             (keydown.enter)="openPhotoLightbox(ringCeremonyPhoto)">
+          
+          <div class="photo-ambient-backdrop" [style.background-image]="'url(' + ringCeremonyPhoto.src + ')'" aria-hidden="true"></div>
+
+          <div class="photo-card-inner">
+            <div class="photo-media landscape-media">
+              <img [src]="ringCeremonyPhoto.src" 
+                   [alt]="ringCeremonyPhoto.title" 
+                   class="ring-ceremony-img" 
+                   loading="lazy" />
+              <div class="photo-hover-badge">
+                <span class="hint-icon">🔍</span>
+                <span class="font-cinzel">View High-Res</span>
+              </div>
+            </div>
+
+            <div class="photo-caption-clean">
+              <span class="caption-tag font-cinzel text-crimson">✤ SACRED PROMISE · SAGAI ✤</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ceremony Details Box (Sitting side-by-side with photo, ZERO TEXT OVERLAP) -->
+        <div class="ring-details-box">
+          <div class="event-icon-badge">💍</div>
+          <span class="section-tag font-cinzel">SAGAI &amp; ENGAGEMENT</span>
+          <h3 class="traditional-event-title font-calligraphy text-crimson">The Ring Ceremony</h3>
+          <p class="ring-sacred-subtitle font-cinzel">A SACRED PLEDGE OF COMPANIONSHIP</p>
+          <div class="ornate-divider"><span class="divider-gem">✦</span></div>
+          <p class="ring-prose font-editorial">
+            With the exchange of sacred rings, two souls pledge eternal companionship, blessed by elder prayers, cherished family rituals, and the timeless fragrance of unconditional love.
+          </p>
+          <div class="ring-blessing-quote font-editorial">
+            “Two hearts united in faith, devotion, and shared dreams for a lifetime of togetherness.”
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- PANEL B: WEDDING & VIDAI (PRAYAGRAJ) -->
     <div class="card-panel-traditional panel-wedding-main">
       
@@ -544,6 +624,43 @@
 
       </div>
 
+    </div>
+
+    <!-- HEIRLOOM KEEPSAKE SCRAPBOOK ALBUM (CRAFTED BURNT-EDGE PHOTOGRAPHS) -->
+    <!-- CHERISHED MOMENTS — MODERN SOBER MINIMAL GALLERY -->
+    <div class="card-panel-traditional panel-modern-gallery">
+      <div class="gallery-header">
+        <span class="section-tag font-cinzel">✤ CHERISHED MOMENTS ✤</span>
+        <h3 class="gallery-title font-calligraphy text-crimson">Moments in Time</h3>
+        <p class="gallery-subtitle font-editorial">Heartfelt celebrations and joyous memories · Lucknow &amp; Prayagraj</p>
+        <div class="ornate-divider"><span class="divider-gem">✦</span></div>
+      </div>
+
+      <div class="modern-moments-grid">
+        <div *ngFor="let moment of heirloomMoments; let i = index" 
+             class="modern-gallery-card" 
+             (click)="openPhotoLightbox(moment.photo)"
+             role="button"
+             tabindex="0"
+             (keydown.enter)="openPhotoLightbox(moment.photo)"
+             [title]="'Click to view ' + moment.photo.title">
+          
+          <div class="gallery-card-inner">
+            <div class="gallery-media-wrap">
+              <img [src]="moment.photo.src" [alt]="moment.photo.title" class="gallery-photo-img" loading="lazy" />
+              <div class="gallery-hover-overlay">
+                <span class="hint-icon">🔍</span>
+                <span class="font-cinzel hover-txt">View Full</span>
+              </div>
+            </div>
+
+            <div class="gallery-caption-clean">
+              <span class="gallery-tag font-cinzel">{{ moment.tag }}</span>
+              <p class="gallery-desc font-editorial">“{{ moment.caption }}”</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </section>

@@ -24,7 +24,7 @@ interface CountdownState {
   seconds: string;
 }
 
-type BotanicalKind = 'rose-petal' | 'sage-leaf' | 'gold-flake';
+type BotanicalKind = 'rose-petal' | 'marigold-petal' | 'sage-leaf' | 'gold-flake';
 
 class BotanicalParticle {
   kind: BotanicalKind;
@@ -46,9 +46,11 @@ class BotanicalParticle {
 
   constructor(canvasWidth: number, canvasHeight: number, startAtTop: boolean = false) {
     const rand = Math.random();
-    if (rand < 0.5) {
+    if (rand < 0.42) {
       this.kind = 'rose-petal';
-    } else if (rand < 0.85) {
+    } else if (rand < 0.68) {
+      this.kind = 'marigold-petal';
+    } else if (rand < 0.88) {
       this.kind = 'sage-leaf';
     } else {
       this.kind = 'gold-flake';
@@ -59,42 +61,48 @@ class BotanicalParticle {
     this.y = startAtTop ? (Math.random() * -120) : (Math.random() * (canvasHeight + 100) - 100);
 
     if (this.kind === 'rose-petal') {
-      this.size = (Math.random() * 10 + 8) * this.z;
-      this.opacity = (Math.random() * 0.35 + 0.28) * (this.z * 0.95);
-      const roseColors = ['#E8A5AC', '#F2C2C6', '#DDA0A7', '#D4AF37', '#E5C068', '#C98A93', '#F9E2E5'];
+      this.size = (Math.random() * 10 + 9) * this.z;
+      this.opacity = (Math.random() * 0.38 + 0.32) * (this.z * 0.95);
+      const roseColors = ['#9E2A3B', '#BA384D', '#D96576', '#E8909D', '#F4B8C1', '#781523'];
       this.color = roseColors[Math.floor(Math.random() * roseColors.length)];
-      this.speedY = (Math.random() * 0.7 + 0.45) * this.z;
-    } else if (this.kind === 'sage-leaf') {
-      this.size = (Math.random() * 12 + 9) * this.z;
-      this.opacity = (Math.random() * 0.32 + 0.26) * (this.z * 0.95);
-      const leafColors = ['#8FA489', '#7D9577', '#A3B89D', '#6D8568', '#B7C9B2'];
-      this.color = leafColors[Math.floor(Math.random() * leafColors.length)];
-      this.secondaryColor = '#556B50';
+      this.speedY = (Math.random() * 0.75 + 0.45) * this.z;
+    } else if (this.kind === 'marigold-petal') {
+      this.size = (Math.random() * 9 + 7) * this.z;
+      this.opacity = (Math.random() * 0.42 + 0.35) * (this.z * 0.95);
+      const marigoldColors = ['#F59E0B', '#FBBF24', '#D97706', '#FCD34D', '#EF4444'];
+      this.color = marigoldColors[Math.floor(Math.random() * marigoldColors.length)];
       this.speedY = (Math.random() * 0.8 + 0.5) * this.z;
+    } else if (this.kind === 'sage-leaf') {
+      this.size = (Math.random() * 13 + 9) * this.z;
+      this.opacity = (Math.random() * 0.34 + 0.28) * (this.z * 0.95);
+      const leafColors = ['#6B8E62', '#7D9F74', '#55754C', '#8BAF82', '#A4C49B'];
+      this.color = leafColors[Math.floor(Math.random() * leafColors.length)];
+      this.secondaryColor = '#3D5537';
+      this.speedY = (Math.random() * 0.85 + 0.5) * this.z;
     } else {
-      this.size = (Math.random() * 3 + 1.8) * this.z;
-      this.opacity = Math.random() * 0.5 + 0.35;
-      this.color = '#F2D379';
-      this.speedY = (Math.random() * 0.4 + 0.3) * this.z;
+      this.size = (Math.random() * 3.5 + 2) * this.z;
+      this.opacity = Math.random() * 0.6 + 0.4;
+      this.color = '#F5D061';
+      this.speedY = (Math.random() * 0.45 + 0.3) * this.z;
     }
 
     this.rotationZ = Math.random() * Math.PI * 2;
     this.rotationY = Math.random() * Math.PI * 2;
     this.rotSpeed = (Math.random() - 0.5) * 0.024;
-    this.flipSpeed = Math.random() * 0.035 + 0.015;
-    this.speedX = (Math.random() - 0.5) * 0.45;
+    this.flipSpeed = Math.random() * 0.038 + 0.016;
+    this.speedX = (Math.random() - 0.5) * 0.48;
     this.swayFrequency = Math.random() * 0.012 + 0.006;
     this.swayPhase = Math.random() * Math.PI * 2;
   }
 
   update(canvasWidth: number, canvasHeight: number, time: number) {
     this.y += this.speedY;
-    this.x += this.speedX + Math.sin(time * 1.8 + this.swayPhase + this.y * this.swayFrequency) * (0.65 * this.z);
+    this.x += this.speedX + Math.sin(time * 1.8 + this.swayPhase + this.y * this.swayFrequency) * (0.75 * this.z);
     this.rotationZ += this.rotSpeed;
     this.rotationY += this.flipSpeed;
 
-    if (this.y > canvasHeight + 35) {
-      this.y = -35;
+    if (this.y > canvasHeight + 40) {
+      this.y = -40;
       this.x = Math.random() * canvasWidth;
     }
   }
@@ -114,6 +122,13 @@ class BotanicalParticle {
       ctx.moveTo(0, -this.size * 0.6);
       ctx.bezierCurveTo(this.size * 0.65, -this.size * 0.6, this.size * 0.7, this.size * 0.5, 0, this.size * 0.6);
       ctx.bezierCurveTo(-this.size * 0.7, this.size * 0.5, -this.size * 0.65, -this.size * 0.6, 0, -this.size * 0.6);
+      ctx.fill();
+    } else if (this.kind === 'marigold-petal') {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -this.size * 0.75);
+      ctx.bezierCurveTo(this.size * 0.5, -this.size * 0.5, this.size * 0.6, this.size * 0.3, 0, this.size * 0.75);
+      ctx.bezierCurveTo(-this.size * 0.6, this.size * 0.3, -this.size * 0.5, -this.size * 0.5, 0, -this.size * 0.75);
       ctx.fill();
     } else if (this.kind === 'sage-leaf') {
       ctx.fillStyle = this.color;
@@ -190,44 +205,65 @@ export class HomeComponent implements OnDestroy {
   // Physical Card Modal
   readonly isPhysicalCardOpen = computed(() => this.uiState.isPhysicalCardModalOpen());
 
-  // Real Couple Photos & Lightbox
-  readonly coupleMoments: Array<{ src: string; title: string; subtitle: string }> = [
+  // Featured Authentic Couple Photographs (Crafted with Burnt-Edge Heirloom Frames)
+  readonly couplePortrait = {
+    src: 'assets/images/real-couple-portrait.jpg',
+    title: 'Anshul & Vidisha',
+    subtitle: 'The Royal Couple · Sacred Nuptials'
+  };
+
+  readonly bridePortrait = {
+    src: 'assets/images/real-bride-portrait.jpg',
+    title: 'Vidisha Singh',
+    subtitle: 'The Radiant Royal Bride · Grace & Tradition'
+  };
+
+  readonly ringCeremonyPhoto = {
+    src: 'assets/images/real-couple-ring.jpg',
+    title: 'Sacred Ring Ceremony',
+    subtitle: 'An Auspicious Pledge of Eternal Companionship'
+  };
+
+  readonly celebrationJoyPhoto = {
+    src: 'assets/images/real-celebration-joy.jpg',
+    title: 'Cherished Laughter & Joy',
+    subtitle: 'Warm Family Blessings and Smiles'
+  };
+
+  readonly celebrationDancePhoto = {
+    src: 'assets/images/real-celebration-dance.jpg',
+    title: 'Festive Music & Sangeet',
+    subtitle: 'Joyous Celebratory Rhythm & Dance'
+  };
+
+  readonly heirloomMoments = [
     {
-      src: 'assets/images/real-couple-portrait.jpg',
-      title: 'Anshul & Vidisha',
-      subtitle: 'The Royal Couple'
+      photo: this.ringCeremonyPhoto,
+      tag: 'SAGAI CEREMONY',
+      caption: 'The Sacred Exchange of Rings',
+      tilt: '-1.5deg'
     },
     {
-      src: 'assets/images/real-couple-ring.jpg',
-      title: 'Sacred Ring Ceremony',
-      subtitle: 'A Sacred Promise of Eternal Love'
+      photo: this.bridePortrait,
+      tag: 'THE ROYAL BRIDE',
+      caption: 'Shringar & Auspicious Grace',
+      tilt: '1.2deg'
     },
     {
-      src: 'assets/images/real-bride-portrait.jpg',
-      title: 'The Radiant Bride',
-      subtitle: 'Vidisha Singh'
+      photo: this.celebrationJoyPhoto,
+      tag: 'WARM BLESSINGS',
+      caption: 'Laughter, Kinship & Love',
+      tilt: '-1deg'
     },
     {
-      src: 'assets/images/real-celebration-dance.jpg',
-      title: 'Celebration & Sangeet',
-      subtitle: 'Joyous Family Festivities'
-    },
-    {
-      src: 'assets/images/real-celebration-joy.jpg',
-      title: 'Candid Happiness',
-      subtitle: 'Laughter, Harmony & Blessings'
+      photo: this.celebrationDancePhoto,
+      tag: 'SANGEET NIGHT',
+      caption: 'Festive Dhol & Celebrations',
+      tilt: '1.8deg'
     }
   ];
+
   readonly selectedPhoto = signal<{ src: string; title: string; subtitle: string } | null>(null);
-
-  // Active Ambient Background Moment (Minimalist Editorial Story)
-  readonly activeBgMomentIndex = signal<number>(0);
-  readonly activeBgMoment = computed(() => this.coupleMoments[this.activeBgMomentIndex()]);
-
-  setActiveBgMoment(idx: number) {
-    this.activeBgMomentIndex.set(idx);
-    this.audioService.playSacredChime(440, 0.7, 0.04);
-  }
 
   openPhotoLightbox(photo: { src: string; title: string; subtitle: string }) {
     this.selectedPhoto.set(photo);
@@ -279,29 +315,30 @@ export class HomeComponent implements OnDestroy {
   // =========================================================================
   // 1. ROYAL ENVELOPE OPENING CEREMONY (120 FPS FLUID MOTION)
   // =========================================================================
+  // =========================================================================
+  // 1. ROYAL ENVELOPE OPENING CEREMONY (120 FPS FLUID MOTION)
+  // =========================================================================
   breakRoyalSeal(event: MouseEvent) {
     this.audioService.playSacredChime(587.33, 1.4, 0.12);
+    this.audioService.play();
     this.showerCelebratoryPetals();
     this.isEnvelopeOpened.set(true);
 
+    // Allow the 120 FPS unfolding card animation to be fully admired by the guest
     setTimeout(() => {
       this.isEnvelopeClosing.set(true);
       setTimeout(() => {
         this.isEnvelopeFading.set(true);
         setTimeout(() => {
-          this.uiState.closeEnvelope();
-        }, 300);
-      }, 450);
-    }, 1300);
+          this.dismissEnvelope();
+        }, 350);
+      }, 250);
+    }, 2200);
   }
 
   dismissEnvelope() {
     this.audioService.play();
-    this.isEnvelopeClosing.set(true);
-    this.isEnvelopeFading.set(true);
-    setTimeout(() => {
-      this.uiState.closeEnvelope();
-    }, 250);
+    this.uiState.closeEnvelope();
   }
 
   // =========================================================================
@@ -340,18 +377,17 @@ export class HomeComponent implements OnDestroy {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
-      if (this.petalCtx) {
-        this.petalCtx.scale(dpr, dpr);
-      }
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
     };
 
     updateSize();
 
-    // Spawn rich canopy of 52 multi-layer petals and eucalyptus leaves
+    // Spawn rich celebratory canopy of 75 botanical petals and leaves
     const w = window.innerWidth;
     const h = window.innerHeight;
     this.botanicalParticles = [];
-    for (let i = 0; i < 52; i++) {
+    for (let i = 0; i < 75; i++) {
       this.botanicalParticles.push(new BotanicalParticle(w, h));
     }
 
@@ -372,7 +408,10 @@ export class HomeComponent implements OnDestroy {
 
     const w = window.innerWidth;
     const h = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
+    this.petalCtx.save();
+    this.petalCtx.scale(dpr, dpr);
     this.petalCtx.clearRect(0, 0, w, h);
     this.petalTime += 0.016 * dt;
 
@@ -380,6 +419,7 @@ export class HomeComponent implements OnDestroy {
       particle.update(w, h, this.petalTime);
       particle.draw(this.petalCtx);
     }
+    this.petalCtx.restore();
 
     this.petalAnimFrame = requestAnimationFrame(() => this.animatePetals());
   }
@@ -388,11 +428,11 @@ export class HomeComponent implements OnDestroy {
     if (!this.petalCanvasRef) return;
     const w = window.innerWidth;
     const h = window.innerHeight;
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 45; i++) {
       this.botanicalParticles.push(new BotanicalParticle(w, h, true));
     }
-    if (this.botanicalParticles.length > 80) {
-      this.botanicalParticles.splice(0, 25);
+    if (this.botanicalParticles.length > 120) {
+      this.botanicalParticles.splice(0, 45);
     }
   }
 
