@@ -348,14 +348,94 @@ img {
 
 /* ---------- Scroll Reveal Animations ---------- */
 .reveal-elem {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .reveal-elem.revealed {
   opacity: 1;
   transform: none;
+}
+
+/* ==========================================================================
+   PRINT STYLESHEET (Full High-Quality PDF & Paper Export)
+   ========================================================================== */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background: #FAF7F2 !important;
+    color: #3A322D !important;
+  }
+
+  /* Hide interactive overlay & fixed UI elements in Print */
+  .fixed-overlay,
+  .envelope-modal,
+  .physical-card-modal,
+  .photo-lightbox-modal,
+  .petal-canvas,
+  .toast-notification,
+  .story-chapter-rail,
+  .audio-toggle-btn,
+  .btn-scroll-top,
+  .hero-actions-bar,
+  .dest-btn-group,
+  .rsvp-action-row,
+  .btn-micro-cal,
+  .btn-itinerary-filter,
+  .moment-zoom-badge,
+  .arch-overlay-badge,
+  .btn-skip-intro {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Force all main content to be completely visible */
+  .reveal-elem,
+  .folio-card,
+  .invitation-main-container,
+  main,
+  section {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .invitation-main-container {
+    padding: 10px 0 !important;
+    max-width: 100% !important;
+  }
+
+  .folio-card {
+    box-shadow: none !important;
+    border: 1.5px solid #C5A059 !important;
+    margin-bottom: 24px !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    background: #FAF7F2 !important;
+  }
+
+  .couple-portrait-arch {
+    box-shadow: none !important;
+    border: 2px solid #C5A059 !important;
+  }
+
+  .moments-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .moment-card {
+    box-shadow: none !important;
+    border: 1px solid #C5A059 !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
 }
 
 /* ---------- Gold Accent Line ---------- */
