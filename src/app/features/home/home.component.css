@@ -1387,7 +1387,9 @@
   font-style: italic;
 }
 
-/* Bride Elegant Clean Cameo */
+/* Groom & Bride Elegant Clean Cameos */
+.person-cameo-clean,
+.groom-cameo-clean,
 .bride-cameo-clean {
   display: flex;
   flex-direction: column;
@@ -1399,40 +1401,61 @@
   transition: transform 0.35s ease;
 }
 
-.bride-cameo-clean:hover {
+.groom-presentation .person-cameo-clean {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.bride-presentation .person-cameo-clean {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.person-cameo-clean:hover {
   transform: translateY(-3px) scale(1.03);
 }
 
 .cameo-photo-wrap {
-  width: 114px;
-  height: 142px;
+  width: 116px;
+  height: 146px;
   position: relative;
   overflow: hidden;
   border-radius: 18px;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   isolation: isolate;
   background: #F5F0E8;
-  border: 2px solid rgba(197, 160, 89, 0.5);
+  border: 2px solid rgba(197, 160, 89, 0.55);
   box-shadow: 0 8px 24px rgba(58, 50, 45, 0.1);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.bride-cameo-clean:hover .cameo-photo-wrap {
-  border-color: rgba(212, 175, 55, 0.9);
-  box-shadow: 0 12px 28px rgba(58, 50, 45, 0.16);
+.person-cameo-clean:hover .cameo-photo-wrap {
+  border-color: rgba(212, 175, 55, 0.95);
+  box-shadow: 0 12px 28px rgba(58, 50, 45, 0.18), 0 0 16px rgba(212, 175, 55, 0.2);
 }
 
+.cameo-photo-img,
+.cameo-groom-img,
 .cameo-bride-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 16px;
-  object-position: center 20%;
   display: block;
   transition: transform 0.5s ease;
 }
 
-.bride-cameo-clean:hover .cameo-bride-img {
+.cameo-groom-img {
+  object-position: center 15%;
+}
+
+.cameo-bride-img {
+  object-position: center 20%;
+}
+
+.person-cameo-clean:hover .cameo-photo-img,
+.person-cameo-clean:hover .cameo-groom-img,
+.person-cameo-clean:hover .cameo-bride-img {
   transform: scale(1.06);
 }
 
@@ -1441,7 +1464,7 @@
   bottom: 6px;
   right: 6px;
   font-size: 0.7rem;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   color: var(--crimson-wine);
   border-radius: 50%;
   width: 22px;
@@ -1454,7 +1477,7 @@
   transition: opacity 0.3s ease;
 }
 
-.bride-cameo-clean:hover .cameo-hover-hint {
+.person-cameo-clean:hover .cameo-hover-hint {
   opacity: 1;
 }
 
@@ -1464,6 +1487,7 @@
   color: var(--crimson-wine);
   font-weight: 700;
   margin-top: 8px;
+  text-align: center;
 }
 
 /* ==========================================================================
@@ -2970,13 +2994,15 @@
     margin-bottom: 10px;
   }
 
+  .person-cameo-clean,
+  .groom-cameo-clean,
   .bride-cameo-clean {
-    margin: 8px 0 10px;
+    margin: 10px auto 12px !important;
   }
 
   .cameo-photo-wrap {
-    width: 100px;
-    height: 126px;
+    width: 108px;
+    height: 136px;
   }
 
   .person-filigree-flourish {

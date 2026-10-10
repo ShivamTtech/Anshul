@@ -205,11 +205,11 @@ export class HomeComponent implements OnDestroy {
   // Physical Card Modal
   readonly isPhysicalCardOpen = computed(() => this.uiState.isPhysicalCardModalOpen());
 
-  // Featured Authentic Couple Photographs (Crafted with Burnt-Edge Heirloom Frames)
-  readonly couplePortrait = {
-    src: 'assets/images/real-couple-portrait.jpg',
-    title: 'Anshul & Vidisha',
-    subtitle: 'The Royal Couple · Sacred Nuptials'
+  // Featured Authentic Royal Portraits (Minimal, Curated, High-Impact)
+  readonly groomPortrait = {
+    src: 'assets/images/real-groom-portrait.jpg',
+    title: 'Anshul Verma',
+    subtitle: 'The Royal Groom · Devotion & Honour'
   };
 
   readonly bridePortrait = {
@@ -218,50 +218,17 @@ export class HomeComponent implements OnDestroy {
     subtitle: 'The Radiant Royal Bride · Grace & Tradition'
   };
 
+  readonly couplePortrait = {
+    src: 'assets/images/real-couple-portrait.jpg',
+    title: 'Anshul & Vidisha',
+    subtitle: 'The Royal Couple · Sacred Nuptials'
+  };
+
   readonly ringCeremonyPhoto = {
     src: 'assets/images/real-couple-ring.jpg',
     title: 'Sacred Ring Ceremony',
     subtitle: 'An Auspicious Pledge of Eternal Companionship'
   };
-
-  readonly celebrationJoyPhoto = {
-    src: 'assets/images/real-celebration-joy.jpg',
-    title: 'Cherished Laughter & Joy',
-    subtitle: 'Warm Family Blessings and Smiles'
-  };
-
-  readonly celebrationDancePhoto = {
-    src: 'assets/images/real-celebration-dance.jpg',
-    title: 'Festive Music & Sangeet',
-    subtitle: 'Joyous Celebratory Rhythm & Dance'
-  };
-
-  readonly heirloomMoments = [
-    {
-      photo: this.ringCeremonyPhoto,
-      tag: 'SAGAI CEREMONY',
-      caption: 'The Sacred Exchange of Rings',
-      tilt: '-1.5deg'
-    },
-    {
-      photo: this.bridePortrait,
-      tag: 'THE ROYAL BRIDE',
-      caption: 'Shringar & Auspicious Grace',
-      tilt: '1.2deg'
-    },
-    {
-      photo: this.celebrationJoyPhoto,
-      tag: 'WARM BLESSINGS',
-      caption: 'Laughter, Kinship & Love',
-      tilt: '-1deg'
-    },
-    {
-      photo: this.celebrationDancePhoto,
-      tag: 'SANGEET NIGHT',
-      caption: 'Festive Dhol & Celebrations',
-      tilt: '1.8deg'
-    }
-  ];
 
   readonly selectedPhoto = signal<{ src: string; title: string; subtitle: string } | null>(null);
 

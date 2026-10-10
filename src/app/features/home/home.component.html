@@ -334,6 +334,20 @@
             <span>Him City, Lucknow</span>
           </div>
 
+          <!-- Clean Elegant Groom Cameo Portrait -->
+          <div class="person-cameo-clean groom-cameo-clean" 
+               (click)="openPhotoLightbox(groomPortrait)" 
+               title="Click to view groom portrait"
+               role="button"
+               tabindex="0"
+               (keydown.enter)="openPhotoLightbox(groomPortrait)">
+            <div class="cameo-photo-wrap">
+              <img [src]="groomPortrait.src" [alt]="groomPortrait.title" class="cameo-photo-img cameo-groom-img" loading="lazy" />
+              <div class="cameo-hover-hint">🔍</div>
+            </div>
+            <span class="cameo-label font-cinzel">ANSHUL · GROOM</span>
+          </div>
+
           <div class="person-filigree-flourish">❧ ✦ ☙</div>
 
           <p class="person-bio font-editorial">
@@ -394,14 +408,14 @@
           </div>
 
           <!-- Clean Elegant Bride Cameo Portrait -->
-          <div class="bride-cameo-clean" 
+          <div class="person-cameo-clean bride-cameo-clean" 
                (click)="openPhotoLightbox(bridePortrait)" 
                title="Click to view bride portrait"
                role="button"
                tabindex="0"
                (keydown.enter)="openPhotoLightbox(bridePortrait)">
             <div class="cameo-photo-wrap">
-              <img [src]="bridePortrait.src" [alt]="bridePortrait.title" class="cameo-bride-img" loading="lazy" />
+              <img [src]="bridePortrait.src" [alt]="bridePortrait.title" class="cameo-photo-img cameo-bride-img" loading="lazy" />
               <div class="cameo-hover-hint">🔍</div>
             </div>
             <span class="cameo-label font-cinzel">VIDISHA · BRIDE</span>
@@ -626,42 +640,6 @@
 
     </div>
 
-    <!-- HEIRLOOM KEEPSAKE SCRAPBOOK ALBUM (CRAFTED BURNT-EDGE PHOTOGRAPHS) -->
-    <!-- CHERISHED MOMENTS — MODERN SOBER MINIMAL GALLERY -->
-    <div class="card-panel-traditional panel-modern-gallery">
-      <div class="gallery-header">
-        <span class="section-tag font-cinzel">✤ CHERISHED MOMENTS ✤</span>
-        <h3 class="gallery-title font-calligraphy text-crimson">Moments in Time</h3>
-        <p class="gallery-subtitle font-editorial">Heartfelt celebrations and joyous memories · Lucknow &amp; Prayagraj</p>
-        <div class="ornate-divider"><span class="divider-gem">✦</span></div>
-      </div>
-
-      <div class="modern-moments-grid">
-        <div *ngFor="let moment of heirloomMoments; let i = index" 
-             class="modern-gallery-card" 
-             (click)="openPhotoLightbox(moment.photo)"
-             role="button"
-             tabindex="0"
-             (keydown.enter)="openPhotoLightbox(moment.photo)"
-             [title]="'Click to view ' + moment.photo.title">
-          
-          <div class="gallery-card-inner">
-            <div class="gallery-media-wrap">
-              <img [src]="moment.photo.src" [alt]="moment.photo.title" class="gallery-photo-img" loading="lazy" />
-              <div class="gallery-hover-overlay">
-                <span class="hint-icon">🔍</span>
-                <span class="font-cinzel hover-txt">View Full</span>
-              </div>
-            </div>
-
-            <div class="gallery-caption-clean">
-              <span class="gallery-tag font-cinzel">{{ moment.tag }}</span>
-              <p class="gallery-desc font-editorial">“{{ moment.caption }}”</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
   </section>
 
