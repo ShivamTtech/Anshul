@@ -1107,11 +1107,57 @@
 /* Hero Actions Bar */
 .hero-actions-bar {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 440px;
+  margin: 24px auto 0;
+}
+
+.hero-btn-card {
+  width: 100%;
+  justify-content: center;
+}
+
+.hero-actions-subrow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+.btn-royal-minimal {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 24px;
+  gap: 6px;
+  padding: 9px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--crimson-wine, #781D2C);
+  border: 1px solid rgba(197, 160, 89, 0.45);
+  font-family: var(--font-cinzel, 'Cinzel', serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(58, 50, 45, 0.05);
+  transition: all 0.25s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-royal-minimal:hover {
+  background: rgba(120, 29, 44, 0.08);
+  border-color: var(--crimson-wine, #781D2C);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(120, 29, 44, 0.15);
+}
+
+.btn-royal-minimal:active {
+  transform: translateY(0);
 }
 
 .btn-royal-crimson {
@@ -3149,27 +3195,32 @@
   }
 
   .hero-actions-bar {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 8px;
     width: 100%;
     margin-top: 18px;
   }
 
-  .hero-actions-bar .btn-royal-crimson {
-    grid-column: 1 / -1;
+  .hero-actions-bar .hero-btn-card {
     width: 100%;
     justify-content: center;
     padding: 11px 18px;
     font-size: 0.72rem;
   }
 
-  .hero-actions-bar .btn-royal-outline {
+  .hero-actions-subrow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
     width: 100%;
-    justify-content: center;
-    padding: 9px 8px;
-    font-size: 0.63rem;
-    letter-spacing: 0.08em;
+  }
+
+  .btn-royal-minimal {
+    width: 100%;
+    padding: 9px 6px;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
   }
 
   /* 5. Chapter 02: Couple Section (Mobile Phone Fluid Layout) */
@@ -3700,7 +3751,6 @@
     font-size: 1.15rem;
   }
 
-  .hero-actions-bar,
   .venue-action-buttons,
   .dest-btn-group {
     grid-template-columns: 1fr;
