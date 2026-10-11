@@ -172,7 +172,7 @@
      ========================================================================= -->
 <canvas #petalCanvas id="petal-canvas" class="petal-canvas"></canvas>
 
-<!-- SVG filter definitions removed — using clean elegant photo frames -->
+<!-- Frameless Elegant Portraits -->
 
 
 <!-- Toast Notification -->
@@ -222,8 +222,8 @@
 <div *ngIf="selectedPhoto()" class="photo-lightbox-modal fixed-overlay" (click)="closePhotoLightbox()">
   <div class="photo-lightbox-card" (click)="$event.stopPropagation()">
     <button type="button" class="btn-close-lightbox" (click)="closePhotoLightbox()" aria-label="Close photo preview">✕</button>
-    <div class="lightbox-image-wrap">
-      <img [src]="selectedPhoto()?.src" [alt]="selectedPhoto()?.title" class="lightbox-img" />
+    <div class="lightbox-image-wrap frameless-mount">
+      <img [src]="selectedPhoto()?.src" [alt]="selectedPhoto()?.title" class="lightbox-img frameless-img" />
     </div>
     <div class="lightbox-caption">
       <div class="lightbox-badge font-cinzel">✤ SACRED CELEBRATION ✤</div>
@@ -448,7 +448,7 @@
       
       <div class="couple-carousel-track" 
            [style.transform]="getTrackTransform()"
-           [class.is-dragging]="isSwiping">
+           [class.is-dragging]="isSwiping()">
         
         <!-- Slide 0: Groom 3D Flip Card (Photo Front · Details Back) -->
         <div class="carousel-slide slide-groom"
@@ -470,8 +470,8 @@
                 <div class="card-photo-content">
                   <span class="person-role-badge font-cinzel">✤ THE ROYAL GROOM ✤</span>
                   
-                  <div class="card-portrait-mount">
-                    <img [src]="groomPortrait.src" [alt]="groomPortrait.title" class="card-portrait-img groom-img" loading="lazy" />
+                  <div class="card-portrait-mount frameless-mount">
+                    <img [src]="groomPortrait.src" [alt]="groomPortrait.title" class="card-portrait-img groom-img frameless-img" loading="lazy" />
                     <button type="button" 
                             class="corner-zoom-btn" 
                             (click)="openPhotoLightbox(groomPortrait); $event.stopPropagation()" 
@@ -543,11 +543,12 @@
               <div class="photo-ambient-backdrop" [style.background-image]="'url(' + couplePortrait.src + ')'" aria-hidden="true"></div>
 
               <div class="photo-card-inner">
-                <div class="photo-media portrait-media">
+                <div class="photo-media portrait-media frameless-mount">
                   <img [src]="couplePortrait.src" 
                        [alt]="couplePortrait.title" 
-                       class="couple-main-img" 
+                       class="couple-main-img frameless-img" 
                        loading="eager" />
+
                   <button type="button" 
                           class="corner-zoom-btn photo-corner-zoom" 
                           (click)="openPhotoLightbox(couplePortrait); $event.stopPropagation()" 
@@ -587,8 +588,8 @@
                 <div class="card-photo-content">
                   <span class="person-role-badge font-cinzel">✤ THE RADIANT BRIDE ✤</span>
                   
-                  <div class="card-portrait-mount">
-                    <img [src]="bridePortrait.src" [alt]="bridePortrait.title" class="card-portrait-img bride-img" loading="lazy" />
+                  <div class="card-portrait-mount frameless-mount">
+                    <img [src]="bridePortrait.src" [alt]="bridePortrait.title" class="card-portrait-img bride-img frameless-img" loading="lazy" />
                     <button type="button" 
                             class="corner-zoom-btn" 
                             (click)="openPhotoLightbox(bridePortrait); $event.stopPropagation()" 

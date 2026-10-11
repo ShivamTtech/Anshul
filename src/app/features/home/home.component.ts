@@ -261,8 +261,11 @@ export class HomeComponent implements OnDestroy {
   readonly currentSlideIndex = signal<number>(1); // Default to The Couple
   readonly isCarouselPaused = signal<boolean>(false);
   readonly dragOffset = signal<number>(0);
-  isSwiping = false;
+  readonly isSwiping = signal<boolean>(false);
   private touchStartX = 0;
+  private touchStartY = 0;
+  private touchStartTime = 0;
+  private touchIsHorizontal: boolean | null = null;
   private carouselAutoTimer: any = null;
   private pauseResumeTimeout: any = null;
 
@@ -306,36 +309,81 @@ export class HomeComponent implements OnDestroy {
     const basePercent = -this.currentSlideIndex() * 100;
     const offset = this.dragOffset();
     if (offset !== 0) {
-      return `translateX(calc(${basePercent}% + ${offset}px))`;
+      return `translate3d(calc(${basePercent}% + ${offset}px), 0, 0)`;
     }
-    return `translateX(${basePercent}%)`;
+    return `translate3d(${basePercent}%, 0, 0)`;
   }
 
   onTouchStart(e: TouchEvent) {
     if (e.touches.length !== 1) return;
     this.touchStartX = e.touches[0].clientX;
-    this.isSwiping = true;
+    this.touchStartY = e.touches[0].clientY;
+    this.touchStartTime = Date.now();
+    this.touchIsHorizontal = null;
+    this.isSwiping.set(true);
     this.isCarouselPaused.set(true);
   }
 
   onTouchMove(e: TouchEvent) {
-    if (!this.isSwiping || e.touches.length !== 1) return;
-    const deltaX = e.touches[0].clientX - this.touchStartX;
-    this.dragOffset.set(Math.max(-120, Math.min(120, deltaX)));
+    if (!this.isSwiping() || e.touches.length !== 1) return;
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const deltaX = currentX - this.touchStartX;
+    const deltaY = currentY - this.touchStartY;
+
+    // Detect direction on initial movement
+    if (this.touchIsHorizontal === null) {
+      const absX = Math.abs(deltaX);
+      const absY = Math.abs(deltaY);
+      if (absX > 6 || absY > 6) {
+        this.touchIsHorizontal = absX > absY;
+      }
+    }
+
+    // If vertical gesture, allow native page scroll
+    if (this.touchIsHorizontal === false) {
+      return;
+    }
+
+    // Horizontal swipe gesture: prevent vertical stutter & track finger smoothly
+    if (e.cancelable) {
+      e.preventDefault();
+    }
+
+    const currentIndex = this.currentSlideIndex();
+    let effectiveOffset = deltaX;
+
+    // Apply smooth rubber-band resistance at boundaries
+    if ((currentIndex === 0 && deltaX > 0) || (currentIndex === 2 && deltaX < 0)) {
+      effectiveOffset = deltaX * 0.35;
+    }
+
+    this.dragOffset.set(effectiveOffset);
   }
 
   onTouchEnd(e: TouchEvent) {
-    if (!this.isSwiping) return;
-    this.isSwiping = false;
+    if (!this.isSwiping()) return;
+    this.isSwiping.set(false);
+
     const deltaX = this.dragOffset();
+    const duration = Date.now() - this.touchStartTime;
+    const velocity = Math.abs(deltaX) / Math.max(1, duration); // px per ms
+
     this.dragOffset.set(0);
 
-    if (deltaX < -40) {
-      this.nextSlide(true);
-    } else if (deltaX > 40) {
-      this.prevSlide(true);
+    // Dynamic threshold: flick gesture or distance threshold
+    const isFlick = velocity > 0.35 && Math.abs(deltaX) > 20;
+    const isDragPassed = Math.abs(deltaX) > 42;
+
+    if (isFlick || isDragPassed) {
+      if (deltaX < 0) {
+        this.nextSlide(true);
+      } else {
+        this.prevSlide(true);
+      }
     }
-    this.pauseCarouselTemporarily(6000);
+
+    this.pauseCarouselTemporarily(7000);
   }
 
   pauseCarousel() {
