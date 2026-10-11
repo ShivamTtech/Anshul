@@ -220,6 +220,8 @@ export class HomeComponent implements OnDestroy {
   readonly isEnvelopeOpened = signal<boolean>(false);
   readonly isEnvelopeClosing = signal<boolean>(false);
   readonly isEnvelopeFading = signal<boolean>(false);
+  readonly isCardPulledOut = signal<boolean>(false);
+  readonly cardDragDeltaY = signal<number>(0);
 
   // Physical Card Modal
   readonly isPhysicalCardOpen = computed(() => this.uiState.isPhysicalCardModalOpen());
@@ -402,6 +404,7 @@ export class HomeComponent implements OnDestroy {
   private observer: IntersectionObserver | null = null;
 
   constructor() {
+    this.uiState.reopenEnvelope();
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) return;
 
@@ -428,23 +431,89 @@ export class HomeComponent implements OnDestroy {
   private envelopeAutoDismissTimer: any = null;
 
   breakRoyalSeal(event: MouseEvent) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     if (this.isEnvelopeOpened()) return;
     this.audioService.playSacredChime(587.33, 1.4, 0.12);
     this.audioService.play();
     this.showerCelebratoryPetals();
+    this.isCardPulledOut.set(false);
     this.isEnvelopeOpened.set(true);
 
-    // Allow the unfolding Bal Ganesha card animation to be fully admired by the guest
+    // Auto-advance after 6.5s if guest simply watches
     if (this.envelopeAutoDismissTimer) clearTimeout(this.envelopeAutoDismissTimer);
     this.envelopeAutoDismissTimer = setTimeout(() => {
+      this.pullOutCard();
+    }, 6500);
+  }
+
+  pullOutCard(event?: Event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    if (this.isCardPulledOut()) return;
+    if (this.envelopeAutoDismissTimer) {
+      clearTimeout(this.envelopeAutoDismissTimer);
+      this.envelopeAutoDismissTimer = null;
+    }
+    this.isCardPulledOut.set(true);
+    this.audioService.playSacredChime(659.25, 1.2, 0.15);
+    this.audioService.play();
+    this.showerCelebratoryPetals();
+
+    setTimeout(() => {
       this.isEnvelopeClosing.set(true);
       setTimeout(() => {
         this.isEnvelopeFading.set(true);
         setTimeout(() => {
           this.dismissEnvelope();
-        }, 400);
+        }, 380);
       }, 300);
-    }, 6500);
+    }, 550);
+  }
+
+  private cardTouchStartY = 0;
+
+  onCardTouchStart(e: TouchEvent) {
+    if (!this.isEnvelopeOpened() || this.isCardPulledOut()) return;
+    if (e.touches.length !== 1) return;
+    this.cardTouchStartY = e.touches[0].clientY;
+  }
+
+  onCardTouchMove(e: TouchEvent) {
+    if (!this.isEnvelopeOpened() || this.isCardPulledOut()) return;
+    if (e.touches.length !== 1) return;
+    const currentY = e.touches[0].clientY;
+    const deltaY = currentY - this.cardTouchStartY;
+    if (deltaY < 0) {
+      this.cardDragDeltaY.set(Math.max(-120, deltaY));
+    }
+  }
+
+  onCardTouchEnd(e: TouchEvent) {
+    if (!this.isEnvelopeOpened() || this.isCardPulledOut()) return;
+    const deltaY = this.cardDragDeltaY();
+    this.cardDragDeltaY.set(0);
+    if (deltaY < -35) {
+      this.pullOutCard(e);
+    }
+  }
+
+  getCardTransform(): string {
+    if (this.isCardPulledOut()) {
+      return 'translate3d(0, -128%, 0) scale(1.02)';
+    }
+    const dragY = this.cardDragDeltaY();
+    if (this.isEnvelopeOpened()) {
+      if (dragY !== 0) {
+        return `translate3d(0, calc(-54% + ${dragY}px), 0)`;
+      }
+      return 'translate3d(0, -54%, 0)';
+    }
+    return 'translate3d(0, 0, 0)';
   }
 
   dismissEnvelope() {

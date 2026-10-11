@@ -21,13 +21,28 @@
         <div class="back-pocket-shadow"></div>
       </div>
 
-      <!-- 2. The Sacred Invitation Letter Card (Tucked inside, slides halfway up on open) -->
+      <!-- 2. The Sacred Invitation Letter Card (Tucked inside, slides halfway up, pull up to open) -->
       <div class="invitation-letter-card" 
-           (click)="dismissEnvelope()"
-           title="Tap card to view full invitation"
+           [style.transform]="getCardTransform()"
+           [class.pulled-out]="isCardPulledOut()"
+           (click)="pullOutCard($event)"
+           (touchstart)="onCardTouchStart($event)"
+           (touchmove)="onCardTouchMove($event)"
+           (touchend)="onCardTouchEnd($event)"
+           title="Pull up or tap card to view full invitation"
            role="button"
            tabindex="0"
-           aria-label="Invitation card for Anshul and Vidisha">
+           aria-label="Invitation card for Anshul and Vidisha. Pull up to open.">
+        
+        <!-- Elegant Animated Pull-Up Chevron Beacon (At Top Edge) -->
+        <div class="card-pull-up-handle" (click)="pullOutCard($event)" title="Pull up or tap to open invitation">
+          <div class="pull-up-arrow-anim">
+            <span class="pull-arrow-icon arrow-top">⌃</span>
+            <span class="pull-arrow-icon arrow-bottom">⌃</span>
+          </div>
+          <span class="pull-up-text font-cinzel">PULL UP</span>
+        </div>
+
         <div class="letter-inner-parchment">
           
           <!-- Cute Bal Ganesha Blessing Stage (Emerges in top half) -->
@@ -52,7 +67,7 @@
 
           <!-- Action Prompt Button -->
           <div class="letter-footer">
-            <button type="button" class="btn-enter-realm font-cinzel" (click)="dismissEnvelope(); $event.stopPropagation()">
+            <button type="button" class="btn-enter-realm font-cinzel" (click)="pullOutCard($event)">
               <span>Open Sacred Invitation ➔</span>
             </button>
           </div>
@@ -436,7 +451,10 @@
            [class.is-dragging]="isSwiping">
         
         <!-- Slide 0: Groom 3D Flip Card (Photo Front · Details Back) -->
-        <div class="carousel-slide slide-groom">
+        <div class="carousel-slide slide-groom"
+             [class.active-slide]="currentSlideIndex() === 0"
+             [class.prev-slide]="currentSlideIndex() > 0"
+             [class.next-slide]="currentSlideIndex() < 0">
           <div id="couple-card-groom"
                class="flip-card-wrapper groom-flip-card" 
                [class.is-flipped]="isGroomFlipped()" 
@@ -510,7 +528,10 @@
         </div>
 
         <!-- Slide 1: The Couple Monument -->
-        <div class="carousel-slide slide-couple">
+        <div class="carousel-slide slide-couple"
+             [class.active-slide]="currentSlideIndex() === 1"
+             [class.prev-slide]="currentSlideIndex() > 1"
+             [class.next-slide]="currentSlideIndex() < 1">
           <div id="couple-card-couple" class="couple-portrait-monument">
             <div class="modern-photo-card portrait-mount" 
                  (click)="openPhotoLightbox(couplePortrait)" 
@@ -547,7 +568,10 @@
         </div>
 
         <!-- Slide 2: Bride 3D Flip Card (Photo Front · Details Back) -->
-        <div class="carousel-slide slide-bride">
+        <div class="carousel-slide slide-bride"
+             [class.active-slide]="currentSlideIndex() === 2"
+             [class.prev-slide]="currentSlideIndex() > 2"
+             [class.next-slide]="currentSlideIndex() < 2">
           <div id="couple-card-bride"
                class="flip-card-wrapper bride-flip-card" 
                [class.is-flipped]="isBrideFlipped()" 
