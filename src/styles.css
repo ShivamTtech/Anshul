@@ -457,3 +457,66 @@ img {
   font-family: var(--font-calligraphy);
   font-weight: 400;
 }
+
+/* ---------- Royal Envelope & Sacred Ganesha Global Affordances ---------- */
+.ganesha-avatar-mount {
+  width: 84px !important;
+  height: 84px !important;
+  min-width: 84px !important;
+  min-height: 84px !important;
+  max-width: 84px !important;
+  max-height: 84px !important;
+  border-radius: 50% !important;
+  border: 2px solid rgba(212, 175, 55, 0.85) !important;
+  box-shadow: 0 6px 18px rgba(122, 27, 40, 0.15), 0 0 14px rgba(212, 175, 55, 0.35) !important;
+  overflow: hidden !important;
+  background: #FFFDF9 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.card-bal-ganesha-img {
+  width: 84px !important;
+  height: 84px !important;
+  max-width: 84px !important;
+  max-height: 84px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+.wax-seal-btn.wax-seal-ganesha {
+  width: clamp(96px, 18vw, 112px) !important;
+  height: clamp(96px, 18vw, 112px) !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.seal-ganesha-frame {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.seal-ganesha-img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+  border-radius: 50% !important;
+  filter: drop-shadow(0 14px 28px rgba(70, 7, 18, 0.6)) drop-shadow(0 0 16px rgba(212, 175, 55, 0.4)) !important;
+}
+

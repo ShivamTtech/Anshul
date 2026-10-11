@@ -62,13 +62,15 @@ const ROSE_PALETTES: RoseColorPalette[] = [
   }
 ];
 
+let rosePetalSprites: HTMLCanvasElement[] = [];
+let isPetalSpritesLoaded = false;
+
 class BotanicalParticle {
   x: number;
   y: number;
   z: number;
   size: number;
   aspectRatio: number;
-  notchDepth: number;
   opacity: number;
   rotationZ: number;
   rotationY: number;
@@ -79,31 +81,32 @@ class BotanicalParticle {
   swayFrequency: number;
   swayPhase: number;
   palette: RoseColorPalette;
+  spriteIndex: number;
 
   constructor(canvasWidth: number, canvasHeight: number, startAtTop: boolean = false) {
     this.z = Math.random() * 0.4 + 0.65; // depth scale 0.65 to 1.05
     this.x = Math.random() * canvasWidth;
     this.y = startAtTop ? -(Math.random() * 80 + 20) : Math.random() * (canvasHeight + 100) - 50;
 
-    // Elegant realistic petal sizes: 11px to 17px scaled by depth
+    // Elegant realistic plucked rose petal sizes
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const baseSize = isMobile ? (Math.random() * 4 + 10) : (Math.random() * 5 + 12);
+    const baseSize = isMobile ? (Math.random() * 5 + 13) : (Math.random() * 6 + 16);
     this.size = baseSize * this.z;
-    this.aspectRatio = Math.random() * 0.22 + 0.88; // natural organic variety
-    this.notchDepth = Math.random() * 0.08 + 0.08;
+    this.aspectRatio = Math.random() * 0.2 + 0.88; // natural organic variety
 
-    // Soft translucent opacity (0.26 - 0.40) so website text and details remain 100% visible
-    this.opacity = (Math.random() * 0.14 + 0.26) * this.z;
+    // Soft translucent opacity (0.35 - 0.55) so real velvety texture shines through
+    this.opacity = (Math.random() * 0.2 + 0.35) * this.z;
 
     this.palette = ROSE_PALETTES[Math.floor(Math.random() * ROSE_PALETTES.length)];
+    this.spriteIndex = Math.floor(Math.random() * 4);
 
     // Serene, realistic drifting aerodynamics
     this.rotationZ = Math.random() * Math.PI * 2;
     this.rotationY = Math.random() * Math.PI * 2;
     this.rotSpeed = (Math.random() - 0.5) * 0.014;
     this.flipSpeed = Math.random() * 0.022 + 0.012;
-    this.speedY = (Math.random() * 0.3 + 0.45) * this.z; // gentle slow drift
-    this.speedX = (Math.random() - 0.5) * 0.32;
+    this.speedY = (Math.random() * 0.28 + 0.42) * this.z; // gentle slow drift
+    this.speedX = (Math.random() - 0.5) * 0.3;
     this.swayFrequency = Math.random() * 0.01 + 0.006;
     this.swayPhase = Math.random() * Math.PI * 2;
   }
@@ -111,7 +114,7 @@ class BotanicalParticle {
   update(canvasWidth: number, canvasHeight: number, time: number) {
     this.y += this.speedY;
     // Ambient gentle air sway
-    this.x += this.speedX + Math.sin(time * 1.4 + this.swayPhase + this.y * this.swayFrequency) * (0.65 * this.z);
+    this.x += this.speedX + Math.sin(time * 1.35 + this.swayPhase + this.y * this.swayFrequency) * (0.7 * this.z);
     this.rotationZ += this.rotSpeed;
     this.rotationY += this.flipSpeed;
 
@@ -129,57 +132,47 @@ class BotanicalParticle {
 
     // 3D flip illusion using cosine of Y rotation
     const cosY = Math.cos(this.rotationY);
-    const isFront = cosY >= 0;
-    const scaleX = Math.max(Math.abs(cosY), 0.06);
-    ctx.scale(isFront ? scaleX : -scaleX, 1);
+    const scaleX = Math.max(Math.abs(cosY), 0.08);
+    ctx.scale(cosY >= 0 ? scaleX : -scaleX, 1);
 
-    const w = this.size * this.aspectRatio;
-    const h = this.size * 1.25;
+    const w = this.size * this.aspectRatio * 1.7;
+    const h = this.size * 1.7;
 
-    // Realistic botanical rose petal curve:
-    // Narrow pedicel base, voluptuous curved waist, delicate notched crown
-    ctx.beginPath();
-    ctx.moveTo(0, h * 0.52);
-    // Left flank curve
-    ctx.bezierCurveTo(-w * 0.72, h * 0.35, -w * 0.85, -h * 0.15, -w * 0.55, -h * 0.45);
-    // Left crown lobe to center cleft
-    ctx.bezierCurveTo(-w * 0.3, -h * 0.62, -w * 0.08, -h * (0.54 - this.notchDepth), 0, -h * (0.46 - this.notchDepth));
-    // Right crown lobe from center cleft
-    ctx.bezierCurveTo(w * 0.08, -h * (0.54 - this.notchDepth), w * 0.3, -h * 0.62, w * 0.55, -h * 0.45);
-    // Right flank curve back to base
-    ctx.bezierCurveTo(w * 0.85, -h * 0.15, w * 0.72, h * 0.35, 0, h * 0.52);
-    ctx.closePath();
-
-    // Dimensional velvet gradient fill
-    const grad = ctx.createRadialGradient(-w * 0.15, -h * 0.1, this.size * 0.1, 0, 0, this.size * 1.05);
-    if (isFront) {
-      grad.addColorStop(0, this.palette.secondary);
-      grad.addColorStop(0.65, this.palette.primary);
-      grad.addColorStop(1, this.palette.rim);
+    if (isPetalSpritesLoaded && rosePetalSprites.length > 0) {
+      // Draw genuine photographic plucked rose petal sprite
+      const sprite = rosePetalSprites[this.spriteIndex % rosePetalSprites.length];
+      if (sprite) {
+        ctx.drawImage(sprite, -w / 2, -h / 2, w, h);
+      }
     } else {
-      // Underside: softer, matte tone
-      grad.addColorStop(0, this.palette.back);
+      // Authentic organic plucked rose petal curve (NO HEART SHAPE CLEFT):
+      // Natural rounded convex apex, softly curled pedicel base
+      ctx.beginPath();
+      ctx.moveTo(0, h * 0.48);
+      // Left contour: smooth natural petal curvature
+      ctx.bezierCurveTo(-w * 0.65, h * 0.28, -w * 0.72, -h * 0.18, -w * 0.42, -h * 0.46);
+      // Top apex: gentle convex rounded dome
+      ctx.bezierCurveTo(-w * 0.22, -h * 0.56, w * 0.22, -h * 0.56, w * 0.42, -h * 0.46);
+      // Right contour: smooth sweep back to base
+      ctx.bezierCurveTo(w * 0.72, -h * 0.18, w * 0.65, h * 0.28, 0, h * 0.48);
+      ctx.closePath();
+
+      // Dimensional velvet gradient fill
+      const grad = ctx.createRadialGradient(-w * 0.1, -h * 0.1, this.size * 0.1, 0, 0, this.size * 1.05);
+      grad.addColorStop(0, this.palette.secondary);
       grad.addColorStop(0.7, this.palette.primary);
-      grad.addColorStop(1, this.palette.secondary);
+      grad.addColorStop(1, this.palette.rim);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Delicate organic petal margin highlight
+      ctx.beginPath();
+      ctx.moveTo(-w * 0.35, -h * 0.45);
+      ctx.bezierCurveTo(-w * 0.15, -h * 0.54, w * 0.15, -h * 0.54, w * 0.35, -h * 0.45);
+      ctx.strokeStyle = 'rgba(255, 230, 235, 0.3)';
+      ctx.lineWidth = 0.75;
+      ctx.stroke();
     }
-    ctx.fillStyle = grad;
-    ctx.fill();
-
-    // Subtle curled edge highlight along top rim
-    ctx.beginPath();
-    ctx.moveTo(-w * 0.45, -h * 0.45);
-    ctx.bezierCurveTo(-w * 0.22, -h * 0.58, w * 0.22, -h * 0.58, w * 0.45, -h * 0.45);
-    ctx.strokeStyle = `rgba(255, 235, 240, ${isFront ? 0.35 : 0.18})`;
-    ctx.lineWidth = 0.75;
-    ctx.stroke();
-
-    // Delicate central crease line
-    ctx.beginPath();
-    ctx.moveTo(0, h * 0.48);
-    ctx.quadraticCurveTo(w * 0.05, 0, 0, -h * (0.4 - this.notchDepth));
-    ctx.strokeStyle = isFront ? 'rgba(60, 5, 15, 0.16)' : 'rgba(90, 15, 25, 0.12)';
-    ctx.lineWidth = 0.6;
-    ctx.stroke();
 
     ctx.restore();
   }
@@ -258,6 +251,117 @@ export class HomeComponent implements OnDestroy {
 
   readonly selectedPhoto = signal<{ src: string; title: string; subtitle: string } | null>(null);
 
+  // 3D Flip Card States (Groom & Bride)
+  readonly isGroomFlipped = signal<boolean>(false);
+  readonly isBrideFlipped = signal<boolean>(false);
+
+  // High-Performance Mobile Carousel (0 = Groom, 1 = Couple, 2 = Bride)
+  readonly currentSlideIndex = signal<number>(1); // Default to The Couple
+  readonly isCarouselPaused = signal<boolean>(false);
+  readonly dragOffset = signal<number>(0);
+  isSwiping = false;
+  private touchStartX = 0;
+  private carouselAutoTimer: any = null;
+  private pauseResumeTimeout: any = null;
+
+  toggleGroomFlip(event?: Event) {
+    if (event) event.stopPropagation();
+    this.isGroomFlipped.update(v => !v);
+    this.pauseCarouselTemporarily(7000);
+  }
+
+  toggleBrideFlip(event?: Event) {
+    if (event) event.stopPropagation();
+    this.isBrideFlipped.update(v => !v);
+    this.pauseCarouselTemporarily(7000);
+  }
+
+  goToSlide(index: number, pause = true) {
+    this.currentSlideIndex.set(index);
+    this.dragOffset.set(0);
+    if (pause) {
+      this.pauseCarouselTemporarily(8000);
+    }
+  }
+
+  nextSlide(pause = false) {
+    this.currentSlideIndex.update(i => (i + 1) % 3);
+    this.dragOffset.set(0);
+    if (pause) {
+      this.pauseCarouselTemporarily(8000);
+    }
+  }
+
+  prevSlide(pause = true) {
+    this.currentSlideIndex.update(i => (i - 1 + 3) % 3);
+    this.dragOffset.set(0);
+    if (pause) {
+      this.pauseCarouselTemporarily(8000);
+    }
+  }
+
+  getTrackTransform(): string {
+    const basePercent = -this.currentSlideIndex() * 100;
+    const offset = this.dragOffset();
+    if (offset !== 0) {
+      return `translateX(calc(${basePercent}% + ${offset}px))`;
+    }
+    return `translateX(${basePercent}%)`;
+  }
+
+  onTouchStart(e: TouchEvent) {
+    if (e.touches.length !== 1) return;
+    this.touchStartX = e.touches[0].clientX;
+    this.isSwiping = true;
+    this.isCarouselPaused.set(true);
+  }
+
+  onTouchMove(e: TouchEvent) {
+    if (!this.isSwiping || e.touches.length !== 1) return;
+    const deltaX = e.touches[0].clientX - this.touchStartX;
+    this.dragOffset.set(Math.max(-120, Math.min(120, deltaX)));
+  }
+
+  onTouchEnd(e: TouchEvent) {
+    if (!this.isSwiping) return;
+    this.isSwiping = false;
+    const deltaX = this.dragOffset();
+    this.dragOffset.set(0);
+
+    if (deltaX < -40) {
+      this.nextSlide(true);
+    } else if (deltaX > 40) {
+      this.prevSlide(true);
+    }
+    this.pauseCarouselTemporarily(6000);
+  }
+
+  pauseCarousel() {
+    this.isCarouselPaused.set(true);
+  }
+
+  resumeCarousel() {
+    this.isCarouselPaused.set(false);
+  }
+
+  private pauseCarouselTemporarily(ms: number) {
+    this.isCarouselPaused.set(true);
+    if (this.pauseResumeTimeout) clearTimeout(this.pauseResumeTimeout);
+    this.pauseResumeTimeout = setTimeout(() => {
+      this.isCarouselPaused.set(false);
+    }, ms);
+  }
+
+  initCoupleCarousel() {
+    if (!isPlatformBrowser(this.platformId)) return;
+    // Auto-advance carousel smoothly every 4.5 seconds on mobile
+    this.carouselAutoTimer = setInterval(() => {
+      if (window.innerWidth <= 900 && !this.isCarouselPaused()) {
+        this.nextSlide(false);
+      }
+    }, 4500);
+  }
+
   openPhotoLightbox(photo: { src: string; title: string; subtitle: string }) {
     this.selectedPhoto.set(photo);
   }
@@ -277,7 +381,15 @@ export class HomeComponent implements OnDestroy {
 
   // Countdown State
   readonly countdown = signal<CountdownState>({ days: '00', hours: '00', minutes: '00', seconds: '00' });
+  readonly isWeddingDayOrPast = signal<boolean>(false);
   private countdownTimer: any = null;
+
+  // Guest Helplines (Direct Tap-to-Call, Minimal 1-Row Layout)
+  readonly guestHelplines = [
+    { phone: '+91 85429 59229', telLink: 'tel:+918542959229' },
+    { phone: '+91 99196 47849', telLink: 'tel:+919919647849' },
+    { phone: '+91 94534 54548', telLink: 'tel:+919453454548' }
+  ];
 
   // Floating Botanical Canvas State (Petals, Leaves & Gold Dust)
   private petalCtx: CanvasRenderingContext2D | null = null;
@@ -297,6 +409,7 @@ export class HomeComponent implements OnDestroy {
       this.startCountdown();
       this.initFloatingPetals();
       this.initScrollReveals();
+      this.initCoupleCarousel();
     });
   }
 
@@ -304,30 +417,41 @@ export class HomeComponent implements OnDestroy {
     if (this.countdownTimer) clearInterval(this.countdownTimer);
     if (this.petalAnimFrame) cancelAnimationFrame(this.petalAnimFrame);
     if (this.observer) this.observer.disconnect();
+    if (this.carouselAutoTimer) clearInterval(this.carouselAutoTimer);
+    if (this.pauseResumeTimeout) clearTimeout(this.pauseResumeTimeout);
+    if (this.envelopeAutoDismissTimer) clearTimeout(this.envelopeAutoDismissTimer);
   }
 
   // =========================================================================
   // 1. ROYAL ENVELOPE OPENING CEREMONY (120 FPS FLUID MOTION)
   // =========================================================================
+  private envelopeAutoDismissTimer: any = null;
+
   breakRoyalSeal(event: MouseEvent) {
+    if (this.isEnvelopeOpened()) return;
     this.audioService.playSacredChime(587.33, 1.4, 0.12);
     this.audioService.play();
     this.showerCelebratoryPetals();
     this.isEnvelopeOpened.set(true);
 
-    // Allow the 120 FPS unfolding card animation to be fully admired by the guest
-    setTimeout(() => {
+    // Allow the unfolding Bal Ganesha card animation to be fully admired by the guest
+    if (this.envelopeAutoDismissTimer) clearTimeout(this.envelopeAutoDismissTimer);
+    this.envelopeAutoDismissTimer = setTimeout(() => {
       this.isEnvelopeClosing.set(true);
       setTimeout(() => {
         this.isEnvelopeFading.set(true);
         setTimeout(() => {
           this.dismissEnvelope();
-        }, 350);
-      }, 250);
-    }, 2200);
+        }, 400);
+      }, 300);
+    }, 6500);
   }
 
   dismissEnvelope() {
+    if (this.envelopeAutoDismissTimer) {
+      clearTimeout(this.envelopeAutoDismissTimer);
+      this.envelopeAutoDismissTimer = null;
+    }
     this.audioService.play();
     this.uiState.closeEnvelope();
     this.smoothScroll.scrollToTop(true);
@@ -344,12 +468,21 @@ export class HomeComponent implements OnDestroy {
       const diff = weddingDate - now;
 
       if (diff > 0) {
+        this.isWeddingDayOrPast.set(false);
         this.countdown.set({
           days: String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0'),
           hours: String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0'),
           minutes: String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0'),
           seconds: String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0')
         });
+      } else {
+        // When countdown reaches zero: Auspicious celebration state activates
+        this.isWeddingDayOrPast.set(true);
+        this.countdown.set({ days: '00', hours: '00', minutes: '00', seconds: '00' });
+        if (this.countdownTimer) {
+          clearInterval(this.countdownTimer);
+          this.countdownTimer = null;
+        }
       }
     };
 
@@ -358,7 +491,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   // =========================================================================
-  // 3. MINIMAL FLOATING ROSE PETALS (Sacred & Ambient, Non-Intrusive)
+  // 3. MINIMAL FLOATING REAL ROSE PETALS (Sacred & Ambient, Non-Intrusive)
   // =========================================================================
   private initFloatingPetals() {
     if (!this.petalCanvasRef) return;
@@ -375,7 +508,7 @@ export class HomeComponent implements OnDestroy {
 
     updateSize();
 
-    // Spawn minimal, very sparse canopy of authentic rose petals (never obscures text)
+    // Spawn minimal, very sparse canopy of authentic plucked rose petals
     const w = window.innerWidth;
     const h = window.innerHeight;
     const isMobile = w < 768;
@@ -385,12 +518,66 @@ export class HomeComponent implements OnDestroy {
       this.botanicalParticles.push(new BotanicalParticle(w, h));
     }
 
+    // Load and extract genuine photographic plucked rose petal sprites
+    this.loadRealRosePetalSprites();
+
     window.addEventListener('resize', () => {
       updateSize();
     });
 
     this.lastFrameTime = performance.now();
     this.animatePetals();
+  }
+
+  private loadRealRosePetalSprites() {
+    if (!isPlatformBrowser(this.platformId)) return;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = 'assets/images/real-rose-petals.jpg';
+    img.onload = () => {
+      // 4 distinct crops of genuine plucked rose petals
+      const petalCrops = [
+        { x: 235, y: 340, w: 250, h: 220 }, // Center-left petal
+        { x: 505, y: 340, w: 255, h: 220 }, // Center-right petal
+        { x: 240, y: 110, w: 240, h: 200 }, // Upper-left curved petal
+        { x: 550, y: 145, w: 230, h: 190 }  // Upper-right soft petal
+      ];
+
+      rosePetalSprites = petalCrops.map(crop => {
+        const offCanvas = document.createElement('canvas');
+        const targetSize = 100;
+        offCanvas.width = targetSize;
+        offCanvas.height = targetSize;
+        const ctx = offCanvas.getContext('2d', { willReadFrequently: true });
+        if (!ctx) return offCanvas;
+
+        ctx.drawImage(img, crop.x, crop.y, crop.w, crop.h, 0, 0, targetSize, targetSize);
+        const imgData = ctx.getImageData(0, 0, targetSize, targetSize);
+        const data = imgData.data;
+
+        // Clean white studio background to transparent PNG sprite
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
+          if (r > 240 && g > 240 && b > 240) {
+            data[i + 3] = 0;
+          } else if (r > 218 && g > 218 && b > 218) {
+            const brightness = Math.min(r, g, b);
+            data[i + 3] = Math.max(0, Math.min(255, Math.round(255 * (1 - (brightness - 218) / 24))));
+          }
+        }
+        ctx.putImageData(imgData, 0, 0);
+        return offCanvas;
+      });
+
+      isPetalSpritesLoaded = true;
+
+      // Distribute sprites across existing particles
+      for (let i = 0; i < this.botanicalParticles.length; i++) {
+        this.botanicalParticles[i].spriteIndex = i % rosePetalSprites.length;
+      }
+    };
   }
 
   private animatePetals() {

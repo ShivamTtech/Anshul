@@ -6,84 +6,147 @@
      [class.closing]="isEnvelopeClosing()"
      [class.fade-out]="isEnvelopeFading()">
   
-  <!-- Background Warm Aura -->
+  <!-- Ambient Warm Antique Vignette & Glow -->
   <div class="envelope-backdrop-aura"></div>
+  <div class="envelope-vignette-overlay"></div>
 
-  <!-- Instructions Banner -->
-  <div class="envelope-prompt" [class.hidden-prompt]="isEnvelopeOpened()">
-    <div class="prompt-badge">
-      <span class="pulse-dot"></span>
-      <span class="font-cinzel prompt-text">Tap the Seal to Open</span>
-    </div>
-    <p class="font-editorial prompt-sub">A sacred royal wedding invitation awaits within</p>
-    <button type="button" class="btn-skip-intro" (click)="dismissEnvelope()" aria-label="Skip introduction">
-      <span>Skip to Invitation ➔</span>
-    </button>
-  </div>
-
-  <!-- Parchment Envelope Container -->
+  <!-- Parchment Envelope Container (3D Physical Realism) -->
   <div class="envelope-perspective">
     <div class="envelope-wrapper" [class.unfolded]="isEnvelopeOpened()">
       
-      <!-- Envelope Backing Plate (Warm Parchment) -->
-      <div class="envelope-plate">
-        <div class="plate-texture"></div>
-        <div class="plate-filigree"></div>
+      <!-- 1. Envelope Back Wall (Interior of the pocket) -->
+      <div class="envelope-back-wall">
+        <div class="back-wall-texture"></div>
+        <div class="back-inner-lining"></div>
+        <div class="back-pocket-shadow"></div>
       </div>
 
-      <!-- Hidden Invitation Parchment -->
-      <div class="invitation-letter-card">
-        <div class="letter-header">
-          <span class="letter-line"></span>
-          <span class="font-editorial letter-om">॥ श्री गणेशाय नमः ॥</span>
-          <span class="letter-line"></span>
-        </div>
+      <!-- 2. The Sacred Invitation Letter Card (Tucked inside, slides halfway up on open) -->
+      <div class="invitation-letter-card" 
+           (click)="dismissEnvelope()"
+           title="Tap card to view full invitation"
+           role="button"
+           tabindex="0"
+           aria-label="Invitation card for Anshul and Vidisha">
+        <div class="letter-inner-parchment">
+          
+          <!-- Cute Bal Ganesha Blessing Stage (Emerges in top half) -->
+          <div class="letter-ganesha-stage">
+            <div class="ganesha-avatar-mount">
+              <img src="assets/images/cute-bal-ganesha-card.png?v=2" 
+                   alt="Adorable Bal Ganesha Divine Blessing" 
+                   class="card-bal-ganesha-img" />
+              <div class="avatar-glow-ring"></div>
+            </div>
+            <span class="letter-om font-cinzel">॥ श्री गणेशाय नमः ॥</span>
+          </div>
 
-        <div class="letter-body">
-          <span class="letter-eyebrow">You Are Cordially Invited To The Wedding of</span>
-          <h2 class="letter-title font-calligraphy text-crimson">
-            Anshul &amp; Vidisha
-          </h2>
-          <p class="letter-location font-editorial">Lucknow &amp; Prayagraj · November 2026</p>
-        </div>
+          <!-- Sacred Wedding Typography -->
+          <div class="letter-body">
+            <span class="letter-eyebrow font-cinzel">✦ SHUBH VIVAH ✦</span>
+            <h2 class="letter-title font-calligraphy text-crimson">
+              Anshul &amp; Vidisha
+            </h2>
+            <p class="letter-location font-editorial">Prayagraj &amp; Lucknow · 20th November 2026</p>
+          </div>
 
-        <div class="letter-footer">
-          <span>Verma Family</span>
-          <button type="button" class="btn-enter-realm" (click)="dismissEnvelope()">View Invitation</button>
-          <span>Singh Family</span>
+          <!-- Action Prompt Button -->
+          <div class="letter-footer">
+            <button type="button" class="btn-enter-realm font-cinzel" (click)="dismissEnvelope(); $event.stopPropagation()">
+              <span>Open Sacred Invitation ➔</span>
+            </button>
+          </div>
+
         </div>
       </div>
 
-      <!-- Envelope Side Wings (Completely Opaque) -->
-      <div class="envelope-wings">
-        <div class="wing-left"></div>
-        <div class="wing-right"></div>
-        <div class="wing-bottom"></div>
+      <!-- 3. Envelope Front Pocket (Covers bottom half of letter card for true physical realism) -->
+      <div class="envelope-front-pocket">
+        <!-- Solid Ivory Pocket Surface with V-Notch Opening -->
+        <div class="pocket-solid-body">
+          <!-- Subtle diagonal crease lines representing folded flaps -->
+          <div class="pocket-crease crease-left"></div>
+          <div class="pocket-crease crease-right"></div>
+          <div class="pocket-bottom-crease"></div>
+        </div>
+
+        <!-- Crisp Gold Piping SVG along the Top V-Notch Lip -->
+        <svg class="pocket-lip-svg" viewBox="0 0 100 50" preserveAspectRatio="none">
+          <polyline points="0,0 50,50 100,0" fill="none" stroke="url(#goldPocketLip)" stroke-width="1.8" stroke-linejoin="round" />
+          <polyline points="2,1 50,47 98,1" fill="none" stroke="rgba(212, 175, 55, 0.45)" stroke-width="0.75" stroke-dasharray="2.5,2" />
+          <defs>
+            <linearGradient id="goldPocketLip" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#C5A059" />
+              <stop offset="50%" stop-color="#F3E197" />
+              <stop offset="100%" stop-color="#C5A059" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <!-- Outer Rectangular Gold Border Accent -->
+        <div class="pocket-outer-frame"></div>
       </div>
 
-      <!-- Envelope Top Fold Flap -->
-      <div class="envelope-flap flap-top">
-        <div class="flap-crest">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M12 2l3 5 5-2-2 7H6L4 5l5 2 3-5z"></path>
+      <!-- 4. Envelope Top Fold Flap (Sharp triangular 'Arrow' flap pointing down to center) -->
+      <div class="envelope-flap-top">
+        <div class="flap-body">
+          <!-- Crisp Gold Piping along the downward 'arrow' V-edges -->
+          <svg class="flap-edge-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <polyline points="0,0 50,100 100,0" fill="none" stroke="url(#goldFlapStroke)" stroke-width="2" stroke-linejoin="round" />
+            <polyline points="2,1 50,95 98,1" fill="none" stroke="rgba(212, 175, 55, 0.55)" stroke-width="0.9" stroke-dasharray="3,2" />
+            <defs>
+              <linearGradient id="goldFlapStroke" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#BF9035" />
+                <stop offset="50%" stop-color="#F3E197" />
+                <stop offset="100%" stop-color="#BF9035" />
+              </linearGradient>
+            </defs>
           </svg>
+
+          <!-- Top Fold Crease Line Accent -->
+          <div class="flap-top-crease"></div>
+
+          <!-- Royal Crown Crest Monogram -->
+          <div class="flap-royal-crest">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M12 2l3 5 5-2-2 7H6L4 5l5 2 3-5z"></path>
+            </svg>
+          </div>
         </div>
       </div>
 
-      <!-- The Glowing Monogram Wax Seal Button -->
-      <button type="button" 
-              class="wax-seal-btn wax-seal" 
-              [class.broken]="isEnvelopeOpened()"
-              (click)="breakRoyalSeal($event)" 
-              title="Click to open the invitation">
-        <div class="seal-icon">
-          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor" style="color: var(--gold-warm);">
-            <path d="M12 2l2.4 7.4h7.6l-6.2 4.5 2.4 7.4-6.2-4.5-6.2 4.5 2.4-7.4-6.2-4.5h7.6z"/>
-          </svg>
+      <!-- 5. Concentric Gold Embossed Rings on Envelope Body -->
+      <div class="envelope-concentric-emboss" aria-hidden="true">
+        <div class="emboss-ring ring-outer"></div>
+        <div class="emboss-ring ring-inner"></div>
+      </div>
+
+      <!-- 6. Royal Ganesha Wax Seal Button with Pulsating Tap Halo -->
+      <div class="wax-seal-wrapper" [class.broken]="isEnvelopeOpened()">
+        <!-- Modern Animated Pulsating Tap Cue -->
+        <div class="tap-gesture-halo" aria-hidden="true">
+          <div class="tap-ripple-ring ring-1"></div>
+          <div class="tap-ripple-ring ring-2"></div>
+          <div class="tap-beacon-pill font-cinzel">
+            <span class="beacon-sparkle">✦</span>
+            <span>TAP</span>
+            <span class="beacon-sparkle">✦</span>
+          </div>
         </div>
-        <span class="seal-initials font-cinzel-deco">A &amp; V</span>
-        <span class="seal-label font-cinzel">OPEN</span>
-      </button>
+
+        <button type="button" 
+                class="wax-seal-btn wax-seal-ganesha" 
+                (click)="breakRoyalSeal($event)" 
+                title="Tap the sacred Ganesha seal to open invitation"
+                aria-label="Tap the sacred Ganesha seal to open wedding invitation">
+          <div class="seal-ganesha-frame">
+            <img src="assets/images/ganesha-wax-seal.png?v=2" 
+                 alt="Lord Ganesha Sacred Wax Seal" 
+                 class="seal-ganesha-img" />
+          </div>
+          <div class="seal-touch-shimmer"></div>
+        </button>
+      </div>
 
     </div>
   </div>
@@ -253,34 +316,51 @@
         </p>
       </div>
 
-      <!-- Live Countdown Card -->
-      <div class="countdown-ornate-card">
-        <div class="countdown-badge">
-          <span class="countdown-dot"></span>
-          <span class="font-cinzel">COUNTDOWN TO SACRED WEDDING · 20 NOV 2026</span>
-        </div>
+      <!-- Live Countdown Card / Auspicious Celebration State -->
+      <div class="countdown-ornate-card" [class.is-celebrating]="isWeddingDayOrPast()">
+        @if (!isWeddingDayOrPast()) {
+          <div class="countdown-badge">
+            <span class="countdown-dot"></span>
+            <span class="font-cinzel">COUNTDOWN TO SACRED WEDDING · 20 NOV 2026</span>
+          </div>
 
-        <div class="countdown-grid">
-          <div class="timer-cell">
-            <span class="timer-val font-cinzel text-crimson">{{ countdown().days }}</span>
-            <span class="timer-lbl font-cinzel">Days</span>
+          <div class="countdown-grid">
+            <div class="timer-cell">
+              <span class="timer-val font-cinzel text-crimson">{{ countdown().days }}</span>
+              <span class="timer-lbl font-cinzel">Days</span>
+            </div>
+            <span class="timer-colon">:</span>
+            <div class="timer-cell">
+              <span class="timer-val font-cinzel text-crimson">{{ countdown().hours }}</span>
+              <span class="timer-lbl font-cinzel">Hours</span>
+            </div>
+            <span class="timer-colon">:</span>
+            <div class="timer-cell">
+              <span class="timer-val font-cinzel text-crimson">{{ countdown().minutes }}</span>
+              <span class="timer-lbl font-cinzel">Minutes</span>
+            </div>
+            <span class="timer-colon">:</span>
+            <div class="timer-cell">
+              <span class="timer-val font-cinzel text-crimson">{{ countdown().seconds }}</span>
+              <span class="timer-lbl font-cinzel">Seconds</span>
+            </div>
           </div>
-          <span class="timer-colon">:</span>
-          <div class="timer-cell">
-            <span class="timer-val font-cinzel text-crimson">{{ countdown().hours }}</span>
-            <span class="timer-lbl font-cinzel">Hours</span>
+        } @else {
+          <!-- Auspicious Celebration Banner (Displayed When Timer Reaches Zero) -->
+          <div class="wedding-celebration-banner">
+            <div class="celebration-badge">
+              <span class="celebration-sparkle">✦</span>
+              <span class="font-cinzel">THE SACRED DAY HAS ARRIVED</span>
+              <span class="celebration-sparkle">✦</span>
+            </div>
+            <h3 class="celebration-headline font-calligraphy text-crimson">
+              Anshul &amp; Vidisha
+            </h3>
+            <p class="celebration-message font-editorial">
+              United in eternal companionship &amp; sacred matrimony. We seek your heartfelt prayers &amp; divine blessings!
+            </p>
           </div>
-          <span class="timer-colon">:</span>
-          <div class="timer-cell">
-            <span class="timer-val font-cinzel text-crimson">{{ countdown().minutes }}</span>
-            <span class="timer-lbl font-cinzel">Minutes</span>
-          </div>
-          <span class="timer-colon">:</span>
-          <div class="timer-cell">
-            <span class="timer-val font-cinzel text-crimson">{{ countdown().seconds }}</span>
-            <span class="timer-lbl font-cinzel">Seconds</span>
-          </div>
-        </div>
+        }
       </div>
 
       <!-- Hero Actions -->
@@ -321,140 +401,283 @@
       <div class="ornate-divider"><span class="divider-gem">✦</span></div>
     </div>
 
-    <!-- Grand Editorial Union Showcase (Zero Text-Over-Image Overlap) -->
-    <div class="couple-grand-showcase">
+    <!-- Mobile Luxury Segmented Tab Switcher (Groom | The Couple | Bride) -->
+    <div class="mobile-couple-nav font-cinzel">
+      <button type="button" 
+              class="mobile-nav-pill" 
+              [class.active]="currentSlideIndex() === 0"
+              (click)="goToSlide(0)">
+        <span>✤ Groom</span>
+      </button>
+      <button type="button" 
+              class="mobile-nav-pill" 
+              [class.active]="currentSlideIndex() === 1"
+              (click)="goToSlide(1)">
+        <span>✦ The Couple ✦</span>
+      </button>
+      <button type="button" 
+              class="mobile-nav-pill" 
+              [class.active]="currentSlideIndex() === 2"
+              (click)="goToSlide(2)">
+        <span>Bride ✤</span>
+      </button>
+    </div>
+
+    <!-- High-Performance Couple Carousel (Desktop 3-Column · Mobile 120 FPS Sliding Track) -->
+    <div class="couple-carousel-viewport"
+         (touchstart)="onTouchStart($event)"
+         (touchmove)="onTouchMove($event)"
+         (touchend)="onTouchEnd($event)"
+         (mouseenter)="pauseCarousel()"
+         (mouseleave)="resumeCarousel()">
       
-      <!-- Groom Presentation Card -->
-      <div class="person-presentation groom-presentation">
-        <div class="person-presentation-inner">
-          <span class="person-role-badge font-cinzel">✤ GROOM ✤</span>
-          
-          <h3 class="person-name font-calligraphy text-crimson">
-            {{ weddingData.groom.name }}
-          </h3>
-          
-          <p class="person-parentage font-editorial">
-            {{ weddingData.groom.parentage }}
-          </p>
-
-          <div class="person-city-tag font-cinzel">
-            <span class="city-icon">📍</span>
-            <span>Him City, Lucknow</span>
-          </div>
-
-          <!-- Clean Elegant Groom Cameo Portrait -->
-          <div class="person-cameo-clean groom-cameo-clean" 
-               (click)="openPhotoLightbox(groomPortrait)" 
-               title="Click to view groom portrait"
+      <div class="couple-carousel-track" 
+           [style.transform]="getTrackTransform()"
+           [class.is-dragging]="isSwiping">
+        
+        <!-- Slide 0: Groom 3D Flip Card (Photo Front · Details Back) -->
+        <div class="carousel-slide slide-groom">
+          <div id="couple-card-groom"
+               class="flip-card-wrapper groom-flip-card" 
+               [class.is-flipped]="isGroomFlipped()" 
+               (click)="toggleGroomFlip($event)"
                role="button"
                tabindex="0"
-               (keydown.enter)="openPhotoLightbox(groomPortrait)">
-            <div class="cameo-photo-wrap">
-              <img [src]="groomPortrait.src" [alt]="groomPortrait.title" class="cameo-photo-img cameo-groom-img" loading="lazy" />
-              <div class="cameo-hover-hint">🔍</div>
+               aria-label="Groom card. Tap to flip."
+               (keydown.enter)="toggleGroomFlip($event)">
+            <div class="flip-card-inner">
+              
+              <!-- Front Face (DEFAULT): Authentic Royal Portrait -->
+              <div class="flip-card-face flip-card-front card-face-photo groom-front">
+                <div class="card-photo-content">
+                  <span class="person-role-badge font-cinzel">✤ THE ROYAL GROOM ✤</span>
+                  
+                  <div class="card-portrait-mount">
+                    <img [src]="groomPortrait.src" [alt]="groomPortrait.title" class="card-portrait-img groom-img" loading="lazy" />
+                    <button type="button" 
+                            class="corner-zoom-btn" 
+                            (click)="openPhotoLightbox(groomPortrait); $event.stopPropagation()" 
+                            title="View full portrait" 
+                            aria-label="View full portrait">
+                      🔍
+                    </button>
+                  </div>
+
+                  <div class="card-photo-caption">
+                    <h3 class="card-person-name font-calligraphy text-crimson">Anshul Verma</h3>
+                    <span class="card-location-tag font-cinzel">HIM CITY · LUCKNOW</span>
+                  </div>
+
+                  <div class="flip-hint-cue font-cinzel">
+                    <span class="flip-hint-icon">↻</span>
+                    <span>Tap card for details</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Face (BEHIND THE FLIP): Royal Heritage Details & Bio -->
+              <div class="flip-card-face flip-card-back card-face-details groom-back">
+                <div class="card-details-content">
+                  <span class="person-role-badge font-cinzel">✤ GROOM ✤</span>
+                  
+                  <h3 class="person-name font-calligraphy text-crimson">
+                    {{ weddingData.groom.name }}
+                  </h3>
+
+                  <p class="person-parentage font-editorial">
+                    {{ weddingData.groom.parentage }}
+                  </p>
+
+                  <div class="person-city-pill font-cinzel">
+                    <span>HIM CITY, LUCKNOW</span>
+                  </div>
+
+                  <div class="card-quote-box">
+                    <p class="person-bio font-editorial">
+                      “Embracing life with deep filial reverence, wisdom, and steadfast devotion to family tradition.”
+                    </p>
+                  </div>
+
+                  <div class="flip-hint-cue font-cinzel">
+                    <span class="flip-hint-icon">↻</span>
+                    <span>Tap card for portrait</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
-            <span class="cameo-label font-cinzel">ANSHUL · GROOM</span>
           </div>
-
-          <div class="person-filigree-flourish">❧ ✦ ☙</div>
-
-          <p class="person-bio font-editorial">
-            “Embracing life with filial reverence, wisdom, and steadfast devotion to family values.”
-          </p>
         </div>
-      </div>
 
-      <!-- Sober Minimal Luxury Couple Photo Frame -->
-      <div class="couple-portrait-monument">
-        <div class="modern-photo-card portrait-mount" 
-             (click)="openPhotoLightbox(couplePortrait)" 
-             title="Click to view full portrait"
-             role="button"
-             tabindex="0"
-             (keydown.enter)="openPhotoLightbox(couplePortrait)">
-          
-          <!-- Ambient Glow Behind Image (Apple / Modern Luxury style) -->
-          <div class="photo-ambient-backdrop" [style.background-image]="'url(' + couplePortrait.src + ')'" aria-hidden="true"></div>
+        <!-- Slide 1: The Couple Monument -->
+        <div class="carousel-slide slide-couple">
+          <div id="couple-card-couple" class="couple-portrait-monument">
+            <div class="modern-photo-card portrait-mount" 
+                 (click)="openPhotoLightbox(couplePortrait)" 
+                 title="Click to view full portrait"
+                 role="button"
+                 tabindex="0"
+                 (keydown.enter)="openPhotoLightbox(couplePortrait)">
+              
+              <div class="photo-ambient-backdrop" [style.background-image]="'url(' + couplePortrait.src + ')'" aria-hidden="true"></div>
 
-          <div class="photo-card-inner">
-            <div class="photo-media portrait-media">
-              <img [src]="couplePortrait.src" 
-                   [alt]="couplePortrait.title" 
-                   class="couple-main-img" 
-                   loading="eager" />
-              <div class="photo-hover-badge">
-                <span class="hint-icon">🔍</span>
-                <span class="font-cinzel">View Full</span>
+              <div class="photo-card-inner">
+                <div class="photo-media portrait-media">
+                  <img [src]="couplePortrait.src" 
+                       [alt]="couplePortrait.title" 
+                       class="couple-main-img" 
+                       loading="eager" />
+                  <button type="button" 
+                          class="corner-zoom-btn photo-corner-zoom" 
+                          (click)="openPhotoLightbox(couplePortrait); $event.stopPropagation()" 
+                          title="View full portrait" 
+                          aria-label="View full portrait">
+                    🔍
+                  </button>
+                </div>
+
+                <div class="photo-caption-clean">
+                  <h4 class="caption-names font-calligraphy text-crimson">Anshul &amp; Vidisha</h4>
+                  <p class="caption-tag font-cinzel">UNITED IN SACRED MATRIMONY</p>
+                  <span class="caption-date font-editorial">20th November 2026 · Prayagraj</span>
+                </div>
               </div>
             </div>
-
-            <div class="photo-caption-clean">
-              <h4 class="caption-names font-calligraphy text-crimson">Anshul &amp; Vidisha</h4>
-              <p class="caption-tag font-cinzel">UNITED IN SACRED MATRIMONY</p>
-              <span class="caption-date font-editorial">20th November 2026 · Prayagraj</span>
-            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Bride Presentation Card -->
-      <div class="person-presentation bride-presentation">
-        <div class="person-presentation-inner">
-          <span class="person-role-badge font-cinzel">✤ BRIDE ✤</span>
-          
-          <h3 class="person-name font-calligraphy text-crimson">
-            {{ weddingData.bride.name }}
-          </h3>
-          
-          <p class="person-parentage font-editorial">
-            {{ weddingData.bride.parentage }}
-          </p>
-
-          <div class="person-city-tag font-cinzel">
-            <span class="city-icon">📍</span>
-            <span>Prayagraj, Uttar Pradesh</span>
-          </div>
-
-          <!-- Clean Elegant Bride Cameo Portrait -->
-          <div class="person-cameo-clean bride-cameo-clean" 
-               (click)="openPhotoLightbox(bridePortrait)" 
-               title="Click to view bride portrait"
+        <!-- Slide 2: Bride 3D Flip Card (Photo Front · Details Back) -->
+        <div class="carousel-slide slide-bride">
+          <div id="couple-card-bride"
+               class="flip-card-wrapper bride-flip-card" 
+               [class.is-flipped]="isBrideFlipped()" 
+               (click)="toggleBrideFlip($event)"
                role="button"
                tabindex="0"
-               (keydown.enter)="openPhotoLightbox(bridePortrait)">
-            <div class="cameo-photo-wrap">
-              <img [src]="bridePortrait.src" [alt]="bridePortrait.title" class="cameo-photo-img cameo-bride-img" loading="lazy" />
-              <div class="cameo-hover-hint">🔍</div>
+               aria-label="Bride card. Tap to flip."
+               (keydown.enter)="toggleBrideFlip($event)">
+            <div class="flip-card-inner">
+              
+              <!-- Front Face (DEFAULT): Authentic Royal Portrait -->
+              <div class="flip-card-face flip-card-front card-face-photo bride-front">
+                <div class="card-photo-content">
+                  <span class="person-role-badge font-cinzel">✤ THE RADIANT BRIDE ✤</span>
+                  
+                  <div class="card-portrait-mount">
+                    <img [src]="bridePortrait.src" [alt]="bridePortrait.title" class="card-portrait-img bride-img" loading="lazy" />
+                    <button type="button" 
+                            class="corner-zoom-btn" 
+                            (click)="openPhotoLightbox(bridePortrait); $event.stopPropagation()" 
+                            title="View full portrait" 
+                            aria-label="View full portrait">
+                      🔍
+                    </button>
+                  </div>
+
+                  <div class="card-photo-caption">
+                    <h3 class="card-person-name font-calligraphy text-crimson">Vidisha Singh</h3>
+                    <span class="card-location-tag font-cinzel">PRAYAGRAJ · UTTAR PRADESH</span>
+                  </div>
+
+                  <div class="flip-hint-cue font-cinzel">
+                    <span class="flip-hint-icon">↻</span>
+                    <span>Tap card for details</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Face (BEHIND THE FLIP): Royal Heritage Details & Bio -->
+              <div class="flip-card-face flip-card-back card-face-details bride-back">
+                <div class="card-details-content">
+                  <span class="person-role-badge font-cinzel">✤ BRIDE ✤</span>
+                  
+                  <h3 class="person-name font-calligraphy text-crimson">
+                    {{ weddingData.bride.name }}
+                  </h3>
+
+                  <p class="person-parentage font-editorial">
+                    {{ weddingData.bride.parentage }}
+                  </p>
+
+                  <div class="person-city-pill font-cinzel">
+                    <span>PRAYAGRAJ, UTTAR PRADESH</span>
+                  </div>
+
+                  <div class="card-quote-box">
+                    <p class="person-bio font-editorial">
+                      “Adorned with gentle grace, luminous warmth, and eternal devotion to sacred family values.”
+                    </p>
+                  </div>
+
+                  <div class="flip-hint-cue font-cinzel">
+                    <span class="flip-hint-icon">↻</span>
+                    <span>Tap card for portrait</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
-            <span class="cameo-label font-cinzel">VIDISHA · BRIDE</span>
           </div>
-
-          <div class="person-filigree-flourish">❧ ✦ ☙</div>
-
-          <p class="person-bio font-editorial">
-            “Adorned with gentle grace, luminous warmth, and eternal devotion to sacred traditions.”
-          </p>
         </div>
+
+      </div>
+
+      <!-- Mobile Carousel Navigation Controls: Subtle Arrows & Dots -->
+      <div class="carousel-nav-controls font-cinzel">
+        <button type="button" class="carousel-arrow-btn" (click)="prevSlide(); $event.stopPropagation()" aria-label="Previous slide">‹</button>
+        <div class="carousel-dot-indicators">
+          <button type="button" class="dot-btn" [class.active]="currentSlideIndex() === 0" (click)="goToSlide(0)" aria-label="Go to Groom"></button>
+          <button type="button" class="dot-btn" [class.active]="currentSlideIndex() === 1" (click)="goToSlide(1)" aria-label="Go to Couple"></button>
+          <button type="button" class="dot-btn" [class.active]="currentSlideIndex() === 2" (click)="goToSlide(2)" aria-label="Go to Bride"></button>
+        </div>
+        <button type="button" class="carousel-arrow-btn" (click)="nextSlide(true); $event.stopPropagation()" aria-label="Next slide">›</button>
       </div>
 
     </div>
 
-    <!-- Sacred Vedic Shloka Ribbon Below Profiles (Zero Overlap) -->
-    <div class="union-shloka-banner">
-      <div class="banner-monogram-circle">
-        <svg viewBox="0 0 100 100" class="monogram-halo-svg" width="68" height="68">
-          <circle cx="50" cy="50" r="46" fill="none" stroke="var(--gold-warm)" stroke-width="1.2" stroke-dasharray="3 3"/>
-          <circle cx="50" cy="50" r="41" fill="none" stroke="var(--crimson-wine)" stroke-width="0.8"/>
+    <!-- Sacred Vedic Shloka Showcase (Intertwined Golden Wedding Rings) -->
+    <div class="sacred-shloka-showcase">
+      <div class="intertwined-rings-container">
+        <svg class="intertwined-rings-svg" viewBox="0 0 100 60" width="76" height="46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Intertwined Wedding Rings">
+          <defs>
+            <linearGradient id="ringGradGold1" x1="10%" y1="0%" x2="90%" y2="100%">
+              <stop offset="0%" stop-color="#F7E5A9"/>
+              <stop offset="35%" stop-color="#D4AF37"/>
+              <stop offset="70%" stop-color="#AA822A"/>
+              <stop offset="100%" stop-color="#845D1A"/>
+            </linearGradient>
+            <linearGradient id="ringGradGold2" x1="10%" y1="0%" x2="90%" y2="100%">
+              <stop offset="0%" stop-color="#FFF2C8"/>
+              <stop offset="40%" stop-color="#DDB748"/>
+              <stop offset="75%" stop-color="#B28A32"/>
+              <stop offset="100%" stop-color="#8C631F"/>
+            </linearGradient>
+            <filter id="ringGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#845D1A" flood-opacity="0.28"/>
+            </filter>
+          </defs>
+          <!-- Left Gold Band -->
+          <ellipse cx="41" cy="30" rx="18.5" ry="16.5" 
+                   stroke="url(#ringGradGold1)" stroke-width="3" 
+                   filter="url(#ringGlow)"
+                   transform="rotate(-18 41 30)"/>
+          <!-- Right Gold Band -->
+          <ellipse cx="59" cy="30" rx="18.5" ry="16.5" 
+                   stroke="url(#ringGradGold2)" stroke-width="3" 
+                   filter="url(#ringGlow)"
+                   transform="rotate(18 59 30)"/>
+          <!-- Interlocking Front Overlap Arc -->
+          <path d="M 46 22 A 18.5 16.5 0 0 1 54 36" 
+                stroke="url(#ringGradGold1)" stroke-width="3.2" stroke-linecap="round" fill="none"/>
         </svg>
-        <div class="monogram-initials font-cinzel-deco">A &amp; V</div>
       </div>
 
-      <div class="banner-verse-box">
-        <p class="font-editorial shloka-sanskrit">
+      <div class="shloka-content-box">
+        <p class="shloka-sanskrit font-editorial text-crimson">
           माङ्गल्यं तन्तुनानेन जगन्मङ्गलकारिणी।<br>
           कण्ठे बध्नामि सुभगे सञ्जीव शरदः शतम्॥
         </p>
-        <p class="shloka-meaning font-editorial">
+        <p class="shloka-english font-editorial">
           “With this sacred thread of auspiciousness, our souls unite for a hundred blissful seasons.”
         </p>
       </div>
@@ -825,6 +1048,22 @@
       <div class="plaque-inner-box">
         <h4 class="host-name font-cinzel text-crimson">{{ weddingData.familyBlessing.from }}</h4>
         <p class="host-family font-editorial">{{ weddingData.familyBlessing.family }}</p>
+      </div>
+
+      <!-- Guest Helpline Row (Minimal 1-Row Layout · Direct Tap-to-Call) -->
+      <div class="guest-helpline-row-box">
+        <span class="helpline-row-tag font-cinzel text-gold">✤ GUEST HELPLINE · TAP TO CALL ✤</span>
+        <div class="helpline-row-grid">
+          @for (hl of guestHelplines; track hl.phone) {
+            <a [href]="hl.telLink" 
+               class="helpline-row-btn" 
+               [title]="'Call ' + hl.phone"
+               aria-label="Call {{ hl.phone }}">
+              <span class="btn-phone-icon">📞</span>
+              <span class="btn-phone-num">{{ hl.phone }}</span>
+            </a>
+          }
+        </div>
       </div>
 
       <div class="solicitation-note">
