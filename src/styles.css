@@ -54,7 +54,7 @@
   --glass-bg-dark: linear-gradient(145deg, rgba(106, 13, 30, 0.92) 0%, rgba(120, 29, 44, 0.96) 100%);
 
   /* Typography Stack */
-  --font-calligraphy: 'Great Vibes', cursive;
+  --font-calligraphy: 'Alex Brush', cursive;
   --font-display: 'Cinzel', Georgia, serif;
   --font-display-deco: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
   --font-editorial: 'Cormorant Garamond', Georgia, serif;
@@ -518,5 +518,57 @@ img {
   display: block !important;
   border-radius: 50% !important;
   filter: drop-shadow(0 14px 28px rgba(70, 7, 18, 0.6)) drop-shadow(0 0 16px rgba(212, 175, 55, 0.4)) !important;
+}
+
+/* ---------- Hero Minimal Action Buttons ---------- */
+.hero-actions-bar {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  margin: 14px auto 4px !important;
+}
+
+.btn-hero-minimal {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  height: 36px !important;
+  padding: 0 18px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: var(--crimson-wine, #781D2C) !important;
+  border: 1px solid rgba(197, 160, 89, 0.5) !important;
+  font-family: var(--font-cinzel, 'Cinzel', serif) !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(58, 50, 45, 0.06) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  white-space: nowrap !important;
+  outline: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+.btn-hero-minimal:hover {
+  background: #FFFFFF !important;
+  border-color: var(--gold-bright, #D4AF37) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(120, 29, 44, 0.15), 0 0 12px rgba(212, 175, 55, 0.25) !important;
+  color: var(--crimson-deep, #53101B) !important;
+}
+
+.btn-hero-minimal:active {
+  transform: translateY(0) !important;
+}
+
+.btn-hero-minimal .action-icon {
+  font-size: 0.85rem !important;
+  line-height: 1 !important;
 }
 

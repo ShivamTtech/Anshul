@@ -208,7 +208,7 @@ export class HomeComponent implements OnDestroy {
     { id: 'hero', num: '01', roman: 'I', title: 'Sacred Invocation', subtitle: 'Auspicious Blessings' },
     { id: 'couple', num: '02', roman: 'II', title: 'The Couple', subtitle: 'Groom & Bride' },
     { id: 'ceremonies', num: '03', roman: 'III', title: 'Ceremonies', subtitle: 'Sacred Celebrations' },
-    { id: 'itinerary', num: '04', roman: 'IV', title: 'Itinerary', subtitle: 'Vedic Rites' },
+    { id: 'itinerary', num: '04', roman: 'IV', title: 'Itinerary', subtitle: 'Wedding Day' },
     { id: 'blessings', num: '05', roman: 'V', title: 'Blessings', subtitle: 'Heartfelt Wishes' }
   ];
 
@@ -420,8 +420,7 @@ export class HomeComponent implements OnDestroy {
     this.selectedPhoto.set(null);
   }
 
-  // Program Tab ('timeline' | 'rituals')
-  readonly activeProgramTab = signal<'timeline' | 'rituals'>('timeline');
+
 
   readonly copiedToast = signal<string | null>(null);
 
@@ -490,11 +489,11 @@ export class HomeComponent implements OnDestroy {
     this.isCardPulledOut.set(false);
     this.isEnvelopeOpened.set(true);
 
-    // Auto-advance after 6.5s if guest simply watches
+    // Auto-advance after 2.5s if guest simply watches
     if (this.envelopeAutoDismissTimer) clearTimeout(this.envelopeAutoDismissTimer);
     this.envelopeAutoDismissTimer = setTimeout(() => {
       this.pullOutCard();
-    }, 6500);
+    }, 2500);
   }
 
   pullOutCard(event?: Event) {

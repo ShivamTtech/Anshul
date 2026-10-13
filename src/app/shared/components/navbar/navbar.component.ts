@@ -118,7 +118,7 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
           </a>
           <a href="#itinerary" (click)="closeMenuAndScroll('#itinerary', $event)">
             <span class="nav-roman">IV</span>
-            <span class="nav-label">Vedic Itinerary</span>
+            <span class="nav-label">Wedding Itinerary</span>
           </a>
           <a href="#blessings" (click)="closeMenuAndScroll('#blessings', $event)">
             <span class="nav-roman">V</span>
@@ -147,9 +147,15 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       transform: translateX(-50%);
       width: min(92%, 980px);
       z-index: 1000;
+      animation: hudFadeDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
       transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                   width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                   transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes hudFadeDown {
+      from { opacity: 0; transform: translate(-50%, -16px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
     }
 
     .royal-hud-wrapper.scrolled {

@@ -131,12 +131,12 @@
       </div>
 
       <!-- 5. Concentric Gold Embossed Rings on Envelope Body -->
-      <div class="envelope-concentric-emboss" aria-hidden="true">
+      <div class="envelope-concentric-emboss">
         <div class="emboss-ring ring-outer"></div>
         <div class="emboss-ring ring-inner"></div>
       </div>
 
-      <!-- 6. Royal Ganesha Wax Seal Button with Pulsating Tap Halo -->
+      <!-- 6. Royal Crest Seal with Pulsating Tap Cue (ONLY the center circular A&V crest visible) -->
       <div class="wax-seal-wrapper" [class.broken]="isEnvelopeOpened()">
         <!-- Modern Animated Pulsating Tap Cue -->
         <div class="tap-gesture-halo" aria-hidden="true">
@@ -150,14 +150,14 @@
         </div>
 
         <button type="button" 
-                class="wax-seal-btn wax-seal-ganesha" 
+                class="wax-seal-btn wax-seal-crest" 
                 (click)="breakRoyalSeal($event)" 
-                title="Tap the sacred Ganesha seal to open invitation"
-                aria-label="Tap the sacred Ganesha seal to open wedding invitation">
-          <div class="seal-ganesha-frame">
-            <img src="assets/images/ganesha-wax-seal.png?v=2" 
-                 alt="Lord Ganesha Sacred Wax Seal" 
-                 class="seal-ganesha-img" />
+                title="Tap the royal A&V crest to open invitation"
+                aria-label="Tap the royal A&V crest to open wedding invitation">
+          <div class="seal-crest-frame">
+            <img src="assets/images/av-crest-seal.png" 
+                 alt="Royal A&V Crest Seal" 
+                 class="seal-crest-img" />
           </div>
           <div class="seal-touch-shimmer"></div>
         </button>
@@ -378,19 +378,21 @@
         }
       </div>
 
-      <!-- Hero Actions -->
+      <!-- Hero Actions (Minimal, Symmetrical & Refined) -->
       <div class="hero-actions-bar">
-        <button type="button" class="btn-royal-crimson hero-btn-card" (click)="openPhysicalCardModal()">
-          <span>📜 View Original Card</span>
+        <button type="button" class="btn-hero-minimal" (click)="scrollTo('#ceremonies', $event)">
+          <span class="action-icon">🪔</span>
+          <span>Ceremonies</span>
         </button>
-        <div class="hero-actions-subrow">
-          <button type="button" class="btn-royal-minimal" (click)="scrollTo('#ceremonies', $event)">
-            <span>🪔 Ceremonies</span>
-          </button>
-          <button type="button" class="btn-royal-minimal" (click)="downloadFullCalendar()">
-            <span>📅 Add to Calendar</span>
-          </button>
-        </div>
+
+        <button type="button" 
+                class="btn-hero-minimal" 
+                (click)="openPhysicalCardModal()"
+                title="View Original Printed Invitation Card"
+                aria-label="View Original Printed Invitation Card">
+          <span class="action-icon">📜</span>
+          <span>Card</span>
+        </button>
       </div>
 
     </div>
@@ -465,8 +467,44 @@
                (keydown.enter)="toggleGroomFlip($event)">
             <div class="flip-card-inner">
               
-              <!-- Front Face (DEFAULT): Authentic Royal Portrait -->
-              <div class="flip-card-face flip-card-front card-face-photo groom-front">
+              <!-- Front Face (DEFAULT): Royal Heritage Details & Highlighted Parents Lineage -->
+              <div class="flip-card-face flip-card-front card-face-details groom-front">
+                <div class="card-details-content">
+                  <span class="person-role-badge font-cinzel">✤ THE ROYAL GROOM ✤</span>
+                  
+                  <h3 class="person-name font-calligraphy text-crimson">
+                    {{ weddingData.groom.name }}
+                  </h3>
+
+                  <span class="person-origin-tag font-cinzel">HIM CITY · LUCKNOW</span>
+
+                  <!-- Sacred Parents Honor Plaque -->
+                  <div class="parents-honor-box">
+                    <div class="honor-header">
+                      <span class="honor-flourish">✦</span>
+                      <span class="honor-label font-cinzel">SON OF</span>
+                      <span class="honor-flourish">✦</span>
+                    </div>
+                    <p class="honor-parents-names font-editorial">
+                      Late Mr. Devendra Verma<br><span class="honor-amp">&amp;</span> Mrs. Savitri Verma
+                    </p>
+                  </div>
+
+                  <div class="card-quote-box">
+                    <p class="person-bio font-editorial">
+                      “Embracing life with deep filial reverence, wisdom, and steadfast devotion to family tradition.”
+                    </p>
+                  </div>
+
+                  <div class="flip-hint-cue font-cinzel">
+                    <span class="flip-hint-icon">↻</span>
+                    <span>Tap card for portrait</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Face (ON FLIP): Authentic Royal Portrait Mount -->
+              <div class="flip-card-face flip-card-back card-face-photo groom-back">
                 <div class="card-photo-content">
                   <span class="person-role-badge font-cinzel">✤ THE ROYAL GROOM ✤</span>
                   
@@ -488,37 +526,7 @@
 
                   <div class="flip-hint-cue font-cinzel">
                     <span class="flip-hint-icon">↻</span>
-                    <span>Tap card for details</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Back Face (BEHIND THE FLIP): Royal Heritage Details & Bio -->
-              <div class="flip-card-face flip-card-back card-face-details groom-back">
-                <div class="card-details-content">
-                  <span class="person-role-badge font-cinzel">✤ GROOM ✤</span>
-                  
-                  <h3 class="person-name font-calligraphy text-crimson">
-                    {{ weddingData.groom.name }}
-                  </h3>
-
-                  <p class="person-parentage font-editorial">
-                    {{ weddingData.groom.parentage }}
-                  </p>
-
-                  <div class="person-city-pill font-cinzel">
-                    <span>HIM CITY, LUCKNOW</span>
-                  </div>
-
-                  <div class="card-quote-box">
-                    <p class="person-bio font-editorial">
-                      “Embracing life with deep filial reverence, wisdom, and steadfast devotion to family tradition.”
-                    </p>
-                  </div>
-
-                  <div class="flip-hint-cue font-cinzel">
-                    <span class="flip-hint-icon">↻</span>
-                    <span>Tap card for portrait</span>
+                    <span>Tap card for family details</span>
                   </div>
                 </div>
               </div>
@@ -583,8 +591,44 @@
                (keydown.enter)="toggleBrideFlip($event)">
             <div class="flip-card-inner">
               
-              <!-- Front Face (DEFAULT): Authentic Royal Portrait -->
-              <div class="flip-card-face flip-card-front card-face-photo bride-front">
+              <!-- Front Face (DEFAULT): Royal Heritage Details & Highlighted Parents Lineage -->
+              <div class="flip-card-face flip-card-front card-face-details bride-front">
+                <div class="card-details-content">
+                  <span class="person-role-badge font-cinzel">✤ THE RADIANT BRIDE ✤</span>
+                  
+                  <h3 class="person-name font-calligraphy text-crimson">
+                    {{ weddingData.bride.name }}
+                  </h3>
+
+                  <span class="person-origin-tag font-cinzel">PRAYAGRAJ · UTTAR PRADESH</span>
+
+                  <!-- Sacred Parents Honor Plaque -->
+                  <div class="parents-honor-box">
+                    <div class="honor-header">
+                      <span class="honor-flourish">✦</span>
+                      <span class="honor-label font-cinzel">DAUGHTER OF</span>
+                      <span class="honor-flourish">✦</span>
+                    </div>
+                    <p class="honor-parents-names font-editorial">
+                      Mr. Vijay Prakash Singh<br><span class="honor-amp">&amp;</span> Mrs. Usha Singh
+                    </p>
+                  </div>
+
+                  <div class="card-quote-box">
+                    <p class="person-bio font-editorial">
+                      “Adorned with gentle grace, luminous warmth, and eternal devotion to sacred family values.”
+                    </p>
+                  </div>
+
+                  <div class="flip-hint-cue font-cinzel">
+                    <span class="flip-hint-icon">↻</span>
+                    <span>Tap card for portrait</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Face (ON FLIP): Authentic Royal Portrait Mount -->
+              <div class="flip-card-face flip-card-back card-face-photo bride-back">
                 <div class="card-photo-content">
                   <span class="person-role-badge font-cinzel">✤ THE RADIANT BRIDE ✤</span>
                   
@@ -606,37 +650,7 @@
 
                   <div class="flip-hint-cue font-cinzel">
                     <span class="flip-hint-icon">↻</span>
-                    <span>Tap card for details</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Back Face (BEHIND THE FLIP): Royal Heritage Details & Bio -->
-              <div class="flip-card-face flip-card-back card-face-details bride-back">
-                <div class="card-details-content">
-                  <span class="person-role-badge font-cinzel">✤ BRIDE ✤</span>
-                  
-                  <h3 class="person-name font-calligraphy text-crimson">
-                    {{ weddingData.bride.name }}
-                  </h3>
-
-                  <p class="person-parentage font-editorial">
-                    {{ weddingData.bride.parentage }}
-                  </p>
-
-                  <div class="person-city-pill font-cinzel">
-                    <span>PRAYAGRAJ, UTTAR PRADESH</span>
-                  </div>
-
-                  <div class="card-quote-box">
-                    <p class="person-bio font-editorial">
-                      “Adorned with gentle grace, luminous warmth, and eternal devotion to sacred family values.”
-                    </p>
-                  </div>
-
-                  <div class="flip-hint-cue font-cinzel">
-                    <span class="flip-hint-icon">↻</span>
-                    <span>Tap card for portrait</span>
+                    <span>Tap card for family details</span>
                   </div>
                 </div>
               </div>
@@ -730,85 +744,167 @@
       <div class="ornate-divider"><span class="divider-gem">✦</span></div>
     </div>
 
-    <!-- PANEL A: TEL POOJA & HALDI/MEHENDI (LUCKNOW) -->
-    <div class="card-panel-traditional panel-prewedding">
+    <!-- =======================================================================
+         MODULAR SACRED CEREMONIES & VENUES (INDIVIDUAL LUXURY CARDS)
+         ======================================================================= -->
+
+    <!-- PRE-WEDDING CEREMONIES (LUCKNOW) -->
+    <div class="ceremonies-dual-grid">
       
-      <div class="dual-ceremony-row">
-        
-        <!-- Tel Pooja -->
-        <div class="traditional-event-box event-left">
-          <div class="event-icon-crest" aria-hidden="true">
-            <svg viewBox="0 0 32 32" class="diya-svg" fill="none">
-              <path d="M8 20 C8 24 11 26 16 26 C21 26 24 24 24 20 C24 17 16 17 8 20 Z" fill="#E5C158" stroke="#9E7618" stroke-width="1"/>
-              <path d="M16 6 C14 11 13 14 16 18 C19 14 18 11 16 6 Z" fill="#F59E0B"/>
-              <ellipse cx="16" cy="14" rx="1.5" ry="3" fill="#FFFBEB"/>
-              <path d="M6 23 C10 27 22 27 26 23" stroke="#C5A059" stroke-width="0.8" fill="none"/>
-            </svg>
-          </div>
-          <h3 class="traditional-event-title font-calligraphy text-crimson">Tel Pooja</h3>
-          <p class="traditional-date font-cinzel">16TH NOVEMBER 2026</p>
-          <p class="traditional-time font-editorial">Monday · 10:00 AM Onwards</p>
-          <p class="traditional-desc font-editorial">
-            Sacred oil anointing ceremony invoking divine protection and auspicious health.
-          </p>
-          <button type="button" class="btn-micro-cal" (click)="downloadCalendar(weddingData.ceremonies[0])">
-            <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <rect x="3" y="4" width="18" height="18" rx="3"/>
-              <path d="M16 2v4M8 2v4M3 10h18"/>
-            </svg>
-            <span>Add to Calendar</span>
-          </button>
+      <!-- BOX 1: TEL POOJA -->
+      <div class="ceremony-card-box ceremony-event-box">
+        <div class="event-icon-crest" aria-hidden="true">
+          <svg viewBox="0 0 32 32" class="diya-svg" fill="none">
+            <path d="M8 20 C8 24 11 26 16 26 C21 26 24 24 24 20 C24 17 16 17 8 20 Z" fill="#E5C158" stroke="#9E7618" stroke-width="1"/>
+            <path d="M16 6 C14 11 13 14 16 18 C19 14 18 11 16 6 Z" fill="#F59E0B"/>
+            <ellipse cx="16" cy="14" rx="1.5" ry="3" fill="#FFFBEB"/>
+            <path d="M6 23 C10 27 22 27 26 23" stroke="#C5A059" stroke-width="0.8" fill="none"/>
+          </svg>
         </div>
-
-        <!-- Vertical Ornate Filigree Divider -->
-        <div class="traditional-vertical-divider">
-          <span class="v-line"></span>
-          <span class="v-diamond">✦</span>
-          <span class="v-line"></span>
-        </div>
-
-        <!-- Haldi & Mehendi -->
-        <div class="traditional-event-box event-right">
-          <div class="event-icon-crest" aria-hidden="true">
-            <svg viewBox="0 0 32 32" class="henna-svg" fill="none">
-              <path d="M16 7 C13 13 10 18 16 25 C22 18 19 13 16 7 Z" fill="#E5C158" stroke="#9E7618" stroke-width="0.8"/>
-              <path d="M16 11 C11 16 7 19 11 24 C14 24 15 21 16 18" stroke="#AA771C" stroke-width="0.9" fill="none"/>
-              <path d="M16 11 C21 16 25 19 21 24 C18 24 17 21 16 18" stroke="#AA771C" stroke-width="0.9" fill="none"/>
-              <circle cx="16" cy="17" r="1.5" fill="#9E2A3B"/>
-            </svg>
-          </div>
-          <h3 class="traditional-event-title font-calligraphy text-crimson">Haldi &amp; Mehendi</h3>
-          <p class="traditional-date font-cinzel">19TH NOVEMBER 2026</p>
-          <p class="traditional-time font-editorial">Thursday · 11:00 AM &amp; Evening Sangeet</p>
-          <p class="traditional-desc font-editorial">
-            Golden turmeric rituals followed by celebratory henna patterns, folk music &amp; festivities.
-          </p>
-          <button type="button" class="btn-micro-cal" (click)="downloadCalendar(weddingData.ceremonies[1])">
-            <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <rect x="3" y="4" width="18" height="18" rx="3"/>
-              <path d="M16 2v4M8 2v4M3 10h18"/>
-            </svg>
-            <span>Add to Calendar</span>
-          </button>
-        </div>
-
+        <h3 class="traditional-event-title font-calligraphy text-crimson">Tel Pooja</h3>
+        <p class="traditional-date font-cinzel">16TH NOVEMBER 2026</p>
+        <p class="traditional-time font-editorial">Monday · 10:00 AM Onwards</p>
+        <p class="traditional-desc font-editorial">
+          Sacred oil anointing ceremony invoking divine protection and auspicious health.
+        </p>
       </div>
 
-      <!-- Lucknow Venue Strip -->
-      <div class="traditional-venue-strip">
-        <span class="venue-tag font-cinzel">✤ VENUE ✤</span>
-        <h4 class="venue-name font-cinzel">Family Residence</h4>
-        <p class="venue-address font-editorial">{{ weddingData.venues.lucknow.address }}</p>
+      <!-- BOX 2: HALDI & MEHENDI -->
+      <div class="ceremony-card-box ceremony-event-box">
+        <div class="event-icon-crest" aria-hidden="true">
+          <svg viewBox="0 0 32 32" class="henna-svg" fill="none">
+            <path d="M16 7 C13 13 10 18 16 25 C22 18 19 13 16 7 Z" fill="#E5C158" stroke="#9E7618" stroke-width="0.8"/>
+            <path d="M16 11 C11 16 7 19 11 24 C14 24 15 21 16 18" stroke="#AA771C" stroke-width="0.9" fill="none"/>
+            <path d="M16 11 C21 16 25 19 21 24 C18 24 17 21 16 18" stroke="#AA771C" stroke-width="0.9" fill="none"/>
+            <circle cx="16" cy="17" r="1.5" fill="#9E2A3B"/>
+          </svg>
+        </div>
+        <h3 class="traditional-event-title font-calligraphy text-crimson">Haldi &amp; Mehendi</h3>
+        <p class="traditional-date font-cinzel">19TH NOVEMBER 2026</p>
+        <p class="traditional-time font-editorial">Thursday · 11:00 AM &amp; Evening Sangeet</p>
+        <p class="traditional-desc font-editorial">
+          Golden turmeric rituals followed by celebratory henna patterns, folk music &amp; festivities.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- BOX 3: LUCKNOW VENUE CARD -->
+    <div class="ceremony-card-box ceremony-venue-box">
+      <span class="venue-tag font-cinzel">✤ VENUE · LUCKNOW ✤</span>
+      <h4 class="venue-name font-cinzel">Family Residence</h4>
+      <p class="venue-address font-editorial">{{ weddingData.venues.lucknow.address }}</p>
+      
+      <div class="venue-action-buttons">
+        <a [href]="weddingData.venues.lucknow.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-traditional-act">
+          <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span>Directions</span>
+        </a>
+        <button type="button" class="btn-traditional-act" (click)="copyAddress(weddingData.venues.lucknow.address, 'Lucknow Address')">
+          <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+            <rect x="8" y="2" width="8" height="4" rx="1"/>
+          </svg>
+          <span>Copy Address</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- BOX 4: THE SACRED WEDDING CEREMONY CARD (PRAYAGRAJ) -->
+    <div class="ceremony-card-box ceremony-wedding-box">
+      
+      <!-- Bespoke Luxury Interlocking Wedding Bands Vector Crest -->
+      <div class="luxury-wedding-rings-crest" aria-hidden="true">
+        <svg viewBox="0 0 100 100" class="rings-crest-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="goldBandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FAF0C5"/>
+              <stop offset="25%" stop-color="#D4AF37"/>
+              <stop offset="55%" stop-color="#9E7618"/>
+              <stop offset="80%" stop-color="#EBC76D"/>
+              <stop offset="100%" stop-color="#805912"/>
+            </linearGradient>
+            <linearGradient id="roseBandGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#F7D3D7"/>
+              <stop offset="30%" stop-color="#D8929A"/>
+              <stop offset="70%" stop-color="#B85D68"/>
+              <stop offset="100%" stop-color="#F2BCC2"/>
+            </linearGradient>
+            <linearGradient id="gemFacetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="35%" stop-color="#E8F4FC"/>
+              <stop offset="70%" stop-color="#B3DAF5"/>
+              <stop offset="100%" stop-color="#FFFFFF"/>
+            </linearGradient>
+            <filter id="diamondShine" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="1.2" result="blur"/>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
+          </defs>
+          <!-- Delicate Filigree Laurel Rays -->
+          <circle cx="50" cy="52" r="44" stroke="url(#goldBandGrad)" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.6"/>
+          <circle cx="50" cy="52" r="40" stroke="#C5A059" stroke-width="0.5" opacity="0.4"/>
+          <!-- Left Ring (Groom's Polished Gold Band) -->
+          <ellipse cx="40" cy="54" rx="18" ry="19" stroke="url(#goldBandGrad)" stroke-width="4.2" fill="none"/>
+          <ellipse cx="40" cy="54" rx="18" ry="19" stroke="#FFF" stroke-width="0.8" stroke-dasharray="6 26" opacity="0.6" fill="none"/>
+          <!-- Right Ring (Bride's Rose Gold Band Interlocking) -->
+          <ellipse cx="60" cy="54" rx="18" ry="19" stroke="url(#roseBandGrad)" stroke-width="4.2" fill="none"/>
+          <ellipse cx="60" cy="54" rx="18" ry="19" stroke="#FFF" stroke-width="0.8" stroke-dasharray="6 26" opacity="0.6" fill="none"/>
+          <!-- Front crossing arc for authentic 3D interlock -->
+          <path d="M46 39 C50 43 53 48 54 54" stroke="url(#goldBandGrad)" stroke-width="4.2" stroke-linecap="round" fill="none"/>
+          <!-- Brilliant Diamond Mount at Top of Bride's Ring -->
+          <g transform="translate(60, 31)">
+            <!-- Crown setting prongs -->
+            <path d="M-5 2 L0 -2 L5 2" stroke="url(#goldBandGrad)" stroke-width="1.8" fill="none"/>
+            <!-- Faceted Brilliant Solitaire Diamond -->
+            <polygon points="0,-11 6,-5 4,2 -4,2 -6,-5" fill="url(#gemFacetGrad)" stroke="#89BBE3" stroke-width="0.6" filter="url(#diamondShine)"/>
+            <polygon points="0,-11 3,-5 -3,-5" fill="#FFFFFF" opacity="0.95"/>
+            <polygon points="-6,-5 -4,2 0,-2" fill="#D6EDFB" opacity="0.8"/>
+            <!-- 8-Point Starlight Sparkle -->
+            <path d="M0 -16 L1.2 -11.5 L5 -10 L1.2 -8.5 L0 -4 L-1.2 -8.5 L-5 -10 L-1.2 -11.5 Z" fill="#FFFFFF" filter="url(#diamondShine)"/>
+          </g>
+          <circle cx="50" cy="54" r="1.5" fill="url(#goldBandGrad)"/>
+        </svg>
+      </div>
+
+      <span class="wedding-sanskar-tag font-cinzel">॥ शुभ विवाह ॥ THE SACRED VIVAHA SANSKAR</span>
+      <h3 class="grand-wedding-title font-calligraphy text-crimson">Wedding</h3>
+      <p class="wedding-blessing-verse font-editorial">
+        “United in the presence of Agni, elders, and divine grace for seven sacred lifetimes”
+      </p>
+
+      <!-- Crimson Velvet Date Ribbon -->
+      <div class="crimson-ribbon-badge">
+        <span class="ribbon-filigree-left">✤ ✦</span>
+        <span class="ribbon-text font-cinzel">FRIDAY · 20TH NOVEMBER 2026</span>
+        <span class="ribbon-filigree-right">✦ ✤</span>
+      </div>
+
+      <!-- SEAMLESS HIGHLIGHTED CENTERPIECE: SACRED WEDDING DESTINATION (BHOLA GARDEN) -->
+      <div class="wedding-destination-centerpiece">
+        <div class="wedding-centerpiece-ornament" aria-hidden="true">
+          <span class="ornament-line"></span>
+          <span class="ornament-gem">✦ ❖ ✦</span>
+          <span class="ornament-line"></span>
+        </div>
+
+        <span class="dest-honor-tag font-cinzel">✦ SACRED WEDDING DESTINATION ✦</span>
+        <h4 class="dest-grand-title font-cinzel text-crimson">{{ weddingData.venues.prayagraj.name }}</h4>
+        <div class="dest-location-badge font-cinzel">SAHSON, PRAYAGRAJ · UTTAR PRADESH</div>
+        <p class="dest-grand-address font-editorial">{{ weddingData.venues.prayagraj.address }}</p>
         
         <div class="venue-action-buttons">
-          <a [href]="weddingData.venues.lucknow.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-traditional-act">
+          <a [href]="weddingData.venues.prayagraj.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-traditional-act">
             <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
               <circle cx="12" cy="10" r="3"/>
             </svg>
             <span>Directions</span>
           </a>
-          <button type="button" class="btn-traditional-act" (click)="copyAddress(weddingData.venues.lucknow.address, 'Lucknow Address')">
+          <button type="button" class="btn-traditional-act" (click)="copyAddress(weddingData.venues.prayagraj.address, 'Bhola Garden Address')">
             <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
               <rect x="8" y="2" width="8" height="4" rx="1"/>
@@ -818,145 +914,26 @@
         </div>
       </div>
 
-    </div>
-
-
-
-    <!-- PANEL B: WEDDING & VIDAI (PRAYAGRAJ) -->
-    <div class="card-panel-traditional panel-wedding-main">
-      
-      <div class="wedding-ceremony-showcase">
-        
-        <!-- Bespoke Luxury Interlocking Wedding Bands Vector Crest -->
-        <div class="luxury-wedding-rings-crest" aria-hidden="true">
-          <svg viewBox="0 0 100 100" class="rings-crest-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="goldBandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FAF0C5"/>
-                <stop offset="25%" stop-color="#D4AF37"/>
-                <stop offset="55%" stop-color="#9E7618"/>
-                <stop offset="80%" stop-color="#EBC76D"/>
-                <stop offset="100%" stop-color="#805912"/>
-              </linearGradient>
-              <linearGradient id="roseBandGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#F7D3D7"/>
-                <stop offset="30%" stop-color="#D8929A"/>
-                <stop offset="70%" stop-color="#B85D68"/>
-                <stop offset="100%" stop-color="#F2BCC2"/>
-              </linearGradient>
-              <linearGradient id="gemFacetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="35%" stop-color="#E8F4FC"/>
-                <stop offset="70%" stop-color="#B3DAF5"/>
-                <stop offset="100%" stop-color="#FFFFFF"/>
-              </linearGradient>
-              <filter id="diamondShine" x="-30%" y="-30%" width="160%" height="160%">
-                <feGaussianBlur stdDeviation="1.2" result="blur"/>
-                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-              </filter>
-            </defs>
-            <!-- Delicate Filigree Laurel Rays -->
-            <circle cx="50" cy="52" r="44" stroke="url(#goldBandGrad)" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.6"/>
-            <circle cx="50" cy="52" r="40" stroke="#C5A059" stroke-width="0.5" opacity="0.4"/>
-            <!-- Left Ring (Groom's Polished Gold Band) -->
-            <ellipse cx="40" cy="54" rx="18" ry="19" stroke="url(#goldBandGrad)" stroke-width="4.2" fill="none"/>
-            <ellipse cx="40" cy="54" rx="18" ry="19" stroke="#FFF" stroke-width="0.8" stroke-dasharray="6 26" opacity="0.6" fill="none"/>
-            <!-- Right Ring (Bride's Rose Gold Band Interlocking) -->
-            <ellipse cx="60" cy="54" rx="18" ry="19" stroke="url(#roseBandGrad)" stroke-width="4.2" fill="none"/>
-            <ellipse cx="60" cy="54" rx="18" ry="19" stroke="#FFF" stroke-width="0.8" stroke-dasharray="6 26" opacity="0.6" fill="none"/>
-            <!-- Front crossing arc for authentic 3D interlock -->
-            <path d="M46 39 C50 43 53 48 54 54" stroke="url(#goldBandGrad)" stroke-width="4.2" stroke-linecap="round" fill="none"/>
-            <!-- Brilliant Diamond Mount at Top of Bride's Ring -->
-            <g transform="translate(60, 31)">
-              <!-- Crown setting prongs -->
-              <path d="M-5 2 L0 -2 L5 2" stroke="url(#goldBandGrad)" stroke-width="1.8" fill="none"/>
-              <!-- Faceted Brilliant Solitaire Diamond -->
-              <polygon points="0,-11 6,-5 4,2 -4,2 -6,-5" fill="url(#gemFacetGrad)" stroke="#89BBE3" stroke-width="0.6" filter="url(#diamondShine)"/>
-              <polygon points="0,-11 3,-5 -3,-5" fill="#FFFFFF" opacity="0.95"/>
-              <polygon points="-6,-5 -4,2 0,-2" fill="#D6EDFB" opacity="0.8"/>
-              <!-- 8-Point Starlight Sparkle -->
-              <path d="M0 -16 L1.2 -11.5 L5 -10 L1.2 -8.5 L0 -4 L-1.2 -8.5 L-5 -10 L-1.2 -11.5 Z" fill="#FFFFFF" filter="url(#diamondShine)"/>
-            </g>
-            <circle cx="50" cy="54" r="1.5" fill="url(#goldBandGrad)"/>
-          </svg>
-        </div>
-
-        <span class="wedding-sanskar-tag font-cinzel">॥ शुभ विवाह ॥ THE SACRED VIVAHA SANSKAR</span>
-        <h3 class="grand-wedding-title font-calligraphy text-crimson">Wedding</h3>
-        <p class="wedding-blessing-verse font-editorial">
-          “United in the presence of Agni, elders, and divine grace for seven sacred lifetimes”
+      <!-- Understated Baraat Departure Note -->
+      <div class="baraat-departure-subdued">
+        <span class="baraat-subdued-tag font-cinzel">✤ BARAAT PRASHTHAN · PROCESSION ✤</span>
+        <p class="baraat-subdued-text font-editorial">
+          Departing from our Lucknow home at <strong>B-42, Him City Part 1, Dewa Road</strong> for Prayagraj.
         </p>
+      </div>
 
-        <!-- Crimson Velvet Date Ribbon -->
-        <div class="crimson-ribbon-badge">
-          <span class="ribbon-filigree-left">✤ ✦</span>
-          <span class="ribbon-text font-cinzel">FRIDAY · 20TH NOVEMBER 2026</span>
-          <span class="ribbon-filigree-right">✦ ✤</span>
-        </div>
+      <div class="wedding-filigree-divider">
+        <span>❧ ✦ ☙</span>
+      </div>
 
-        <!-- Royal Baraat Departure Proclamation (Authentic Shehnai Crest) -->
-        <div class="baraat-departure-banner">
-          <div class="shehnai-icon-badge" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="shehnai-svg" fill="none" stroke="currentColor" stroke-width="1.4">
-              <path d="M3 19 L13 9 M6 20 L14 12" stroke="var(--gold-deep)" stroke-linecap="round"/>
-              <path d="M12 8 L18 2 L22 6 L16 12 Z" fill="var(--gold-warm)" stroke="var(--gold-deep)"/>
-              <path d="M18 2 C19.5 0.5 22 1 22 3" stroke="var(--crimson-wine)"/>
-              <circle cx="21" cy="3" r="1" fill="var(--crimson-wine)"/>
-              <path d="M2 20 C2 21.5 3.5 22 5 21" stroke="var(--gold-deep)"/>
-            </svg>
-          </div>
-          <div class="baraat-banner-content">
-            <span class="baraat-title font-cinzel">BARAAT PRASHTHAN · PROCESSION</span>
-            <p class="font-editorial text-crimson baraat-text">
-              The Baraat will depart from our home at <strong>B-42, Him City Part 1, Dewa Road, Lucknow</strong>.
-            </p>
-          </div>
-        </div>
-
-        <!-- Prayagraj Venue -->
-        <div class="traditional-venue-strip wedding-venue-highlight">
-          <span class="venue-tag font-cinzel">✤ SACRED WEDDING DESTINATION ✤</span>
-          <h4 class="venue-name font-cinzel">{{ weddingData.venues.prayagraj.name }}</h4>
-          <p class="venue-address font-editorial">{{ weddingData.venues.prayagraj.address }}</p>
-          
-          <div class="venue-action-buttons">
-            <a [href]="weddingData.venues.prayagraj.directionsUrl" target="_blank" rel="noopener noreferrer" class="btn-traditional-act">
-              <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              <span>Directions (Google Maps)</span>
-            </a>
-            <button type="button" class="btn-traditional-act" (click)="downloadCalendar(weddingData.ceremonies[2])">
-              <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <rect x="3" y="4" width="18" height="18" rx="3"/>
-                <path d="M16 2v4M8 2v4M3 10h18"/>
-              </svg>
-              <span>Add to Calendar</span>
-            </button>
-            <button type="button" class="btn-traditional-act" (click)="copyAddress(weddingData.venues.prayagraj.address, 'Bhola Garden Address')">
-              <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-                <rect x="8" y="2" width="8" height="4" rx="1"/>
-              </svg>
-              <span>Copy Address</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="horizontal-filigree-divider">
-          <span>❧ ✦ ☙</span>
-        </div>
-
-        <!-- Vidai Ceremony -->
-        <div class="vidai-ceremony-box">
-          <h4 class="vidai-title font-calligraphy text-crimson">Vidai</h4>
-          <p class="vidai-date font-cinzel">21ST NOVEMBER 2026 · DAWN DEPARTURE</p>
-          <p class="vidai-desc font-editorial">
-            Early morning sacred farewell as the bride enters her new home with eternal prayers and joy.
-          </p>
-        </div>
-
+      <!-- Vidai Ceremony -->
+      <div class="wedding-vidai-block">
+        <span class="venue-tag font-cinzel">✤ SACRED FAREWELL ✤</span>
+        <h4 class="vidai-title font-calligraphy text-crimson">Vidai</h4>
+        <p class="vidai-date font-cinzel">21ST NOVEMBER 2026 · DAWN DEPARTURE</p>
+        <p class="vidai-desc font-editorial">
+          Early morning sacred farewell as the bride enters her new home with eternal prayers and joy.
+        </p>
       </div>
 
     </div>
@@ -979,35 +956,14 @@
 
     <div class="section-header-box">
       <span class="section-tag font-cinzel">CHAPTER 04</span>
-      <h2 class="section-title font-cinzel text-crimson">ITINERARY &amp; SACRED RITUALS</h2>
-      <p class="section-subtitle font-editorial">The divine timeline and spiritual significance of the Vivaha Sanskar</p>
-      
-      <!-- Interactive Selector Tabs -->
-      <div class="program-tab-switch" role="tablist">
-        <button type="button" 
-                role="tab"
-                [attr.aria-selected]="activeProgramTab() === 'timeline'"
-                class="tab-btn font-cinzel" 
-                [class.active]="activeProgramTab() === 'timeline'"
-                (click)="activeProgramTab.set('timeline')">
-          <span>Timeline</span>
-        </button>
-        <button type="button" 
-                role="tab"
-                [attr.aria-selected]="activeProgramTab() === 'rituals'"
-                class="tab-btn font-cinzel" 
-                [class.active]="activeProgramTab() === 'rituals'"
-                (click)="activeProgramTab.set('rituals')">
-          <span>Sacred Rituals</span>
-        </button>
-      </div>
-
+      <h2 class="section-title font-cinzel text-crimson">WEDDING ITINERARY</h2>
+      <p class="section-subtitle font-editorial">The divine timeline of ceremonies and joyous celebrations</p>
       <div class="ornate-divider"><span class="divider-gem">✦</span></div>
     </div>
 
-    <!-- TAB 1: WEDDING TIMELINE -->
-    <div *ngIf="activeProgramTab() === 'timeline'" class="timeline-container">
-      <div class="timeline-line"></div>
+    <!-- WEDDING DAY TIMELINE (DIRECT LUXURY TIMELINE FLOW) -->
+    <div class="timeline-container">
+      <div class="timeline-line" aria-hidden="true"></div>
 
       <div *ngFor="let step of weddingData.weddingTimeline; let i = index" 
            class="timeline-node-card" 
@@ -1019,7 +975,29 @@
 
         <div class="node-card-body">
           <div class="node-icon-header">
-            <span class="node-emoji">{{ step.icon }}</span>
+            <!-- Royal Vector Crest Medallion -->
+            <div class="node-crest-badge" aria-hidden="true">
+              <svg *ngIf="i === 0" viewBox="0 0 24 24" class="timeline-svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 15l8-3.5 6 4-2.5 2-4-1.5L4 15z"/>
+                <circle cx="17.5" cy="16.5" r="2"/>
+                <path d="M7 13.5l.5-1m3 .5l.5-1m3 .5l.5-1"/>
+              </svg>
+              <svg *ngIf="i === 1" viewBox="0 0 24 24" class="timeline-svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4c-3.5 0-6 2.5-6 6 0 4.5 6 10 6 10s6-5.5 6-10c0-3.5-2.5-6-6-6z"/>
+                <circle cx="12" cy="10" r="2.5"/>
+                <path d="M8 8c.5-1 2-2 4-2s3.5 1 4 2"/>
+              </svg>
+              <svg *ngIf="i === 2" viewBox="0 0 24 24" class="timeline-svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 18h18M4 18a8 8 0 0 1 16 0"/>
+                <circle cx="12" cy="7" r="1.5"/>
+                <path d="M7 21h10"/>
+              </svg>
+              <svg *ngIf="i === 3" viewBox="0 0 24 24" class="timeline-svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3c-1.5 2.5-3 5-3 8 0 3.3 2.7 6 6 6s6-2.7 6-6c0-3-1.5-5.5-3-8z"/>
+                <path d="M7 14c-2 0-3-1.5-3-3s2-4 5-4"/>
+                <path d="M8 21h8"/>
+              </svg>
+            </div>
             <div class="node-titles">
               <h4 class="node-title font-cinzel text-crimson">{{ step.title }}</h4>
               <span class="node-subtitle font-editorial">{{ step.subtitle }}</span>
@@ -1029,19 +1007,6 @@
         </div>
 
       </div>
-    </div>
-
-    <!-- TAB 2: SACRED MANDAP RITUALS -->
-    <div *ngIf="activeProgramTab() === 'rituals'" class="rituals-grid">
-      
-      <div *ngFor="let ritual of weddingData.mandapRituals" class="ritual-card">
-        <div class="ritual-symbol-box">
-          <span class="ritual-symbol">{{ ritual.symbol }}</span>
-        </div>
-        <h4 class="ritual-title font-cinzel text-crimson">{{ ritual.name }}</h4>
-        <p class="ritual-desc font-editorial">{{ ritual.desc }}</p>
-      </div>
-
     </div>
 
   </section>
