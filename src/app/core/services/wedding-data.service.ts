@@ -91,8 +91,8 @@ export class WeddingDataService {
       time: '10:00 AM Onwards',
       venue: 'Family Residence',
       venueAddress: 'B-42, Him City Part 1, Dewa Road, Lucknow',
-      mapsUrl: 'https://maps.google.com/?q=Him+City+Part+1+Dewa+Road+Lucknow',
-      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Him+City+Part+1+Dewa+Road+Lucknow',
+      mapsUrl: 'https://www.google.com/maps?q=26.896637,81.0498644',
+      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=26.896637,81.0498644',
       icon: '🪔',
       dtStart: '20261116T100000',
       dtEnd: '20261116T140000',
@@ -107,8 +107,8 @@ export class WeddingDataService {
       time: '11:00 AM & Evening Sangeet',
       venue: 'Family Residence',
       venueAddress: 'B-42, Him City Part 1, Dewa Road, Lucknow',
-      mapsUrl: 'https://maps.google.com/?q=Him+City+Part+1+Dewa+Road+Lucknow',
-      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Him+City+Part+1+Dewa+Road+Lucknow',
+      mapsUrl: 'https://www.google.com/maps?q=26.896637,81.0498644',
+      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=26.896637,81.0498644',
       icon: '🌿',
       dtStart: '20261119T110000',
       dtEnd: '20261119T210000',
@@ -123,8 +123,8 @@ export class WeddingDataService {
       time: 'Baraat 11:00 AM · Varmala 7:30 PM · Pheras 11:00 PM',
       venue: 'Bhola Garden',
       venueAddress: 'Kaserua Khurd, Sadmapur, Sahson, Jaunpur Road, Prayagraj',
-      mapsUrl: 'https://maps.google.com/?q=Bhola+Garden+Kaserua+Khurd+Sadmapur+Sahson+Jaunpur+Road+Prayagraj',
-      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Bhola+Garden+Kaserua+Khurd+Sadmapur+Sahson+Jaunpur+Road+Prayagraj',
+      mapsUrl: 'https://www.google.com/maps/place/Bhola+Garden/@25.4818101,81.9742563,17z/data=!3m1!4b1!4m6!3m5!1s0x399ab325d7ca92dd:0xfb1cfad2936bc26d!8m2!3d25.4818101!4d81.9742563!16s%2Fg%2F11fszf8qj8',
+      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=25.4818101,81.9742563',
       icon: '💍',
       dtStart: '20261120T180000',
       dtEnd: '20261121T020000',
@@ -139,8 +139,8 @@ export class WeddingDataService {
       time: 'Morning Auspicious Departure',
       venue: 'Bhola Garden',
       venueAddress: 'Kaserua Khurd, Sadmapur, Sahson, Jaunpur Road, Prayagraj',
-      mapsUrl: 'https://maps.google.com/?q=Bhola+Garden+Kaserua+Khurd+Sadmapur+Sahson+Jaunpur+Road+Prayagraj',
-      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Bhola+Garden+Kaserua+Khurd+Sadmapur+Sahson+Jaunpur+Road+Prayagraj',
+      mapsUrl: 'https://www.google.com/maps/place/Bhola+Garden/@25.4818101,81.9742563,17z/data=!3m1!4b1!4m6!3m5!1s0x399ab325d7ca92dd:0xfb1cfad2936bc26d!8m2!3d25.4818101!4d81.9742563!16s%2Fg%2F11fszf8qj8',
+      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=25.4818101,81.9742563',
       icon: '🌸',
       dtStart: '20261121T080000',
       dtEnd: '20261121T120000',
@@ -220,8 +220,11 @@ export class WeddingDataService {
       landmark: 'Near Dewa Road / Matiyari Junction',
       events: 'Tel Pooja · Haldi & Mehendi · Baraat Departure',
       travelTip: 'Approx. 25 mins from Lucknow Charbagh Railway Station; easily accessible via Ring Road.',
-      mapsUrl: 'https://maps.google.com/?q=Him+City+Part+1+Dewa+Road+Lucknow',
-      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Him+City+Part+1+Dewa+Road+Lucknow'
+      latitude: 26.896637,
+      longitude: 81.0498644,
+      mapsUrl: 'https://www.google.com/maps?q=26.896637,81.0498644',
+      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=26.896637,81.0498644',
+      streetViewUrl: 'https://www.google.com/maps/@26.896637,81.0498644,141a,75y,307.45h,90t/data=!3m7!1e1!3m5!1sxD2NSGZ6dEHHQ5kPJzBbOg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DxD2NSGZ6dEHHQ5kPJzBbOg%26yaw%3D307.45!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMS4wIKXMDSoASAFQAw%3D%3D'
     },
     prayagraj: {
       name: 'Bhola Garden',
@@ -230,8 +233,11 @@ export class WeddingDataService {
       landmark: 'Jaunpur Road, Sahson Bypass',
       events: 'Wedding Ceremony · Jayamala · Pheras · Vidai',
       travelTip: 'Located on Jaunpur Road near Sahson. Approx. 3.5 to 4 hours smooth highway drive from Lucknow (NH30).',
-      mapsUrl: 'https://maps.google.com/?q=Bhola+Garden+Kaserua+Khurd+Sadmapur+Sahson+Jaunpur+Road+Prayagraj',
-      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Bhola+Garden+Kaserua+Khurd+Sadmapur+Sahson+Jaunpur+Road+Prayagraj'
+      latitude: 25.4818101,
+      longitude: 81.9742563,
+      mapsUrl: 'https://www.google.com/maps/place/Bhola+Garden/@25.4818101,81.9742563,17z/data=!3m1!4b1!4m6!3m5!1s0x399ab325d7ca92dd:0xfb1cfad2936bc26d!8m2!3d25.4818101!4d81.9742563!16s%2Fg%2F11fszf8qj8',
+      directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=25.4818101,81.9742563',
+      placeUrl: 'https://www.google.com/maps/place/Bhola+Garden/@25.4818101,81.9742563,17z/data=!3m1!4b1!4m6!3m5!1s0x399ab325d7ca92dd:0xfb1cfad2936bc26d!8m2!3d25.4818101!4d81.9742563!16s%2Fg%2F11fszf8qj8!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MTAxMS4wIKXMDSoASAFQAw%3D%3D'
     }
   };
 
