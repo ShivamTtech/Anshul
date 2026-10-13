@@ -1637,6 +1637,7 @@
   outline: none;
   position: relative;
   user-select: none;
+  border-radius: 22px;
 }
 
 .flip-card-inner {
@@ -2011,6 +2012,8 @@
   text-align: center;
   position: relative;
   z-index: 4;
+  border-radius: 22px;
+  overflow: hidden;
 }
 
 .portrait-mount {
@@ -2019,14 +2022,21 @@
   height: 480px;
   display: flex;
   flex-direction: column;
+  border-radius: 22px;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .modern-photo-card .photo-card-inner {
   height: 100%;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 12px 12px 14px 12px;
+  border-radius: 22px;
+  overflow: hidden;
 }
 
 .portrait-media {
@@ -2167,17 +2177,22 @@
   outline: none;
   cursor: pointer;
   position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  box-sizing: border-box;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease;
 }
 
 .portrait-mount {
   width: 100%;
   max-width: 320px;
+  border-radius: 22px;
 }
 
 .landscape-mount {
   width: 100%;
   max-width: 480px;
+  border-radius: 22px;
 }
 
 .modern-photo-card:hover,
@@ -2188,8 +2203,8 @@
 /* Atmospheric Ambient Glow Behind Images (Apple / Vogue luxury feel) */
 .photo-ambient-backdrop {
   position: absolute;
-  inset: 12px;
-  border-radius: 24px;
+  inset: 8px;
+  border-radius: 22px;
   background-size: cover;
   background-position: center;
   filter: blur(28px) saturate(1.35);
@@ -2213,6 +2228,9 @@
   border: 2px solid rgba(212, 175, 55, 0.55);
   border-radius: 22px;
   padding: 12px 12px 16px 12px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   box-shadow: 
     0 16px 42px rgba(58, 50, 45, 0.12), 
     0 2px 10px rgba(180, 135, 55, 0.08);
@@ -4240,6 +4258,7 @@
 
   .carousel-slide.active-slide .flip-card-wrapper,
   .carousel-slide.active-slide .couple-portrait-monument {
+    border-radius: 22px;
     box-shadow: 0 20px 48px rgba(58, 42, 32, 0.18), 0 0 20px rgba(212, 175, 55, 0.2);
   }
 
@@ -4247,6 +4266,7 @@
   .carousel-slide.prev-slide .couple-portrait-monument,
   .carousel-slide.next-slide .flip-card-wrapper,
   .carousel-slide.next-slide .couple-portrait-monument {
+    border-radius: 22px;
     box-shadow: 0 8px 20px rgba(58, 42, 32, 0.08);
   }
 
@@ -4258,6 +4278,8 @@
     height: 440px;
     min-height: 440px;
     margin: 0 auto;
+    border-radius: 22px;
+    overflow: hidden;
   }
 
   .flip-card-inner {
@@ -4347,6 +4369,20 @@
   .portrait-mount {
     height: 440px;
     max-width: 100%;
+    border-radius: 22px;
+    overflow: hidden;
+  }
+
+  .modern-photo-card {
+    height: 100%;
+    border-radius: 22px;
+    overflow: hidden;
+  }
+
+  .modern-photo-card .photo-card-inner {
+    height: 100%;
+    border-radius: 22px;
+    overflow: hidden;
   }
 
   .portrait-media {
