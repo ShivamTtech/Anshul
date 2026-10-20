@@ -170,12 +170,11 @@ import { LanguageService } from '../../../core/services/language.service';
       transform: translate3d(-50%, 0, 0);
       width: min(92%, 980px);
       z-index: 1000;
-      animation: hudFadeDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
       pointer-events: none;
-      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                  width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                  top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                  width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  top 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform, opacity, width;
     }
 
@@ -187,14 +186,17 @@ import { LanguageService } from '../../../core/services/language.service';
 
     /* Smoothly Disappear on Scroll Down */
     .royal-hud-wrapper.hidden {
-      transform: translate3d(-50%, -130%, 0);
-      opacity: 0;
+      transform: translate3d(-50%, -150%, 0) !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
       pointer-events: none !important;
     }
 
     /* Reappear with smooth animation on Scroll Up */
     .royal-hud-wrapper:not(.hidden) {
+      transform: translate3d(-50%, 0, 0);
       opacity: 1;
+      visibility: visible;
     }
 
     @keyframes hudFadeDown {
@@ -921,17 +923,17 @@ export class NavbarComponent {
   readonly isMenuOpen = signal<boolean>(false);
 
   private lastScrollY = 0;
-  private readonly scrollThreshold = 8;
+  private readonly scrollThreshold = 5;
 
   @HostListener('window:scroll')
   onScroll() {
     if (typeof window === 'undefined') return;
 
-    const currentScrollY = Math.max(0, window.scrollY);
+    const currentScrollY = Math.max(0, window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0);
     const delta = currentScrollY - this.lastScrollY;
 
     // 1. Top of page reset (full resting state)
-    if (currentScrollY <= 45) {
+    if (currentScrollY <= 40) {
       this.isScrolled.set(false);
       this.isNarrow.set(false);
       this.isHidden.set(false);
@@ -953,12 +955,12 @@ export class NavbarComponent {
       return;
     }
 
-    if (delta > 0 && currentScrollY > 90) {
+    if (delta > 0 && currentScrollY > 60) {
       // SCROLLING DOWN: Narrow & smoothly disappear
       this.isNarrow.set(true);
       this.isHidden.set(true);
     } else if (delta < 0) {
-      // SCROLLING UP: Smoothly appear in refined narrow state
+      // SCROLLING UP: Immediately appear with smooth animation
       this.isHidden.set(false);
       this.isNarrow.set(true);
     }
