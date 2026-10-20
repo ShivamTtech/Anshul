@@ -592,15 +592,6 @@ export class HomeComponent implements OnDestroy {
     this.smoothScroll.scrollToTop(true);
   }
 
-  toggleLivePreview() {
-    this.isWeddingDayOrPast.update(v => !v);
-    if (!this.isWeddingDayOrPast()) {
-      this.calculateCountdown();
-    } else {
-      this.countdown.set({ days: '00', hours: '00', minutes: '00', seconds: '00' });
-    }
-  }
-
   // =========================================================================
   // 2. LIVE COUNTDOWN TIMER (Wedding Day — 20th November 2026)
   // =========================================================================
@@ -624,14 +615,9 @@ export class HomeComponent implements OnDestroy {
   }
 
   private startCountdown() {
-    // Calculate initial countdown immediately (original timer restored)
     this.calculateCountdown();
-
     this.countdownTimer = setInterval(() => {
-      // Continue real countdown when not in simulated live preview mode
-      if (!this.isWeddingDayOrPast()) {
-        this.calculateCountdown();
-      }
+      this.calculateCountdown();
     }, 1000);
   }
 

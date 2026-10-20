@@ -390,17 +390,6 @@
             </p>
           </div>
         }
-
-        <!-- Interactive Simulation Toggle (Allows testing both countdown and live 00:00:00 states) -->
-        <div class="countdown-sim-switch-row">
-          <button type="button" 
-                  class="btn-sim-toggle font-cinzel" 
-                  (click)="toggleLivePreview()"
-                  [title]="isWeddingDayOrPast() ? 'Switch to Countdown View' : 'Switch to Live 00:00:00 View'">
-            <span class="sim-dot" [class.live]="isWeddingDayOrPast()"></span>
-            <span>{{ isWeddingDayOrPast() ? (lang.isHindi() ? 'मोड: लाइव (00:00:00) · उलटी गिनती देखने हेतु टैप करें' : 'Mode: LIVE (00:00:00) ➔ Tap for Countdown') : (lang.isHindi() ? 'मोड: उलटी गिनती · लाइव (00:00:00) देखने हेतु टैप करें' : 'Mode: COUNTDOWN ➔ Tap for Live (00:00:00)') }}</span>
-          </button>
-        </div>
       </div>
 
       <!-- Hero Actions (Minimal, Symmetrical & Refined) -->

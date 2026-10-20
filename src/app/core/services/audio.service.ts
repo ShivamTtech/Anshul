@@ -12,11 +12,47 @@ export class AudioService {
   readonly soundtrackSrc = 'assets/audio/royal-nuptials.mp3';
 
   private htmlAudio: HTMLAudioElement | null = null;
+  private wasPlayingBeforeHidden = false;
 
   constructor() {
     if (typeof window !== 'undefined') {
       this.initHtmlAudio();
+      this.setupVisibilityListener();
     }
+  }
+
+  private setupVisibilityListener() {
+    if (typeof document === 'undefined') return;
+
+    // 1. Page Visibility API: Automatically pause when browser is minimized or tab hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        if (this.isPlaying()) {
+          this.wasPlayingBeforeHidden = true;
+          this.pause();
+        }
+      } else if (document.visibilityState === 'visible') {
+        if (this.wasPlayingBeforeHidden) {
+          this.wasPlayingBeforeHidden = false;
+          this.play();
+        }
+      }
+    });
+
+    // 2. Page Hide / Show: Safety fallback for window minimization & mobile app switching
+    window.addEventListener('pagehide', () => {
+      if (this.isPlaying()) {
+        this.wasPlayingBeforeHidden = true;
+        this.pause();
+      }
+    });
+
+    window.addEventListener('pageshow', () => {
+      if (this.wasPlayingBeforeHidden) {
+        this.wasPlayingBeforeHidden = false;
+        this.play();
+      }
+    });
   }
 
   private initHtmlAudio() {

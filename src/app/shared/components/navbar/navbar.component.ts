@@ -10,7 +10,7 @@ import { LanguageService } from '../../../core/services/language.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <header class="royal-hud-wrapper" [class.scrolled]="isScrolled()">
+    <header class="royal-hud-wrapper" [class.scrolled]="isScrolled()" [class.narrow]="isNarrow()" [class.hidden]="isHidden()">
       <div class="royal-hud-inner">
         
         <!-- Left: Royal Monogram & Names -->
@@ -167,18 +167,34 @@ import { LanguageService } from '../../../core/services/language.service';
       position: fixed;
       top: max(14px, env(safe-area-inset-top, 14px));
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate3d(-50%, 0, 0);
       width: min(92%, 980px);
       z-index: 1000;
       animation: hudFadeDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
       pointer-events: none;
-      transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                  width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity, width;
     }
 
-    .royal-hud-wrapper.scrolled {
+    /* Narrow / Compact on Scroll */
+    .royal-hud-wrapper.narrow {
       top: max(8px, env(safe-area-inset-top, 8px));
-      width: min(96%, 1020px);
+      width: min(84%, 820px);
+    }
+
+    /* Smoothly Disappear on Scroll Down */
+    .royal-hud-wrapper.hidden {
+      transform: translate3d(-50%, -130%, 0);
+      opacity: 0;
+      pointer-events: none !important;
+    }
+
+    /* Reappear with smooth animation on Scroll Up */
+    .royal-hud-wrapper:not(.hidden) {
+      opacity: 1;
     }
 
     @keyframes hudFadeDown {
@@ -804,14 +820,24 @@ import { LanguageService } from '../../../core/services/language.service';
         width: calc(100% - 16px);
       }
 
+      .royal-hud-wrapper {
+        top: max(10px, env(safe-area-inset-top, 10px));
+        width: 94%;
+      }
+
+      .royal-hud-wrapper.narrow {
+        width: 88%;
+        top: max(6px, env(safe-area-inset-top, 6px));
+      }
+
       .royal-hud-inner {
         padding: 5px 12px;
         min-height: 46px;
       }
 
-      .royal-hud-wrapper.scrolled .royal-hud-inner {
+      .royal-hud-wrapper.narrow .royal-hud-inner {
         padding: 4px 10px;
-        min-height: 44px;
+        min-height: 42px;
       }
 
       .brand-monogram {
@@ -890,13 +916,54 @@ export class NavbarComponent {
   private smoothScroll = inject(SmoothScrollService);
 
   readonly isScrolled = signal<boolean>(false);
+  readonly isNarrow = signal<boolean>(false);
+  readonly isHidden = signal<boolean>(false);
   readonly isMenuOpen = signal<boolean>(false);
+
+  private lastScrollY = 0;
+  private readonly scrollThreshold = 8;
 
   @HostListener('window:scroll')
   onScroll() {
-    if (typeof window !== 'undefined') {
-      this.isScrolled.set(window.scrollY > 50);
+    if (typeof window === 'undefined') return;
+
+    const currentScrollY = Math.max(0, window.scrollY);
+    const delta = currentScrollY - this.lastScrollY;
+
+    // 1. Top of page reset (full resting state)
+    if (currentScrollY <= 45) {
+      this.isScrolled.set(false);
+      this.isNarrow.set(false);
+      this.isHidden.set(false);
+      this.lastScrollY = currentScrollY;
+      return;
     }
+
+    this.isScrolled.set(true);
+
+    // If mobile menu is open, never hide
+    if (this.isMenuOpen()) {
+      this.isHidden.set(false);
+      this.lastScrollY = currentScrollY;
+      return;
+    }
+
+    // Ignore tiny micro-scrolls
+    if (Math.abs(delta) < this.scrollThreshold) {
+      return;
+    }
+
+    if (delta > 0 && currentScrollY > 90) {
+      // SCROLLING DOWN: Narrow & smoothly disappear
+      this.isNarrow.set(true);
+      this.isHidden.set(true);
+    } else if (delta < 0) {
+      // SCROLLING UP: Smoothly appear in refined narrow state
+      this.isHidden.set(false);
+      this.isNarrow.set(true);
+    }
+
+    this.lastScrollY = currentScrollY;
   }
 
   @HostListener('document:keydown.escape')
