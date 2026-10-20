@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmoothScrollService } from '../../../core/services/smooth-scroll.service';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-footer',
@@ -15,36 +16,36 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
 
         <!-- Couple Names -->
         <h3 class="footer-names font-calligraphy text-crimson">
-          Anshul &amp; Vidisha
+          {{ lang.isHindi() ? 'अंशुल एवं विदिशा' : 'Anshul & Vidisha' }}
         </h3>
 
         <!-- Family Gratitude Blessing -->
         <p class="footer-blessing">
-          With eternal gratitude and blessings from the Verma &amp; Singh Families.
+          {{ lang.t().footerGratitude }}
         </p>
 
         <!-- Quick Links -->
         <div class="footer-links">
-          <a href="#hero" (click)="scrollTo('#hero', $event)">Home</a>
+          <a href="#hero" (click)="scrollTo('#hero', $event)">{{ lang.t().navHome }}</a>
           <span class="sep">✦</span>
-          <a href="#couple" (click)="scrollTo('#couple', $event)">The Couple</a>
+          <a href="#couple" (click)="scrollTo('#couple', $event)">{{ lang.t().navCouple }}</a>
           <span class="sep">✦</span>
-          <a href="#ceremonies" (click)="scrollTo('#ceremonies', $event)">Ceremonies</a>
+          <a href="#ceremonies" (click)="scrollTo('#ceremonies', $event)">{{ lang.t().navCeremonies }}</a>
           <span class="sep">✦</span>
-          <a href="#itinerary" (click)="scrollTo('#itinerary', $event)">Itinerary</a>
+          <a href="#itinerary" (click)="scrollTo('#itinerary', $event)">{{ lang.t().navItinerary }}</a>
           <span class="sep">✦</span>
-          <a href="#blessings" (click)="scrollTo('#blessings', $event)">Blessings</a>
+          <a href="#blessings" (click)="scrollTo('#blessings', $event)">{{ lang.t().navBlessings }}</a>
         </div>
 
         <!-- Scroll to Top Button -->
-        <button type="button" class="btn-scroll-top" (click)="scrollTo('#hero', $event)" aria-label="Back to top">
+        <button type="button" class="btn-scroll-top" (click)="scrollTo('#hero', $event)" [attr.aria-label]="lang.t().btnBackToTop" [title]="lang.t().btnBackToTop">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="m18 15-6-6-6 6"></path>
           </svg>
         </button>
 
         <p class="footer-credit">
-          Sacred Nuptials · Lucknow &amp; Prayagraj · November 2026
+          {{ lang.t().footerDates }}
         </p>
       </div>
     </footer>
@@ -98,46 +99,47 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       padding: 0 16px;
       font-family: var(--font-display);
       font-size: 0.62rem;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--text-muted);
       margin-bottom: 28px;
     }
 
     .footer-links a {
-      color: inherit;
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color 0.2s;
     }
 
     .footer-links a:hover {
       color: var(--crimson-wine);
     }
 
-    .sep {
-      font-size: 0.45rem;
+    .footer-links .sep {
       color: var(--gold-warm);
+      font-size: 0.5rem;
     }
 
     .btn-scroll-top {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       border: 1px solid var(--border-gold);
-      background: white;
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--crimson-wine);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.3s ease;
-      margin-bottom: 20px;
-      color: var(--crimson-wine);
+      transition: all 0.25s ease;
+      margin-bottom: 24px;
     }
 
     .btn-scroll-top:hover {
-      background: rgba(197, 160, 89, 0.1);
+      background: var(--crimson-wine);
+      color: white;
+      border-color: var(--crimson-wine);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(197, 160, 89, 0.2);
+      box-shadow: 0 4px 12px rgba(122, 27, 40, 0.25);
     }
 
     .btn-scroll-top svg {
@@ -154,6 +156,7 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
   `]
 })
 export class FooterComponent {
+  readonly lang = inject(LanguageService);
   private smoothScroll = inject(SmoothScrollService);
 
   scrollTo(target: string, event?: Event) {

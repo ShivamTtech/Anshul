@@ -23,7 +23,7 @@
     <div class="screen-frame-inner"></div>
     <div class="screen-frame-top-crest font-cinzel">
       <span class="crest-sparkle">✦</span>
-      <span class="crest-text">SHUBH VIVAH</span>
+      <span class="crest-text">{{ lang.isHindi() ? 'शुभ विवाह' : 'SHUBH VIVAH' }}</span>
       <span class="crest-sparkle">✦</span>
     </div>
   </div>  <!-- Royal Wedding Folio Container (3D Physical Realism Gatefold Reveal) -->
@@ -52,20 +52,20 @@
 
           <!-- Sacred Wedding Typography -->
           <div class="inner-body">
-            <span class="inner-eyebrow font-cinzel">✦ SHUBH VIVAH ✦</span>
+            <span class="inner-eyebrow font-cinzel">{{ lang.t().shubhVivah }}</span>
             <h2 class="inner-title font-calligraphy text-crimson">
-              Anshul &amp; Vidisha
+              {{ lang.isHindi() ? 'अंशुल एवं विदिशा' : 'Anshul &amp; Vidisha' }}
             </h2>
             <p class="inner-invite-text font-editorial">
-              Together with their families, request the pleasure of your company to celebrate their sacred wedding.
+              {{ lang.t().folioInvitationText }}
             </p>
-            <p class="inner-location font-cinzel">Prayagraj &amp; Lucknow · 20th November 2026</p>
+            <p class="inner-location font-cinzel">{{ lang.isHindi() ? 'प्रयागराज एवं लखनऊ · 20 नवम्बर 2026' : 'Prayagraj &amp; Lucknow · 20th November 2026' }}</p>
           </div>
 
           <!-- Action Prompt Button -->
           <div class="inner-footer">
             <button type="button" class="btn-enter-realm font-cinzel" (click)="pullOutCard($event)">
-              <span>Enter Sacred Celebration ➔</span>
+              <span>{{ lang.t().enterSacredCelebration }}</span>
             </button>
           </div>
 
@@ -102,7 +102,7 @@
         
         <!-- Sacred Invocation Header -->
         <div class="cover-sacred-header">
-          <span class="cover-shubh-vivah font-cinzel">✦ SHUBH VIVAH ✦</span>
+          <span class="cover-shubh-vivah font-cinzel">{{ lang.t().shubhVivah }}</span>
           <span class="cover-shree-ganesh font-cinzel">॥ श्री गणेशाय नमः ॥</span>
         </div>
 
@@ -129,10 +129,10 @@
         <!-- Couple's Royal Names with Generous Typography & Spacing -->
         <div class="cover-names-block">
           <h1 class="cover-names-title font-calligraphy text-crimson">
-            Anshul &amp; Vidisha
+            {{ lang.isHindi() ? 'अंशुल एवं विदिशा' : 'Anshul &amp; Vidisha' }}
           </h1>
           <p class="cover-destination-tag font-cinzel">
-            PRAYAGRAJ &amp; LUCKNOW · 20TH NOVEMBER 2026
+            {{ lang.isHindi() ? 'प्रयागराज एवं लखनऊ · 20 नवम्बर 2026' : 'PRAYAGRAJ &amp; LUCKNOW · 20TH NOVEMBER 2026' }}
           </p>
         </div>
 
@@ -144,7 +144,7 @@
              aria-label="Tap to open sacred wedding invitation">
           <span class="prompt-gold-line line-left"></span>
           <span class="prompt-gem">✦</span>
-          <span class="prompt-text">TAP TO OPEN INVITATION</span>
+          <span class="prompt-text">{{ lang.t().tapToOpenInvitation }}</span>
           <span class="prompt-gem">✦</span>
           <span class="prompt-gold-line line-right"></span>
         </div>
@@ -176,7 +176,7 @@
     
     <!-- Clean Simple Header -->
     <div class="modal-card-header">
-      <h3 class="modal-card-title font-cinzel">Printed Wedding Card</h3>
+      <h3 class="modal-card-title font-cinzel">{{ lang.isHindi() ? 'मूल मुद्रित विवाह पत्रिका' : 'Printed Wedding Card' }}</h3>
       <button 
         type="button" 
         class="btn-close-modal" 
@@ -197,7 +197,7 @@
     <!-- Clean Minimal Footer -->
     <div class="modal-card-footer">
       <button type="button" class="btn-royal-close font-cinzel" (click)="closePhysicalCardModal()">
-        Close
+        {{ lang.isHindi() ? 'बंद करें' : 'Close' }}
       </button>
     </div>
 
@@ -294,28 +294,27 @@
 
       <!-- Couple Big Names in Calligraphy -->
       <div class="couple-title-block">
-        <span class="invitation-intro-label font-cinzel">TOGETHER WITH THEIR FAMILIES</span>
+        <span class="invitation-intro-label font-cinzel">{{ lang.t().togetherWithFamilies }}</span>
         
         <h1 class="couple-headline">
-          <span class="name-groom font-calligraphy text-crimson">Anshul</span>
-          <span class="name-amp font-cinzel">&amp;</span>
-          <span class="name-bride font-calligraphy text-crimson">Vidisha</span>
+          <span class="name-groom font-calligraphy text-crimson">{{ lang.isHindi() ? 'अंशुल' : 'Anshul' }}</span>
+          <span class="name-amp font-cinzel">{{ lang.isHindi() ? 'एवं' : '&amp;' }}</span>
+          <span class="name-bride font-calligraphy text-crimson">{{ lang.isHindi() ? 'विदिशा' : 'Vidisha' }}</span>
         </h1>
 
         <p class="invitation-request font-cinzel">
-          REQUEST THE PLEASURE OF YOUR COMPANY TO CELEBRATE THEIR WEDDING
+          {{ lang.t().weddingRequestText }}
         </p>
         
         <p class="invitation-dates-place font-editorial">
-          16th – 21st November 2026 · Lucknow &amp; Prayagraj
+          {{ lang.t().heroDatesAndPlaces }}
         </p>
       </div>
 
       <!-- Divine Blessing Note -->
       <div class="divine-quote-card">
         <p class="font-editorial quote-text">
-          “With the divine grace of Almighty God and the cherished blessings of our ancestors, 
-          two lives, two hearts, and two families join together in holy matrimony.”
+          {{ lang.t().divineQuote }}
         </p>
       </div>
 
@@ -324,28 +323,28 @@
         @if (!isWeddingDayOrPast()) {
           <div class="countdown-badge">
             <span class="countdown-dot"></span>
-            <span class="font-cinzel">COUNTDOWN TO SACRED WEDDING · 20 NOV 2026</span>
+            <span class="font-cinzel">{{ lang.t().countdownBadge }}</span>
           </div>
 
           <div class="countdown-grid">
             <div class="timer-cell">
               <span class="timer-val font-cinzel text-crimson">{{ countdown().days }}</span>
-              <span class="timer-lbl font-cinzel">Days</span>
+              <span class="timer-lbl font-cinzel">{{ lang.t().days }}</span>
             </div>
             <span class="timer-colon">:</span>
             <div class="timer-cell">
               <span class="timer-val font-cinzel text-crimson">{{ countdown().hours }}</span>
-              <span class="timer-lbl font-cinzel">Hours</span>
+              <span class="timer-lbl font-cinzel">{{ lang.t().hours }}</span>
             </div>
             <span class="timer-colon">:</span>
             <div class="timer-cell">
               <span class="timer-val font-cinzel text-crimson">{{ countdown().minutes }}</span>
-              <span class="timer-lbl font-cinzel">Minutes</span>
+              <span class="timer-lbl font-cinzel">{{ lang.t().minutes }}</span>
             </div>
             <span class="timer-colon">:</span>
             <div class="timer-cell">
               <span class="timer-val font-cinzel text-crimson">{{ countdown().seconds }}</span>
-              <span class="timer-lbl font-cinzel">Seconds</span>
+              <span class="timer-lbl font-cinzel">{{ lang.t().seconds }}</span>
             </div>
           </div>
         } @else {
@@ -370,7 +369,7 @@
       <div class="hero-actions-bar">
         <button type="button" class="btn-hero-minimal" (click)="scrollTo('#ceremonies', $event)">
           <span class="action-icon">🪔</span>
-          <span>Ceremonies</span>
+          <span>{{ lang.t().btnCeremonies }}</span>
         </button>
 
         <button type="button" 
@@ -379,7 +378,7 @@
                 title="View Original Printed Invitation Card"
                 aria-label="View Original Printed Invitation Card">
           <span class="action-icon">📜</span>
-          <span>Card</span>
+          <span>{{ lang.t().btnViewCard }}</span>
         </button>
       </div>
 
@@ -400,9 +399,9 @@
     <div class="inner-filigree-frame"></div>
 
     <div class="section-header-box">
-      <span class="section-tag font-cinzel">CHAPTER 02</span>
-      <h2 class="section-title font-cinzel text-crimson">THE SACRED UNION</h2>
-      <p class="section-subtitle font-editorial">Two souls destined by divine grace, stepping forward into eternal companionship</p>
+      <span class="section-tag font-cinzel">{{ lang.t().chapter02Tag }}</span>
+      <h2 class="section-title font-cinzel text-crimson">{{ lang.t().chapter02Title }}</h2>
+      <p class="section-subtitle font-editorial">{{ lang.t().chapter02Subtitle }}</p>
       <div class="ornate-divider"><span class="divider-gem">✦</span></div>
     </div>
 
@@ -412,19 +411,19 @@
               class="mobile-nav-pill" 
               [class.active]="currentSlideIndex() === 0"
               (click)="goToSlide(0)">
-        <span>✤ Groom</span>
+        <span>✤ {{ lang.t().theGroom }}</span>
       </button>
       <button type="button" 
               class="mobile-nav-pill" 
               [class.active]="currentSlideIndex() === 1"
               (click)="goToSlide(1)">
-        <span>✦ The Couple ✦</span>
+        <span>✦ {{ lang.isHindi() ? 'वर-वधू' : 'The Couple' }} ✦</span>
       </button>
       <button type="button" 
               class="mobile-nav-pill" 
               [class.active]="currentSlideIndex() === 2"
               (click)="goToSlide(2)">
-        <span>Bride ✤</span>
+        <span>{{ lang.t().theBride }} ✤</span>
       </button>
     </div>
 
@@ -458,35 +457,35 @@
               <!-- Front Face (DEFAULT): Royal Heritage Details & Highlighted Parents Lineage -->
               <div class="flip-card-face flip-card-front card-face-details groom-front">
                 <div class="card-details-content">
-                  <span class="person-role-badge font-cinzel">✤ THE ROYAL GROOM ✤</span>
+                  <span class="person-role-badge font-cinzel">✤ {{ lang.isHindi() ? 'वर (GROOM)' : 'THE ROYAL GROOM' }} ✤</span>
                   
                   <h3 class="person-name font-calligraphy text-crimson">
                     {{ weddingData.groom.name }}
                   </h3>
 
-                  <span class="person-origin-tag font-cinzel">HIM CITY · LUCKNOW</span>
+                  <span class="person-origin-tag font-cinzel">{{ lang.isHindi() ? 'हिम सिटी · लखनऊ' : 'HIM CITY · LUCKNOW' }}</span>
 
                   <!-- Sacred Parents Honor Plaque -->
                   <div class="parents-honor-box">
                     <div class="honor-header">
                       <span class="honor-flourish">✦</span>
-                      <span class="honor-label font-cinzel">SON OF</span>
+                      <span class="honor-label font-cinzel">{{ lang.isHindi() ? 'सुपुत्र' : 'SON OF' }}</span>
                       <span class="honor-flourish">✦</span>
                     </div>
                     <p class="honor-parents-names font-editorial">
-                      Late Mr. Devendra Verma<br><span class="honor-amp">&amp;</span> Mrs. Savitri Verma
+                      {{ weddingData.groom.parentage }}
                     </p>
                   </div>
 
                   <div class="card-quote-box">
                     <p class="person-bio font-editorial">
-                      “Embracing life with deep filial reverence, wisdom, and steadfast devotion to family tradition.”
+                      {{ lang.t().groomBio }}
                     </p>
                   </div>
 
                   <div class="flip-hint-cue font-cinzel">
                     <span class="flip-hint-icon">↻</span>
-                    <span>Tap card for portrait</span>
+                    <span>{{ lang.t().tapToFlip }}</span>
                   </div>
                 </div>
               </div>
@@ -494,7 +493,7 @@
               <!-- Back Face (ON FLIP): Authentic Royal Portrait Mount -->
               <div class="flip-card-face flip-card-back card-face-photo groom-back">
                 <div class="card-photo-content">
-                  <span class="person-role-badge font-cinzel">✤ THE ROYAL GROOM ✤</span>
+                  <span class="person-role-badge font-cinzel">✤ {{ lang.isHindi() ? 'वर (GROOM)' : 'THE ROYAL GROOM' }} ✤</span>
                   
                   <div class="card-portrait-mount frameless-mount">
                     <img [src]="groomPortrait.src" [alt]="groomPortrait.title" class="card-portrait-img groom-img frameless-img" loading="lazy" />
@@ -514,7 +513,7 @@
 
                   <div class="flip-hint-cue font-cinzel">
                     <span class="flip-hint-icon">↻</span>
-                    <span>Tap card for family details</span>
+                    <span>{{ lang.t().tapToReturn }}</span>
                   </div>
                 </div>
               </div>
@@ -555,9 +554,9 @@
                 </div>
 
                 <div class="photo-caption-clean">
-                  <h4 class="caption-names font-calligraphy text-crimson">Anshul &amp; Vidisha</h4>
-                  <p class="caption-tag font-cinzel">UNITED IN SACRED MATRIMONY</p>
-                  <span class="caption-date font-editorial">20th November 2026 · Prayagraj</span>
+                  <h4 class="caption-names font-calligraphy text-crimson">{{ lang.isHindi() ? 'अंशुल एवं विदिशा' : 'Anshul &amp; Vidisha' }}</h4>
+                  <p class="caption-tag font-cinzel">{{ lang.isHindi() ? 'पवित्र वैवाहिक परिणय' : 'UNITED IN SACRED MATRIMONY' }}</p>
+                  <span class="caption-date font-editorial">{{ lang.isHindi() ? '20 नवम्बर 2026 · प्रयागराज' : '20th November 2026 · Prayagraj' }}</span>
                 </div>
               </div>
             </div>
@@ -582,35 +581,35 @@
               <!-- Front Face (DEFAULT): Royal Heritage Details & Highlighted Parents Lineage -->
               <div class="flip-card-face flip-card-front card-face-details bride-front">
                 <div class="card-details-content">
-                  <span class="person-role-badge font-cinzel">✤ THE RADIANT BRIDE ✤</span>
+                  <span class="person-role-badge font-cinzel">✤ {{ lang.isHindi() ? 'वधू (BRIDE)' : 'THE RADIANT BRIDE' }} ✤</span>
                   
                   <h3 class="person-name font-calligraphy text-crimson">
                     {{ weddingData.bride.name }}
                   </h3>
 
-                  <span class="person-origin-tag font-cinzel">PRAYAGRAJ · UTTAR PRADESH</span>
+                  <span class="person-origin-tag font-cinzel">{{ lang.isHindi() ? 'प्रयागराज · उत्तर प्रदेश' : 'PRAYAGRAJ · UTTAR PRADESH' }}</span>
 
                   <!-- Sacred Parents Honor Plaque -->
                   <div class="parents-honor-box">
                     <div class="honor-header">
                       <span class="honor-flourish">✦</span>
-                      <span class="honor-label font-cinzel">DAUGHTER OF</span>
+                      <span class="honor-label font-cinzel">{{ lang.isHindi() ? 'सुपुत्री' : 'DAUGHTER OF' }}</span>
                       <span class="honor-flourish">✦</span>
                     </div>
                     <p class="honor-parents-names font-editorial">
-                      Mr. Vijay Prakash Singh<br><span class="honor-amp">&amp;</span> Mrs. Usha Singh
+                      {{ weddingData.bride.parentage }}
                     </p>
                   </div>
 
                   <div class="card-quote-box">
                     <p class="person-bio font-editorial">
-                      “Adorned with gentle grace, luminous warmth, and eternal devotion to sacred family values.”
+                      {{ lang.t().brideBio }}
                     </p>
                   </div>
 
                   <div class="flip-hint-cue font-cinzel">
                     <span class="flip-hint-icon">↻</span>
-                    <span>Tap card for portrait</span>
+                    <span>{{ lang.t().tapToFlip }}</span>
                   </div>
                 </div>
               </div>
@@ -618,7 +617,7 @@
               <!-- Back Face (ON FLIP): Authentic Royal Portrait Mount -->
               <div class="flip-card-face flip-card-back card-face-photo bride-back">
                 <div class="card-photo-content">
-                  <span class="person-role-badge font-cinzel">✤ THE RADIANT BRIDE ✤</span>
+                  <span class="person-role-badge font-cinzel">✤ {{ lang.isHindi() ? 'वधू (BRIDE)' : 'THE RADIANT BRIDE' }} ✤</span>
                   
                   <div class="card-portrait-mount frameless-mount">
                     <img [src]="bridePortrait.src" [alt]="bridePortrait.title" class="card-portrait-img bride-img frameless-img" loading="lazy" />
@@ -638,7 +637,7 @@
 
                   <div class="flip-hint-cue font-cinzel">
                     <span class="flip-hint-icon">↻</span>
-                    <span>Tap card for family details</span>
+                    <span>{{ lang.t().tapToReturn }}</span>
                   </div>
                 </div>
               </div>
@@ -705,7 +704,7 @@
           कण्ठे बध्नामि सुभगे सञ्जीव शरदः शतम्॥
         </p>
         <p class="shloka-english font-editorial">
-          “With this sacred thread of auspiciousness, our souls unite for a hundred blissful seasons.”
+          {{ lang.isHindi() ? '“यह मंगलसूत्र जीवन में सौभाग्य व समृद्धि का प्रतीक है। हम सौ वर्षों तक प्रेम व सहधर्मिता संग जीवन व्यतीत करें।”' : '“With this sacred thread of auspiciousness, our souls unite for a hundred blissful seasons.”' }}
         </p>
       </div>
     </div>
@@ -726,9 +725,9 @@
     <div class="inner-filigree-frame"></div>
 
     <div class="section-header-box">
-      <span class="section-tag font-cinzel">CHAPTER 03</span>
-      <h2 class="section-title font-cinzel text-crimson">SACRED CEREMONIES</h2>
-      <p class="section-subtitle font-editorial">Auspicious rituals and joyous celebrations across Lucknow &amp; Prayagraj</p>
+      <span class="section-tag font-cinzel">{{ lang.t().chapter03Tag }}</span>
+      <h2 class="section-title font-cinzel text-crimson">{{ lang.t().chapter03Title }}</h2>
+      <p class="section-subtitle font-editorial">{{ lang.t().chapter03Subtitle }}</p>
       <div class="ornate-divider"><span class="divider-gem">✦</span></div>
     </div>
 
@@ -749,11 +748,11 @@
             <path d="M6 23 C10 27 22 27 26 23" stroke="#C5A059" stroke-width="0.8" fill="none"/>
           </svg>
         </div>
-        <h3 class="traditional-event-title font-calligraphy text-crimson">Tel Pooja</h3>
-        <p class="traditional-date font-cinzel">16TH NOVEMBER 2026</p>
-        <p class="traditional-time font-editorial">Monday · 10:00 AM Onwards</p>
+        <h3 class="traditional-event-title font-calligraphy text-crimson">{{ weddingData.ceremonies[0].title }}</h3>
+        <p class="traditional-date font-cinzel">{{ weddingData.ceremonies[0].date | uppercase }}</p>
+        <p class="traditional-time font-editorial">{{ weddingData.ceremonies[0].time }}</p>
         <p class="traditional-desc font-editorial">
-          Sacred oil anointing ceremony invoking divine protection and auspicious health.
+          {{ weddingData.ceremonies[0].description }}
         </p>
       </div>
 
@@ -767,11 +766,11 @@
             <circle cx="16" cy="17" r="1.5" fill="#9E2A3B"/>
           </svg>
         </div>
-        <h3 class="traditional-event-title font-calligraphy text-crimson">Haldi &amp; Mehendi</h3>
-        <p class="traditional-date font-cinzel">19TH NOVEMBER 2026</p>
-        <p class="traditional-time font-editorial">Thursday · 11:00 AM &amp; Evening Sangeet</p>
+        <h3 class="traditional-event-title font-calligraphy text-crimson">{{ weddingData.ceremonies[1].title }}</h3>
+        <p class="traditional-date font-cinzel">{{ weddingData.ceremonies[1].date | uppercase }}</p>
+        <p class="traditional-time font-editorial">{{ weddingData.ceremonies[1].time }}</p>
         <p class="traditional-desc font-editorial">
-          Golden turmeric rituals followed by celebratory henna patterns, folk music &amp; festivities.
+          {{ weddingData.ceremonies[1].description }}
         </p>
       </div>
 
@@ -779,7 +778,7 @@
 
     <!-- BOX 3: LUCKNOW VENUE CARD -->
     <div class="ceremony-card-box ceremony-venue-box">
-      <span class="venue-tag font-cinzel">✤ VENUE · LUCKNOW ✤</span>
+      <span class="venue-tag font-cinzel">✤ {{ lang.isHindi() ? 'कार्यक्रम स्थल · लखनऊ' : 'VENUE · LUCKNOW' }} ✤</span>
       <h4 class="venue-name font-cinzel">Family Residence</h4>
       <p class="venue-address font-editorial">{{ weddingData.venues.lucknow.address }}</p>
       
@@ -789,14 +788,14 @@
             <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
             <circle cx="12" cy="10" r="3"/>
           </svg>
-          <span>Directions</span>
+          <span>{{ lang.t().btnGetDirections }}</span>
         </a>
         <button type="button" class="btn-traditional-act" (click)="copyAddress(weddingData.venues.lucknow.address, 'Lucknow Address')">
           <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
             <rect x="8" y="2" width="8" height="4" rx="1"/>
           </svg>
-          <span>Copy Address</span>
+          <span>{{ lang.isHindi() ? 'पता कॉपी करें' : 'Copy Address' }}</span>
         </button>
       </div>
     </div>
@@ -858,16 +857,16 @@
         </svg>
       </div>
 
-      <span class="wedding-sanskar-tag font-cinzel">॥ शुभ विवाह ॥ THE SACRED VIVAHA SANSKAR</span>
-      <h3 class="grand-wedding-title font-calligraphy text-crimson">Wedding</h3>
+      <span class="wedding-sanskar-tag font-cinzel">{{ lang.isHindi() ? '॥ शुभ विवाह ॥ पाणिग्रहण एवं सप्तपदी संस्कार' : '॥ शुभ विवाह ॥ THE SACRED VIVAHA SANSKAR' }}</span>
+      <h3 class="grand-wedding-title font-calligraphy text-crimson">{{ weddingData.ceremonies[2].title }}</h3>
       <p class="wedding-blessing-verse font-editorial">
-        “United in the presence of Agni, elders, and divine grace for seven sacred lifetimes”
+        {{ lang.isHindi() ? '“अग्निदेव, बुजुर्गों एवं ईश्वरीय कृपा की उपस्थिति में सात जन्मों का पावन गठबंधन”' : '“United in the presence of Agni, elders, and divine grace for seven sacred lifetimes”' }}
       </p>
 
       <!-- Crimson Velvet Date Ribbon -->
       <div class="crimson-ribbon-badge">
         <span class="ribbon-filigree-left">✤ ✦</span>
-        <span class="ribbon-text font-cinzel">FRIDAY · 20TH NOVEMBER 2026</span>
+        <span class="ribbon-text font-cinzel">{{ lang.isHindi() ? 'शुक्रवार · 20 नवम्बर 2026' : 'FRIDAY · 20TH NOVEMBER 2026' }}</span>
         <span class="ribbon-filigree-right">✦ ✤</span>
       </div>
 
@@ -879,9 +878,9 @@
           <span class="ornament-line"></span>
         </div>
 
-        <span class="dest-honor-tag font-cinzel">✦ SACRED WEDDING DESTINATION ✦</span>
+        <span class="dest-honor-tag font-cinzel">✦ {{ lang.isHindi() ? 'मुख्य विवाह स्थल' : 'SACRED WEDDING DESTINATION' }} ✦</span>
         <h4 class="dest-grand-title font-cinzel text-crimson">{{ weddingData.venues.prayagraj.name }}</h4>
-        <div class="dest-location-badge font-cinzel">SAHSON, PRAYAGRAJ · UTTAR PRADESH</div>
+        <div class="dest-location-badge font-cinzel">{{ lang.isHindi() ? 'सहसों, प्रयागराज · उत्तर प्रदेश' : 'SAHSON, PRAYAGRAJ · UTTAR PRADESH' }}</div>
         <p class="dest-grand-address font-editorial">{{ weddingData.venues.prayagraj.address }}</p>
         
         <div class="venue-action-buttons">
@@ -890,23 +889,23 @@
               <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
               <circle cx="12" cy="10" r="3"/>
             </svg>
-            <span>Directions</span>
+            <span>{{ lang.t().btnGetDirections }}</span>
           </a>
           <button type="button" class="btn-traditional-act" (click)="copyAddress(weddingData.venues.prayagraj.address, 'Bhola Garden Address')">
             <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
               <rect x="8" y="2" width="8" height="4" rx="1"/>
             </svg>
-            <span>Copy Address</span>
+            <span>{{ lang.isHindi() ? 'पता कॉपी करें' : 'Copy Address' }}</span>
           </button>
         </div>
       </div>
 
       <!-- Understated Baraat Departure Note (Seamless on Card Background) -->
       <div class="baraat-departure-subdued" style="background: transparent !important; border: none !important; box-shadow: none !important; padding: 4px 12px !important;">
-        <span class="baraat-subdued-tag font-cinzel">✤ BARAAT PRASHTHAN · PROCESSION ✤</span>
+        <span class="baraat-subdued-tag font-cinzel">✤ {{ lang.isHindi() ? 'बारात प्रस्थान' : 'BARAAT PRASHTHAN · PROCESSION' }} ✤</span>
         <p class="baraat-subdued-text font-editorial">
-          Departing from our Lucknow home at <strong>B-42, Him City Part 1, Dewa Road</strong> for Prayagraj.
+          {{ lang.isHindi() ? 'लखनऊ निवास B-42 हिम सिटी देवा रोड से प्रयागराज के लिए प्रस्थान।' : 'Departing from our Lucknow home at B-42, Him City Part 1, Dewa Road for Prayagraj.' }}
         </p>
       </div>
 
@@ -916,11 +915,11 @@
 
       <!-- Vidai Ceremony -->
       <div class="wedding-vidai-block">
-        <span class="venue-tag font-cinzel">✤ SACRED FAREWELL ✤</span>
-        <h4 class="vidai-title font-calligraphy text-crimson">Vidai</h4>
-        <p class="vidai-date font-cinzel">21ST NOVEMBER 2026 · DAWN DEPARTURE</p>
+        <span class="venue-tag font-cinzel">✤ {{ lang.isHindi() ? 'भावभीनी विदाई' : 'SACRED FAREWELL' }} ✤</span>
+        <h4 class="vidai-title font-calligraphy text-crimson">{{ weddingData.ceremonies[3].title }}</h4>
+        <p class="vidai-date font-cinzel">{{ weddingData.ceremonies[3].date | uppercase }} · {{ lang.isHindi() ? 'प्रातः काल' : 'DAWN DEPARTURE' }}</p>
         <p class="vidai-desc font-editorial">
-          Early morning sacred farewell as the bride enters her new home with eternal prayers and joy.
+          {{ weddingData.ceremonies[3].description }}
         </p>
       </div>
 
@@ -943,9 +942,9 @@
     <div class="inner-filigree-frame"></div>
 
     <div class="section-header-box">
-      <span class="section-tag font-cinzel">CHAPTER 04</span>
-      <h2 class="section-title font-cinzel text-crimson">WEDDING ITINERARY</h2>
-      <p class="section-subtitle font-editorial">The divine timeline of ceremonies and joyous celebrations</p>
+      <span class="section-tag font-cinzel">{{ lang.t().chapter04Tag }}</span>
+      <h2 class="section-title font-cinzel text-crimson">{{ lang.t().chapter04Title }}</h2>
+      <p class="section-subtitle font-editorial">{{ lang.t().chapter04Subtitle }}</p>
       <div class="ornate-divider"><span class="divider-gem">✦</span></div>
     </div>
 
@@ -1013,15 +1012,15 @@
     <div class="inner-filigree-frame"></div>
 
     <div class="section-header-box">
-      <span class="section-tag font-cinzel">CHAPTER 05</span>
-      <h2 class="section-title font-cinzel text-crimson">BLESSINGS &amp; WISHES</h2>
+      <span class="section-tag font-cinzel">{{ lang.t().chapter05Tag }}</span>
+      <h2 class="section-title font-cinzel text-crimson">{{ lang.t().chapter05Title }}</h2>
       <div class="ornate-divider"><span class="divider-gem">✦</span></div>
     </div>
 
     <!-- Official Family Plaque (Matching Card) -->
     <div class="royal-family-plaque">
-      <h3 class="humble-title font-calligraphy text-crimson">Humble Request</h3>
-      <span class="humble-from font-cinzel">FROM</span>
+      <h3 class="humble-title font-calligraphy text-crimson">{{ weddingData.familyBlessing.title }}</h3>
+      <span class="humble-from font-cinzel">{{ lang.isHindi() ? 'विनीत' : 'FROM' }}</span>
       
       <div class="plaque-inner-box">
         <h4 class="host-name font-cinzel text-crimson">{{ weddingData.familyBlessing.from }}</h4>
@@ -1030,7 +1029,7 @@
 
       <!-- Guest Helpline Row (Minimal 1-Row Layout · Direct Tap-to-Call) -->
       <div class="guest-helpline-row-box">
-        <span class="helpline-row-tag font-cinzel text-gold">✤ GUEST HELPLINE · TAP TO CALL ✤</span>
+        <span class="helpline-row-tag font-cinzel text-gold">✤ {{ lang.isHindi() ? 'अतिथि सहायता केंद्र · कॉल करें' : 'GUEST HELPLINE · TAP TO CALL' }} ✤</span>
         <div class="helpline-row-grid">
           @for (hl of guestHelplines; track hl.phone) {
             <a [href]="hl.telLink" 
@@ -1045,7 +1044,7 @@
       </div>
 
       <div class="solicitation-note">
-        <span class="font-cinzel text-gold">✤ SOLICITED BY ✤</span>
+        <span class="font-cinzel text-gold">✤ {{ lang.isHindi() ? 'स्नेहकांक्षी' : 'SOLICITED BY' }} ✤</span>
         <p class="font-editorial">{{ weddingData.familyBlessing.solicitation }}</p>
       </div>
     </div>

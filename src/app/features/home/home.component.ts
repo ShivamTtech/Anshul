@@ -16,6 +16,7 @@ import { WeddingDataService, WeddingCeremony, ProgramStep, SacredRitual, GuestWi
 import { AudioService } from '../../core/services/audio.service';
 import { UiStateService } from '../../core/services/ui-state.service';
 import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
+import { LanguageService } from '../../core/services/language.service';
 
 interface CountdownState {
   days: string;
@@ -194,6 +195,7 @@ export interface StoryChapter {
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnDestroy {
+  readonly lang = inject(LanguageService);
   readonly weddingData = inject(WeddingDataService);
   readonly audioService = inject(AudioService);
   readonly uiState = inject(UiStateService);
@@ -203,14 +205,17 @@ export class HomeComponent implements OnDestroy {
 
   @ViewChild('petalCanvas') petalCanvasRef!: ElementRef<HTMLCanvasElement>;
 
-  // Story Chapters Architecture
-  readonly storyChapters: StoryChapter[] = [
-    { id: 'hero', num: '01', roman: 'I', title: 'Sacred Invocation', subtitle: 'Auspicious Blessings' },
-    { id: 'couple', num: '02', roman: 'II', title: 'The Couple', subtitle: 'Groom & Bride' },
-    { id: 'ceremonies', num: '03', roman: 'III', title: 'Ceremonies', subtitle: 'Sacred Celebrations' },
-    { id: 'itinerary', num: '04', roman: 'IV', title: 'Itinerary', subtitle: 'Wedding Day' },
-    { id: 'blessings', num: '05', roman: 'V', title: 'Blessings', subtitle: 'Heartfelt Wishes' }
-  ];
+  // Story Chapters Architecture (Bilingual)
+  get storyChapters(): StoryChapter[] {
+    const isHi = this.lang.isHindi();
+    return [
+      { id: 'hero', num: '01', roman: 'I', title: isHi ? 'मांगलिक गणेश वंदना' : 'Sacred Invocation', subtitle: isHi ? 'विघ्नहर्ता का आशीर्वाद' : 'Auspicious Blessings' },
+      { id: 'couple', num: '02', roman: 'II', title: isHi ? 'वर एवं वधू' : 'The Couple', subtitle: isHi ? 'परिचय एवं दर्शन' : 'Groom & Bride' },
+      { id: 'ceremonies', num: '03', roman: 'III', title: isHi ? 'मांगलिक कार्यक्रम' : 'Ceremonies', subtitle: isHi ? 'पावन उत्सव' : 'Sacred Celebrations' },
+      { id: 'itinerary', num: '04', roman: 'IV', title: isHi ? 'समय-सारणी' : 'Itinerary', subtitle: isHi ? 'विवाह दिवस' : 'Wedding Day' },
+      { id: 'blessings', num: '05', roman: 'V', title: isHi ? 'स्नेह व आशीर्वाद' : 'Blessings', subtitle: isHi ? 'शुभकामनाएं' : 'Heartfelt Wishes' }
+    ];
+  }
 
   readonly activeChapterIndex = signal<number>(0);
   readonly scrollProgressPercent = signal<number>(0);
@@ -226,30 +231,42 @@ export class HomeComponent implements OnDestroy {
   // Physical Card Modal
   readonly isPhysicalCardOpen = computed(() => this.uiState.isPhysicalCardModalOpen());
 
-  // Featured Illustrated Royal Portraits (Minimal, Serene & Attractive)
-  readonly groomPortrait = {
-    src: 'assets/images/illustrated-groom-portrait.jpg',
-    title: 'Anshul Verma',
-    subtitle: 'The Royal Groom · Devotion & Honour'
-  };
+  // Featured Illustrated Royal Portraits (Bilingual)
+  get groomPortrait() {
+    const isHi = this.lang.isHindi();
+    return {
+      src: 'assets/images/illustrated-groom-portrait.jpg',
+      title: isHi ? 'अंशुल वर्मा' : 'Anshul Verma',
+      subtitle: isHi ? 'वर · संस्कार, निष्ठा एवं सौम्यता' : 'The Royal Groom · Devotion & Honour'
+    };
+  }
 
-  readonly bridePortrait = {
-    src: 'assets/images/illustrated-bride-portrait.jpg',
-    title: 'Vidisha Singh',
-    subtitle: 'The Radiant Royal Bride · Grace & Tradition'
-  };
+  get bridePortrait() {
+    const isHi = this.lang.isHindi();
+    return {
+      src: 'assets/images/illustrated-bride-portrait.jpg',
+      title: isHi ? 'विदिशा सिंह' : 'Vidisha Singh',
+      subtitle: isHi ? 'वधू · लालित्य, शालीनता एवं सनातन संस्कृति' : 'The Radiant Royal Bride · Grace & Tradition'
+    };
+  }
 
-  readonly couplePortrait = {
-    src: 'assets/images/illustrated-couple-portrait.jpg',
-    title: 'Anshul & Vidisha',
-    subtitle: 'The Royal Couple · Sacred Nuptials'
-  };
+  get couplePortrait() {
+    const isHi = this.lang.isHindi();
+    return {
+      src: 'assets/images/illustrated-couple-portrait.jpg',
+      title: isHi ? 'अंशुल एवं विदिशा' : 'Anshul & Vidisha',
+      subtitle: isHi ? 'वर-वधू · पवित्र परिणय सूत्र' : 'The Royal Couple · Sacred Nuptials'
+    };
+  }
 
-  readonly ringCeremonyPhoto = {
-    src: 'assets/images/illustrated-ring-ceremony.jpg',
-    title: 'Sacred Ring Ceremony',
-    subtitle: 'An Auspicious Pledge of Eternal Companionship'
-  };
+  get ringCeremonyPhoto() {
+    const isHi = this.lang.isHindi();
+    return {
+      src: 'assets/images/illustrated-ring-ceremony.jpg',
+      title: isHi ? 'शुभ वाग्दान समारोह' : 'Sacred Ring Ceremony',
+      subtitle: isHi ? 'जीवन भर साथ निभाने का पावन संकल्प' : 'An Auspicious Pledge of Eternal Companionship'
+    };
+  }
 
   readonly selectedPhoto = signal<{ src: string; title: string; subtitle: string } | null>(null);
 
@@ -493,7 +510,7 @@ export class HomeComponent implements OnDestroy {
     if (this.envelopeAutoDismissTimer) clearTimeout(this.envelopeAutoDismissTimer);
     this.envelopeAutoDismissTimer = setTimeout(() => {
       this.pullOutCard();
-    }, 4000);
+    }, 12000);
   }
 
   pullOutCard(event?: Event) {

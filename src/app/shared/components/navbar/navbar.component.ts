@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AudioService } from '../../../core/services/audio.service';
 import { UiStateService } from '../../../core/services/ui-state.service';
 import { SmoothScrollService } from '../../../core/services/smooth-scroll.service';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,18 +19,18 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
             <span>AV</span>
           </div>
           <div class="brand-text">
-            <span class="brand-names">ANSHUL &amp; VIDISHA</span>
-            <span class="brand-sub">Wedding · November 2026</span>
+            <span class="brand-names">{{ lang.isHindi() ? 'अंशुल एवं विदिशा' : 'ANSHUL & VIDISHA' }}</span>
+            <span class="brand-sub">{{ lang.isHindi() ? 'विवाह उत्सव · नवम्बर 2026' : 'Wedding · November 2026' }}</span>
           </div>
         </a>
 
         <!-- Center: Desktop Navigation Links -->
         <nav class="hud-nav-links" aria-label="Main Navigation">
-          <a href="#hero" (click)="scrollTo('#hero', $event)">Home</a>
-          <a href="#couple" (click)="scrollTo('#couple', $event)">Couple</a>
-          <a href="#ceremonies" (click)="scrollTo('#ceremonies', $event)">Ceremonies</a>
-          <a href="#itinerary" (click)="scrollTo('#itinerary', $event)">Itinerary</a>
-          <a href="#blessings" (click)="scrollTo('#blessings', $event)">Blessings</a>
+          <a href="#hero" (click)="scrollTo('#hero', $event)">{{ lang.t().navHome }}</a>
+          <a href="#couple" (click)="scrollTo('#couple', $event)">{{ lang.t().navCouple }}</a>
+          <a href="#ceremonies" (click)="scrollTo('#ceremonies', $event)">{{ lang.t().navCeremonies }}</a>
+          <a href="#itinerary" (click)="scrollTo('#itinerary', $event)">{{ lang.t().navItinerary }}</a>
+          <a href="#blessings" (click)="scrollTo('#blessings', $event)">{{ lang.t().navBlessings }}</a>
         </nav>
 
         <!-- Right: Action Controls -->
@@ -43,7 +44,21 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
             title="View Original Printed Wedding Card"
             aria-label="View Original Wedding Card">
             <span class="btn-card-icon">📜</span>
-            <span class="btn-card-text">Card</span>
+            <span class="btn-card-text">{{ lang.t().navCard }}</span>
+          </button>
+
+          <!-- Bilingual Language Switcher (Desktop & Mobile) -->
+          <button
+            type="button"
+            class="hud-action-btn lang-toggle-btn"
+            (click)="lang.toggleLanguage()"
+            [title]="lang.isHindi() ? 'Switch to English' : 'हिंदी में पढ़ें'"
+            [attr.aria-label]="lang.isHindi() ? 'Switch to English' : 'हिंदी में पढ़ें'">
+            <span class="lang-pill">
+              <span class="lang-opt" [class.active]="!lang.isHindi()">EN</span>
+              <span class="lang-sep">|</span>
+              <span class="lang-opt" [class.active]="lang.isHindi()">हिं</span>
+            </span>
           </button>
 
           <!-- Ambient Soundscape Toggle -->
@@ -52,8 +67,8 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
             class="hud-action-btn audio-btn"
             [class.playing]="audioService.isPlaying()"
             (click)="toggleAudio()"
-            [title]="audioService.isPlaying() ? 'Mute Wedding Symphony' : 'Play Wedding Symphony'"
-            [attr.aria-label]="audioService.isPlaying() ? 'Mute Wedding Symphony' : 'Play Wedding Symphony'">
+            [title]="audioService.isPlaying() ? lang.t().navAudioMute : lang.t().navAudioPlay"
+            [attr.aria-label]="audioService.isPlaying() ? lang.t().navAudioMute : lang.t().navAudioPlay">
             
             <!-- Real-time Dancing Soundwave when Playing -->
             <span *ngIf="audioService.isPlaying()" class="soundwave-equalizer" aria-hidden="true">
@@ -71,16 +86,14 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
             </svg>
           </button>
 
-
-
           <!-- Mobile Menu Hamburger Toggle -->
           <button
             type="button"
             class="hud-action-btn menu-toggle-btn"
             [class.active]="isMenuOpen()"
             (click)="toggleMenu()"
-            [title]="isMenuOpen() ? 'Close Menu' : 'Open Menu'"
-            [attr.aria-label]="isMenuOpen() ? 'Close Menu' : 'Open Menu'"
+            [title]="isMenuOpen() ? lang.t().navMenuClose : lang.t().navMenuOpen"
+            [attr.aria-label]="isMenuOpen() ? lang.t().navMenuClose : lang.t().navMenuOpen"
             [attr.aria-expanded]="isMenuOpen()">
             <span class="menu-icon-box">
               <span class="line line-1"></span>
@@ -98,38 +111,48 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
         
         <div class="mobile-crest-header">
           <div class="mobile-seal-badge">AV</div>
-          <h3 class="mobile-seal-names">ANSHUL &amp; VIDISHA</h3>
-          <p class="mobile-seal-sub">Sacred Nuptials · November 2026</p>
+          <h3 class="mobile-seal-names">{{ lang.isHindi() ? 'अंशुल एवं विदिशा' : 'ANSHUL & VIDISHA' }}</h3>
+          <p class="mobile-seal-sub">{{ lang.isHindi() ? 'शुभ विवाह · नवम्बर 2026' : 'Sacred Nuptials · November 2026' }}</p>
           <div class="mobile-gold-divider"></div>
+        </div>
+
+        <!-- Mobile Language Selector Row -->
+        <div class="mobile-lang-row">
+          <button type="button" class="mobile-lang-pill" [class.active]="!lang.isHindi()" (click)="lang.setLanguage('en')">
+            <span>English</span>
+          </button>
+          <button type="button" class="mobile-lang-pill" [class.active]="lang.isHindi()" (click)="lang.setLanguage('hi')">
+            <span>हिन्दी</span>
+          </button>
         </div>
 
         <nav class="mobile-nav-list" aria-label="Mobile Navigation">
           <a href="#hero" (click)="closeMenuAndScroll('#hero', $event)">
             <span class="nav-roman">I</span>
-            <span class="nav-label">Sacred Invocation</span>
+            <span class="nav-label">{{ lang.t().chapter01Title }}</span>
           </a>
           <a href="#couple" (click)="closeMenuAndScroll('#couple', $event)">
             <span class="nav-roman">II</span>
-            <span class="nav-label">The Royal Couple</span>
+            <span class="nav-label">{{ lang.t().chapter02Title }}</span>
           </a>
           <a href="#ceremonies" (click)="closeMenuAndScroll('#ceremonies', $event)">
             <span class="nav-roman">III</span>
-            <span class="nav-label">Sacred Ceremonies</span>
+            <span class="nav-label">{{ lang.t().chapter03Title }}</span>
           </a>
           <a href="#itinerary" (click)="closeMenuAndScroll('#itinerary', $event)">
             <span class="nav-roman">IV</span>
-            <span class="nav-label">Wedding Itinerary</span>
+            <span class="nav-label">{{ lang.t().chapter04Title }}</span>
           </a>
           <a href="#blessings" (click)="closeMenuAndScroll('#blessings', $event)">
             <span class="nav-roman">V</span>
-            <span class="nav-label">Wishes &amp; Blessings</span>
+            <span class="nav-label">{{ lang.t().chapter05Title }}</span>
           </a>
         </nav>
 
         <div class="mobile-overlay-actions">
           <button type="button" class="mobile-card-trigger" (click)="openCardFromMobile()">
             <span class="btn-card-symbol">📜</span>
-            <span>View Authentic Printed Card</span>
+            <span>{{ lang.isHindi() ? 'मूल विवाह पत्रिका देखें' : 'View Authentic Printed Card' }}</span>
           </button>
         </div>
 
@@ -148,42 +171,54 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       width: min(92%, 980px);
       z-index: 1000;
       animation: hudFadeDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-      transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                  width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes hudFadeDown {
-      from { opacity: 0; transform: translate(-50%, -16px); }
-      to { opacity: 1; transform: translate(-50%, 0); }
+      pointer-events: none;
+      transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .royal-hud-wrapper.scrolled {
       top: max(8px, env(safe-area-inset-top, 8px));
-      width: min(94%, 960px);
+      width: min(96%, 1020px);
+    }
+
+    @keyframes hudFadeDown {
+      from {
+        opacity: 0;
+        transform: translate3d(-50%, -20px, 0);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(-50%, 0, 0);
+      }
     }
 
     .royal-hud-inner {
+      pointer-events: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 7px 18px;
-      min-height: 52px;
+      gap: 16px;
+      padding: 7px 16px;
       border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(197, 160, 89, 0.42);
-      box-shadow: 0 4px 22px rgba(58, 50, 45, 0.08), 0 1px 3px rgba(197, 160, 89, 0.16);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      background: rgba(253, 250, 246, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(197, 160, 89, 0.38);
+      box-shadow: 
+        0 8px 32px rgba(58, 50, 45, 0.08),
+        0 1px 3px rgba(197, 160, 89, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .royal-hud-wrapper.scrolled .royal-hud-inner {
-      padding: 5px 16px;
-      min-height: 46px;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(253, 250, 246, 0.96);
+      box-shadow: 
+        0 10px 40px rgba(58, 50, 45, 0.14),
+        0 2px 6px rgba(197, 160, 89, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
       border-color: rgba(197, 160, 89, 0.55);
-      box-shadow: 0 8px 30px rgba(58, 50, 45, 0.12), 0 2px 6px rgba(197, 160, 89, 0.22);
+      padding: 6px 14px;
     }
 
     /* -------------------------------------------------------------
@@ -240,16 +275,15 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       letter-spacing: 0.18em;
       color: var(--crimson-wine, #781D2C);
       line-height: 1.2;
-      white-space: nowrap;
     }
 
     .brand-sub {
-      font-family: var(--font-editorial, 'Cormorant Garamond', serif);
-      font-size: 0.6rem;
-      color: var(--text-muted, #8A7E77);
+      font-family: var(--font-editorial, 'Cormorant Garamond', Georgia, serif);
+      font-size: 0.62rem;
       font-style: italic;
-      line-height: 1.2;
-      white-space: nowrap;
+      color: var(--text-secondary, #6E6259);
+      line-height: 1.1;
+      letter-spacing: 0.04em;
     }
 
     /* -------------------------------------------------------------
@@ -258,55 +292,38 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
     .hud-nav-links {
       display: flex;
       align-items: center;
-      gap: clamp(10px, 1.8vw, 22px);
+      gap: 4px;
     }
 
     .hud-nav-links a {
       font-family: var(--font-display, 'Cinzel', serif);
-      font-size: 0.62rem;
+      font-size: 0.64rem;
       font-weight: 600;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text-secondary, #5C524C);
+      color: var(--text-primary, #2A2421);
       text-decoration: none;
-      padding: 6px 4px;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
-      transition: color 0.25s ease;
-      white-space: nowrap;
-    }
-
-    .hud-nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0px;
-      left: 50%;
-      width: 0;
-      height: 1.5px;
-      background: linear-gradient(90deg, transparent, var(--gold-warm, #C5A059), transparent);
-      border-radius: 1px;
-      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .hud-nav-links a:hover {
       color: var(--crimson-wine, #781D2C);
-    }
-
-    .hud-nav-links a:hover::after {
-      width: 90%;
-      left: 5%;
+      background: rgba(120, 29, 44, 0.07);
     }
 
     /* -------------------------------------------------------------
-       4. ACTION BUTTONS & UNIFIED CONTROLS
+       4. ACTION CONTROLS (Language Pill, Audio, Mobile Menu)
        ------------------------------------------------------------- */
     .hud-actions {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
+      flex-shrink: 0;
     }
 
-    /* Unified Circular Button Base */
     .hud-action-btn {
       position: relative;
       width: 36px;
@@ -336,13 +353,68 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       transform: translateY(0) scale(0.95);
     }
 
+    /* Bilingual Language Toggle Pill */
+    .lang-toggle-btn {
+      width: auto !important;
+      min-width: 46px;
+      height: 36px;
+      padding: 0 10px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(197, 160, 89, 0.55);
+      color: var(--crimson-wine, #781D2C);
+      font-family: var(--font-display, 'Cinzel', serif);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(58, 50, 45, 0.05);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+
+    .lang-toggle-btn:hover {
+      background: rgba(120, 29, 44, 0.08);
+      border-color: var(--gold-warm, #C5A059);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(197, 160, 89, 0.22);
+    }
+
+    .lang-toggle-btn:active {
+      transform: translateY(0) scale(0.95);
+    }
+
+    .lang-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .lang-opt {
+      opacity: 0.45;
+      transition: all 0.2s ease;
+    }
+
+    .lang-opt.active {
+      opacity: 1;
+      color: var(--crimson-wine, #781D2C);
+      font-weight: 800;
+      text-shadow: 0 0 1px rgba(120, 29, 44, 0.3);
+    }
+
+    .lang-sep {
+      opacity: 0.35;
+      font-size: 0.58rem;
+    }
+
     .action-icon {
       width: 16px;
       height: 16px;
       display: block;
     }
-
-
 
     .mute-icon {
       color: var(--text-muted, #8A7E77);
@@ -518,7 +590,6 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
       transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                   visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
     }
 
     .mobile-overlay.open {
@@ -528,72 +599,105 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
     }
 
     .mobile-overlay-inner {
+      min-height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100%;
-      padding: 96px 24px 44px;
+      padding: 90px 24px 40px;
       box-sizing: border-box;
-      text-align: center;
+      gap: 20px;
     }
 
     .mobile-crest-header {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 24px;
+      text-align: center;
     }
 
     .mobile-seal-badge {
-      width: 44px;
-      height: 44px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--crimson-wine, #781D2C), var(--crimson-deep, #4A0814));
-      border: 1.5px solid var(--gold-warm, #C5A059);
+      background: linear-gradient(135deg, var(--crimson-wine, #781D2C) 0%, var(--crimson-deep, #4A0814) 100%);
+      border: 2px solid var(--gold-warm, #C5A059);
       color: #FFF8E7;
+      font-family: var(--font-display-deco, 'Cinzel Decorative', serif);
+      font-size: 0.95rem;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-display-deco, 'Cinzel Decorative', serif);
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 14px rgba(120, 29, 44, 0.25);
+      box-shadow: 0 4px 16px rgba(120, 29, 44, 0.32);
+      margin-bottom: 10px;
     }
 
     .mobile-seal-names {
       font-family: var(--font-display, 'Cinzel', serif);
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
       color: var(--crimson-wine, #781D2C);
-      margin: 0 0 4px;
-    }
-
-    .mobile-seal-sub {
-      font-family: var(--font-editorial, 'Cormorant Garamond', serif);
-      font-size: 0.75rem;
-      color: var(--text-muted, #8A7E77);
-      font-style: italic;
       margin: 0;
     }
 
+    .mobile-seal-sub {
+      font-family: var(--font-editorial, 'Cormorant Garamond', Georgia, serif);
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--text-secondary, #6E6259);
+      margin: 3px 0 0;
+    }
+
     .mobile-gold-divider {
-      width: 60px;
+      width: 44px;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--gold-warm, #C5A059), transparent);
-      margin: 16px auto 0;
+      margin-top: 10px;
+    }
+
+    /* Mobile Language Selector Row */
+    .mobile-lang-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 260px;
+      margin: 2px 0 8px;
+    }
+
+    .mobile-lang-pill {
+      flex: 1;
+      padding: 9px 16px;
+      border-radius: 9999px;
+      border: 1px solid rgba(197, 160, 89, 0.45);
+      background: rgba(255, 255, 255, 0.75);
+      color: var(--crimson-wine, #781D2C);
+      font-family: var(--font-display, 'Cinzel', serif);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      text-align: center;
+    }
+
+    .mobile-lang-pill.active {
+      background: var(--crimson-wine, #781D2C);
+      color: #FFFFFF;
+      border-color: var(--crimson-wine, #781D2C);
+      box-shadow: 0 3px 12px rgba(120, 29, 44, 0.28);
     }
 
     .mobile-nav-list {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
       max-width: 280px;
-      margin-bottom: 28px;
     }
 
     .mobile-nav-list a {
@@ -732,6 +836,13 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
         height: 33px;
       }
 
+      .lang-toggle-btn {
+        height: 33px;
+        min-width: 40px;
+        padding: 0 7px;
+        font-size: 0.58rem;
+      }
+
       .menu-toggle-btn {
         display: inline-flex;
       }
@@ -749,12 +860,19 @@ import { SmoothScrollService } from '../../../core/services/smooth-scroll.servic
         width: 31px;
         height: 31px;
       }
+      .lang-toggle-btn {
+        height: 31px;
+        min-width: 36px;
+        padding: 0 5px;
+        font-size: 0.54rem;
+      }
     }
   `]
 })
 export class NavbarComponent {
-  audioService = inject(AudioService);
-  uiState = inject(UiStateService);
+  readonly lang = inject(LanguageService);
+  readonly audioService = inject(AudioService);
+  readonly uiState = inject(UiStateService);
   private smoothScroll = inject(SmoothScrollService);
 
   readonly isScrolled = signal<boolean>(false);
