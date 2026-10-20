@@ -6,161 +6,149 @@
      [class.closing]="isEnvelopeClosing()"
      [class.fade-out]="isEnvelopeFading()">
   
-  <!-- Ambient Warm Antique Vignette & Glow -->
+  <!-- Ambient Warm Antique Glow & Radial Aura -->
   <div class="envelope-backdrop-aura"></div>
   <div class="envelope-vignette-overlay"></div>
 
-  <!-- Parchment Envelope Container (3D Physical Realism) -->
-  <div class="envelope-perspective">
-    <div class="envelope-wrapper" [class.unfolded]="isEnvelopeOpened()">
-      
-      <!-- 1. Envelope Back Wall (Interior of the pocket) -->
-      <div class="envelope-back-wall">
-        <div class="back-wall-texture"></div>
-        <div class="back-inner-lining"></div>
-        <div class="back-pocket-shadow"></div>
-      </div>
+  <!-- Four Screen-Edge Botanical Watercolor Clusters -->
+  <div class="envelope-edge-florals" aria-hidden="true">
+    <img src="assets/images/floral-bouquet-transparent.png" alt="Botanical Roses" class="edge-flora edge-flora-tl" />
+    <img src="assets/images/floral-bouquet-transparent.png" alt="Botanical Roses" class="edge-flora edge-flora-tr" />
+    <img src="assets/images/floral-bouquet-transparent.png" alt="Botanical Roses" class="edge-flora edge-flora-bl" />
+    <img src="assets/images/floral-bouquet-transparent.png" alt="Botanical Roses" class="edge-flora edge-flora-br" />
+  </div>
 
-      <!-- 2. The Sacred Invitation Letter Card (Tucked inside, slides halfway up, pull up to open) -->
-      <div class="invitation-letter-card" 
-           [style.transform]="getCardTransform()"
-           [class.pulled-out]="isCardPulledOut()"
+  <!-- Royal Screen Filigree Framing (Full Mobile & Desktop Canvas) -->
+  <div class="envelope-screen-frame" aria-hidden="true">
+    <div class="screen-frame-inner"></div>
+    <div class="screen-frame-top-crest font-cinzel">
+      <span class="crest-sparkle">✦</span>
+      <span class="crest-text">SHUBH VIVAH</span>
+      <span class="crest-sparkle">✦</span>
+    </div>
+  </div>  <!-- Royal Wedding Folio Container (3D Physical Realism Gatefold Reveal) -->
+  <div class="royal-folio-perspective">
+    <div class="royal-folio-box" [class.unfolded]="isEnvelopeOpened()">
+      
+      <!-- 1. The Sacred Inner Wedding Card (Revealed inside when gate doors glide open) -->
+      <div class="folio-inner-card" 
            (click)="pullOutCard($event)"
-           (touchstart)="onCardTouchStart($event)"
-           (touchmove)="onCardTouchMove($event)"
-           (touchend)="onCardTouchEnd($event)"
-           title="Pull up or tap card to view full invitation"
            role="button"
            tabindex="0"
-           aria-label="Invitation card for Anshul and Vidisha. Pull up to open.">
+           aria-label="Sacred Invitation card for Anshul and Vidisha. Tap to enter celebration.">
         
-        <!-- Elegant Animated Pull-Up Chevron Beacon (At Top Edge) -->
-        <div class="card-pull-up-handle" (click)="pullOutCard($event)" title="Pull up or tap to open invitation">
-          <div class="pull-up-arrow-anim">
-            <span class="pull-arrow-icon arrow-top">⌃</span>
-            <span class="pull-arrow-icon arrow-bottom">⌃</span>
-          </div>
-          <span class="pull-up-text font-cinzel">PULL UP</span>
-        </div>
-
-        <div class="letter-inner-parchment">
+        <div class="inner-card-parchment">
           
-          <!-- Cute Bal Ganesha Blessing Stage (Emerges in top half) -->
-          <div class="letter-ganesha-stage">
-            <div class="ganesha-avatar-mount">
+          <!-- Cute Bal Ganesha Blessing Stage -->
+          <div class="inner-ganesha-stage">
+            <div class="inner-avatar-mount">
               <img src="assets/images/cute-bal-ganesha-card.png?v=2" 
                    alt="Adorable Bal Ganesha Divine Blessing" 
-                   class="card-bal-ganesha-img" />
-              <div class="avatar-glow-ring"></div>
+                   class="inner-bal-ganesha-img" />
+              <div class="inner-avatar-glow"></div>
             </div>
-            <span class="letter-om font-cinzel">॥ श्री गणेशाय नमः ॥</span>
+            <span class="inner-om font-cinzel">॥ श्री गणेशाय नमः ॥</span>
           </div>
 
           <!-- Sacred Wedding Typography -->
-          <div class="letter-body">
-            <span class="letter-eyebrow font-cinzel">✦ SHUBH VIVAH ✦</span>
-            <h2 class="letter-title font-calligraphy text-crimson">
+          <div class="inner-body">
+            <span class="inner-eyebrow font-cinzel">✦ SHUBH VIVAH ✦</span>
+            <h2 class="inner-title font-calligraphy text-crimson">
               Anshul &amp; Vidisha
             </h2>
-            <p class="letter-location font-editorial">Prayagraj &amp; Lucknow · 20th November 2026</p>
+            <p class="inner-invite-text font-editorial">
+              Together with their families, request the pleasure of your company to celebrate their sacred wedding.
+            </p>
+            <p class="inner-location font-cinzel">Prayagraj &amp; Lucknow · 20th November 2026</p>
           </div>
 
           <!-- Action Prompt Button -->
-          <div class="letter-footer">
+          <div class="inner-footer">
             <button type="button" class="btn-enter-realm font-cinzel" (click)="pullOutCard($event)">
-              <span>Open Sacred Invitation ➔</span>
+              <span>Enter Sacred Celebration ➔</span>
             </button>
           </div>
 
         </div>
+
+        <!-- Ornate Gold Corner Filigrees on Inner Card -->
+        <div class="card-inner-corner corner-tl" aria-hidden="true"></div>
+        <div class="card-inner-corner corner-tr" aria-hidden="true"></div>
+        <div class="card-inner-corner corner-bl" aria-hidden="true"></div>
+        <div class="card-inner-corner corner-br" aria-hidden="true"></div>
       </div>
 
-      <!-- 3. Envelope Front Pocket (Covers bottom half of letter card for true physical realism) -->
-      <div class="envelope-front-pocket">
-        <!-- Solid Ivory Pocket Surface with V-Notch Opening -->
-        <div class="pocket-solid-body">
-          <!-- Subtle diagonal crease lines representing folded flaps -->
-          <div class="pocket-crease crease-left"></div>
-          <div class="pocket-crease crease-right"></div>
-          <div class="pocket-bottom-crease"></div>
-        </div>
-
-        <!-- Crisp Gold Piping SVG along the Top V-Notch Lip -->
-        <svg class="pocket-lip-svg" viewBox="0 0 100 50" preserveAspectRatio="none">
-          <polyline points="0,0 50,50 100,0" fill="none" stroke="url(#goldPocketLip)" stroke-width="1.8" stroke-linejoin="round" />
-          <polyline points="2,1 50,47 98,1" fill="none" stroke="rgba(212, 175, 55, 0.45)" stroke-width="0.75" stroke-dasharray="2.5,2" />
-          <defs>
-            <linearGradient id="goldPocketLip" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#C5A059" />
-              <stop offset="50%" stop-color="#F3E197" />
-              <stop offset="100%" stop-color="#C5A059" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        <!-- Outer Rectangular Gold Border Accent -->
-        <div class="pocket-outer-frame"></div>
-      </div>
-
-      <!-- 4. Envelope Top Fold Flap (Sharp triangular 'Arrow' flap pointing down to center) -->
-      <div class="envelope-flap-top">
-        <div class="flap-body">
-          <!-- Crisp Gold Piping along the downward 'arrow' V-edges -->
-          <svg class="flap-edge-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <polyline points="0,0 50,100 100,0" fill="none" stroke="url(#goldFlapStroke)" stroke-width="2" stroke-linejoin="round" />
-            <polyline points="2,1 50,95 98,1" fill="none" stroke="rgba(212, 175, 55, 0.55)" stroke-width="0.9" stroke-dasharray="3,2" />
-            <defs>
-              <linearGradient id="goldFlapStroke" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#BF9035" />
-                <stop offset="50%" stop-color="#F3E197" />
-                <stop offset="100%" stop-color="#BF9035" />
-              </linearGradient>
-            </defs>
-          </svg>
-
-          <!-- Top Fold Crease Line Accent -->
-          <div class="flap-top-crease"></div>
-
-          <!-- Royal Crown Crest Monogram -->
-          <div class="flap-royal-crest">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
-              <path d="M12 2l3 5 5-2-2 7H6L4 5l5 2 3-5z"></path>
-            </svg>
-          </div>
+      <!-- 2. Dual Symmetrical Royal Gate Doors (Swings open 3D on unseal) -->
+      <div class="folio-gate-door door-left" aria-hidden="true">
+        <div class="door-panel">
+          <div class="door-inner-border"></div>
+          <div class="door-filigree-corner corner-tl"></div>
+          <div class="door-filigree-corner corner-bl"></div>
+          <div class="door-gold-crease"></div>
         </div>
       </div>
 
-      <!-- 5. Concentric Gold Embossed Rings on Envelope Body -->
-      <div class="envelope-concentric-emboss">
-        <div class="emboss-ring ring-outer"></div>
-        <div class="emboss-ring ring-inner"></div>
+      <div class="folio-gate-door door-right" aria-hidden="true">
+        <div class="door-panel">
+          <div class="door-inner-border"></div>
+          <div class="door-filigree-corner corner-tr"></div>
+          <div class="door-filigree-corner corner-br"></div>
+          <div class="door-gold-crease"></div>
+        </div>
       </div>
 
-      <!-- 6. Royal Crest Seal with Pulsating Tap Cue (ONLY the center circular A&V crest visible) -->
-      <div class="wax-seal-wrapper" [class.broken]="isEnvelopeOpened()">
-        <!-- Modern Animated Pulsating Tap Cue -->
-        <div class="tap-gesture-halo" aria-hidden="true">
-          <div class="tap-ripple-ring ring-1"></div>
-          <div class="tap-ripple-ring ring-2"></div>
-          <div class="tap-beacon-pill font-cinzel">
-            <span class="beacon-sparkle">✦</span>
-            <span>TAP</span>
-            <span class="beacon-sparkle">✦</span>
-          </div>
+      <!-- 3. Front Regal Centerpiece (Spans closed doors with expanded crest, couple names, date & CTA) -->
+      <div class="folio-front-content" [class.unsealed]="isEnvelopeOpened()">
+        
+        <!-- Sacred Invocation Header -->
+        <div class="cover-sacred-header">
+          <span class="cover-shubh-vivah font-cinzel">✦ SHUBH VIVAH ✦</span>
+          <span class="cover-shree-ganesh font-cinzel">॥ श्री गणेशाय नमः ॥</span>
         </div>
 
-        <button type="button" 
-                class="wax-seal-btn wax-seal-crest" 
-                (click)="breakRoyalSeal($event)" 
-                title="Tap the royal A&V crest to open invitation"
-                aria-label="Tap the royal A&V crest to open wedding invitation">
-          <div class="seal-crest-frame">
-            <img src="assets/images/av-crest-seal.png" 
-                 alt="Royal A&V Crest Seal" 
-                 class="seal-crest-img" />
-          </div>
-          <div class="seal-touch-shimmer"></div>
-        </button>
+        <!-- Expanded Radius Floral Crest Seal Medallion -->
+        <div class="cover-crest-wrapper">
+          <!-- Divine Amber-Gold Breathing Halo -->
+          <div class="seal-divine-aura" aria-hidden="true"></div>
+
+          <button type="button" 
+                  class="cover-crest-btn" 
+                  (click)="breakRoyalSeal($event)" 
+                  title="Tap the royal A&V crest to open invitation"
+                  aria-label="Tap the royal A&V crest to open wedding invitation">
+            <div class="cover-crest-frame">
+              <img src="assets/images/av-crest-seal-enhanced.png" 
+                   alt="Royal A&V Crest Seal" 
+                   class="cover-crest-img" />
+              <!-- Specular Gold Foil Sheen -->
+              <div class="seal-gold-sheen"></div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Couple's Royal Names with Generous Typography & Spacing -->
+        <div class="cover-names-block">
+          <h1 class="cover-names-title font-calligraphy text-crimson">
+            Anshul &amp; Vidisha
+          </h1>
+          <p class="cover-destination-tag font-cinzel">
+            PRAYAGRAJ &amp; LUCKNOW · 20TH NOVEMBER 2026
+          </p>
+        </div>
+
+        <!-- Integrated Regal Unseal Cue with Gold Filigree Accents -->
+        <div class="seal-unseal-prompt font-cinzel" 
+             (click)="breakRoyalSeal($event)"
+             role="button"
+             tabindex="0"
+             aria-label="Tap to open sacred wedding invitation">
+          <span class="prompt-gold-line line-left"></span>
+          <span class="prompt-gem">✦</span>
+          <span class="prompt-text">TAP TO OPEN INVITATION</span>
+          <span class="prompt-gem">✦</span>
+          <span class="prompt-gold-line line-right"></span>
+        </div>
+
       </div>
 
     </div>
@@ -223,7 +211,7 @@
   <div class="photo-lightbox-card" (click)="$event.stopPropagation()">
     <button type="button" class="btn-close-lightbox" (click)="closePhotoLightbox()" aria-label="Close photo preview">✕</button>
     <div class="lightbox-image-wrap frameless-mount">
-      <img [src]="selectedPhoto()?.src" [alt]="selectedPhoto()?.title" class="lightbox-img frameless-img" />
+      <img [src]="selectedPhoto()?.src" [alt]="selectedPhoto()?.title" class="lightbox-img" />
     </div>
     <div class="lightbox-caption">
       <div class="lightbox-badge font-cinzel">✤ SACRED CELEBRATION ✤</div>
@@ -914,8 +902,8 @@
         </div>
       </div>
 
-      <!-- Understated Baraat Departure Note -->
-      <div class="baraat-departure-subdued">
+      <!-- Understated Baraat Departure Note (Seamless on Card Background) -->
+      <div class="baraat-departure-subdued" style="background: transparent !important; border: none !important; box-shadow: none !important; padding: 4px 12px !important;">
         <span class="baraat-subdued-tag font-cinzel">✤ BARAAT PRASHTHAN · PROCESSION ✤</span>
         <p class="baraat-subdued-text font-editorial">
           Departing from our Lucknow home at <strong>B-42, Him City Part 1, Dewa Road</strong> for Prayagraj.

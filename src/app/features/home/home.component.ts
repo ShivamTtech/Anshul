@@ -226,27 +226,27 @@ export class HomeComponent implements OnDestroy {
   // Physical Card Modal
   readonly isPhysicalCardOpen = computed(() => this.uiState.isPhysicalCardModalOpen());
 
-  // Featured Authentic Royal Portraits (Minimal, Curated, High-Impact)
+  // Featured Illustrated Royal Portraits (Minimal, Serene & Attractive)
   readonly groomPortrait = {
-    src: 'assets/images/real-groom-portrait.jpg',
+    src: 'assets/images/illustrated-groom-portrait.jpg',
     title: 'Anshul Verma',
     subtitle: 'The Royal Groom · Devotion & Honour'
   };
 
   readonly bridePortrait = {
-    src: 'assets/images/real-bride-portrait.jpg',
+    src: 'assets/images/illustrated-bride-portrait.jpg',
     title: 'Vidisha Singh',
     subtitle: 'The Radiant Royal Bride · Grace & Tradition'
   };
 
   readonly couplePortrait = {
-    src: 'assets/images/real-couple-portrait.jpg',
+    src: 'assets/images/illustrated-couple-portrait.jpg',
     title: 'Anshul & Vidisha',
     subtitle: 'The Royal Couple · Sacred Nuptials'
   };
 
   readonly ringCeremonyPhoto = {
-    src: 'assets/images/real-couple-ring.jpg',
+    src: 'assets/images/illustrated-ring-ceremony.jpg',
     title: 'Sacred Ring Ceremony',
     subtitle: 'An Auspicious Pledge of Eternal Companionship'
   };
@@ -489,11 +489,11 @@ export class HomeComponent implements OnDestroy {
     this.isCardPulledOut.set(false);
     this.isEnvelopeOpened.set(true);
 
-    // Auto-advance after 2.5s if guest simply watches
+    // Auto-advance after 4.0s if guest simply watches (or tap immediately)
     if (this.envelopeAutoDismissTimer) clearTimeout(this.envelopeAutoDismissTimer);
     this.envelopeAutoDismissTimer = setTimeout(() => {
       this.pullOutCard();
-    }, 2500);
+    }, 4000);
   }
 
   pullOutCard(event?: Event) {
@@ -555,10 +555,12 @@ export class HomeComponent implements OnDestroy {
     }
     const dragY = this.cardDragDeltaY();
     if (this.isEnvelopeOpened()) {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
+      const basePercent = isMobile ? -45 : -52;
       if (dragY !== 0) {
-        return `translate3d(0, calc(-54% + ${dragY}px), 0)`;
+        return `translate3d(0, calc(${basePercent}% + ${dragY}px), 0)`;
       }
-      return 'translate3d(0, -54%, 0)';
+      return `translate3d(0, ${basePercent}%, 0)`;
     }
     return 'translate3d(0, 0, 0)';
   }
