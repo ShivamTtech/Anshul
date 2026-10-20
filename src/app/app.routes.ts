@@ -7,6 +7,14 @@ export const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'hi',
+    component: HomeComponent
+  },
+  {
+    path: 'en',
+    component: HomeComponent
+  },
+  {
     path: '**',
     redirectTo: ''
   }

@@ -592,37 +592,47 @@ export class HomeComponent implements OnDestroy {
     this.smoothScroll.scrollToTop(true);
   }
 
+  toggleLivePreview() {
+    this.isWeddingDayOrPast.update(v => !v);
+    if (!this.isWeddingDayOrPast()) {
+      this.calculateCountdown();
+    } else {
+      this.countdown.set({ days: '00', hours: '00', minutes: '00', seconds: '00' });
+    }
+  }
+
   // =========================================================================
   // 2. LIVE COUNTDOWN TIMER (Wedding Day — 20th November 2026)
   // =========================================================================
-  private startCountdown() {
+  private calculateCountdown() {
     const weddingDate = new Date("November 20, 2026 18:00:00").getTime();
+    const now = new Date().getTime();
+    const diff = weddingDate - now;
 
-    const update = () => {
-      const now = new Date().getTime();
-      const diff = weddingDate - now;
+    if (diff > 0) {
+      this.isWeddingDayOrPast.set(false);
+      this.countdown.set({
+        days: String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0'),
+        hours: String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0'),
+        minutes: String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0'),
+        seconds: String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0')
+      });
+    } else {
+      this.isWeddingDayOrPast.set(true);
+      this.countdown.set({ days: '00', hours: '00', minutes: '00', seconds: '00' });
+    }
+  }
 
-      if (diff > 0) {
-        this.isWeddingDayOrPast.set(false);
-        this.countdown.set({
-          days: String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0'),
-          hours: String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0'),
-          minutes: String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0'),
-          seconds: String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0')
-        });
-      } else {
-        // When countdown reaches zero: Auspicious celebration state activates
-        this.isWeddingDayOrPast.set(true);
-        this.countdown.set({ days: '00', hours: '00', minutes: '00', seconds: '00' });
-        if (this.countdownTimer) {
-          clearInterval(this.countdownTimer);
-          this.countdownTimer = null;
-        }
+  private startCountdown() {
+    // Calculate initial countdown immediately (original timer restored)
+    this.calculateCountdown();
+
+    this.countdownTimer = setInterval(() => {
+      // Continue real countdown when not in simulated live preview mode
+      if (!this.isWeddingDayOrPast()) {
+        this.calculateCountdown();
       }
-    };
-
-    update();
-    this.countdownTimer = setInterval(update, 1000);
+    }, 1000);
   }
 
   // =========================================================================

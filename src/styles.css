@@ -53,13 +53,19 @@
   --glass-bg: linear-gradient(145deg, rgba(250, 247, 242, 0.92) 0%, rgba(245, 239, 235, 0.96) 100%);
   --glass-bg-dark: linear-gradient(145deg, rgba(106, 13, 30, 0.92) 0%, rgba(120, 29, 44, 0.96) 100%);
 
-  /* Typography Stack */
+  /* Typography Stack (Latin Botanical / Royal Default) */
   --font-calligraphy: 'Alex Brush', cursive;
   --font-display: 'Cinzel', Georgia, serif;
   --font-display-deco: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
   --font-editorial: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Outfit', sans-serif;
+
+  /* Royal Hindi & Devanagari Typography Stack */
+  --font-hindi-display: 'Rozha One', 'Noto Serif Devanagari', serif;
+  --font-hindi-calligraphy: 'Rozha One', 'Noto Serif Devanagari', cursive, serif;
+  --font-hindi-editorial: 'Noto Serif Devanagari', 'Tiro Devanagari Hindi', Georgia, serif;
+  --font-hindi-body: 'Noto Serif Devanagari', 'Outfit', sans-serif;
 
   /* Shadows */
   --shadow-card: 0 4px 24px rgba(58, 50, 45, 0.08), 0 1px 4px rgba(58, 50, 45, 0.04);
@@ -244,6 +250,98 @@ img {
 
 .shadow-gold-glow { box-shadow: var(--shadow-gold-glow); }
 .shadow-holo { box-shadow: var(--shadow-holo); }
+
+/* ==========================================================================
+   ROYAL HINDI TYPOGRAPHY SYSTEM (Devanagari Harmony & Authentic Elegance)
+   Typeface: Noto Serif Devanagari & Tiro Devanagari Hindi
+   Designed for: Flawless 'अंशुल' ligature, superior readability & royal presence
+   ========================================================================== */
+html[lang="hi"],
+.lang-hi {
+  --font-calligraphy: 'Noto Serif Devanagari', 'Tiro Devanagari Hindi', serif;
+  --font-display: 'Noto Serif Devanagari', 'Cinzel', serif;
+  --font-display-deco: 'Noto Serif Devanagari', serif;
+  --font-editorial: 'Noto Serif Devanagari', 'Tiro Devanagari Hindi', Georgia, serif;
+  --font-sans: 'Noto Serif Devanagari', 'Outfit', sans-serif;
+  --font-body: 'Noto Serif Devanagari', sans-serif;
+}
+
+html[lang="hi"] body,
+body.lang-hi {
+  font-family: var(--font-body);
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+/* Regal Display & Titles in Hindi */
+html[lang="hi"] h1,
+html[lang="hi"] h2,
+html[lang="hi"] h3,
+html[lang="hi"] h4,
+html[lang="hi"] .font-calligraphy,
+html[lang="hi"] .font-cinzel,
+html[lang="hi"] .font-cinzel-deco,
+.lang-hi h1,
+.lang-hi h2,
+.lang-hi h3,
+.lang-hi h4,
+.lang-hi .font-calligraphy,
+.lang-hi .font-cinzel,
+.lang-hi .font-cinzel-deco {
+  font-family: 'Noto Serif Devanagari', 'Tiro Devanagari Hindi', serif !important;
+  letter-spacing: 0.02em;
+}
+
+/* Couple Names & Hero Titles in Hindi: Majestic Weight & Balance */
+html[lang="hi"] .couple-headline .name-groom,
+html[lang="hi"] .couple-headline .name-bride,
+html[lang="hi"] .inner-title,
+html[lang="hi"] .person-name,
+html[lang="hi"] .footer-names,
+.lang-hi .couple-headline .name-groom,
+.lang-hi .couple-headline .name-bride,
+.lang-hi .inner-title,
+.lang-hi .person-name,
+.lang-hi .footer-names {
+  font-family: 'Noto Serif Devanagari', serif !important;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  line-height: 1.25;
+}
+
+/* Small Badges & Labels in Hindi (Crisp, semi-bold readability) */
+html[lang="hi"] .section-tag,
+html[lang="hi"] .countdown-badge,
+html[lang="hi"] .invitation-intro-label,
+html[lang="hi"] .person-role-badge,
+html[lang="hi"] .honor-label,
+html[lang="hi"] .mobile-nav-pill,
+.lang-hi .section-tag,
+.lang-hi .countdown-badge,
+.lang-hi .invitation-intro-label,
+.lang-hi .person-role-badge,
+.lang-hi .honor-label,
+.lang-hi .mobile-nav-pill {
+  font-family: 'Noto Serif Devanagari', sans-serif !important;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+/* Editorial, Shlokas & Blessings in Hindi */
+html[lang="hi"] .font-editorial,
+.lang-hi .font-editorial {
+  font-family: 'Noto Serif Devanagari', 'Tiro Devanagari Hindi', Georgia, serif !important;
+  line-height: 1.8;
+}
+
+/* Body & Buttons in Hindi */
+html[lang="hi"] .font-sans,
+html[lang="hi"] button,
+.lang-hi .font-sans,
+.lang-hi button {
+  font-family: 'Noto Serif Devanagari', 'Outfit', sans-serif;
+}
+
 
 /* ==========================================================================
    PRINCIPAL BUTTON DESIGN SYSTEM

@@ -351,18 +351,56 @@
           <!-- Auspicious Celebration Banner (Displayed When Timer Reaches Zero) -->
           <div class="wedding-celebration-banner">
             <div class="celebration-badge">
-              <span class="celebration-sparkle">✦</span>
-              <span class="font-cinzel">THE SACRED DAY HAS ARRIVED</span>
+              <span class="live-pulse-dot" aria-hidden="true"></span>
+              <span class="font-cinzel">{{ lang.isHindi() ? 'पावन लग्न उत्सव आज लाइव है' : 'WEDDING CELEBRATIONS ARE LIVE' }}</span>
               <span class="celebration-sparkle">✦</span>
             </div>
+
+            <!-- Zeroed Out 00:00:00 Auspicious Live Timer Display -->
+            <div class="countdown-grid celebration-zero-grid">
+              <div class="timer-cell">
+                <span class="timer-val font-cinzel text-crimson">00</span>
+                <span class="timer-lbl font-cinzel">{{ lang.t().days }}</span>
+              </div>
+              <span class="timer-colon">:</span>
+              <div class="timer-cell">
+                <span class="timer-val font-cinzel text-crimson">00</span>
+                <span class="timer-lbl font-cinzel">{{ lang.t().hours }}</span>
+              </div>
+              <span class="timer-colon">:</span>
+              <div class="timer-cell">
+                <span class="timer-val font-cinzel text-crimson">00</span>
+                <span class="timer-lbl font-cinzel">{{ lang.t().minutes }}</span>
+              </div>
+              <span class="timer-colon">:</span>
+              <div class="timer-cell">
+                <span class="timer-val font-cinzel text-crimson">00</span>
+                <span class="timer-lbl font-cinzel">{{ lang.t().seconds }}</span>
+              </div>
+            </div>
+
             <h3 class="celebration-headline font-calligraphy text-crimson">
-              Anshul &amp; Vidisha
+              {{ lang.isHindi() ? 'अंशुल एवं विदिशा' : 'Anshul & Vidisha' }}
             </h3>
+            
             <p class="celebration-message font-editorial">
-              United in eternal companionship &amp; sacred matrimony. We seek your heartfelt prayers &amp; divine blessings!
+              {{ lang.isHindi() 
+                ? 'परमपिता परमेश्वर के शुभाशीर्वाद से दो आत्माएं, दो परिवार पावन वैवाहिक सूत्र में बंध गए हैं। आपकी मंगल प्रार्थनाएं एवं स्नेह सादर प्रार्थनीय है।' 
+                : 'United in eternal companionship & sacred matrimony. We seek your heartfelt prayers & divine blessings as our sacred celebrations commence!' }}
             </p>
           </div>
         }
+
+        <!-- Interactive Simulation Toggle (Allows testing both countdown and live 00:00:00 states) -->
+        <div class="countdown-sim-switch-row">
+          <button type="button" 
+                  class="btn-sim-toggle font-cinzel" 
+                  (click)="toggleLivePreview()"
+                  [title]="isWeddingDayOrPast() ? 'Switch to Countdown View' : 'Switch to Live 00:00:00 View'">
+            <span class="sim-dot" [class.live]="isWeddingDayOrPast()"></span>
+            <span>{{ isWeddingDayOrPast() ? (lang.isHindi() ? 'मोड: लाइव (00:00:00) · उलटी गिनती देखने हेतु टैप करें' : 'Mode: LIVE (00:00:00) ➔ Tap for Countdown') : (lang.isHindi() ? 'मोड: उलटी गिनती · लाइव (00:00:00) देखने हेतु टैप करें' : 'Mode: COUNTDOWN ➔ Tap for Live (00:00:00)') }}</span>
+          </button>
+        </div>
       </div>
 
       <!-- Hero Actions (Minimal, Symmetrical & Refined) -->

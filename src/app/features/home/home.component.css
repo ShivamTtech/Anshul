@@ -1456,6 +1456,79 @@
   margin: 0;
 }
 
+/* Live Pulsing Beacon Dot */
+.live-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: livePulse 1.6s infinite;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+@keyframes livePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.celebration-zero-grid {
+  margin: 8px 0 6px;
+  opacity: 0.95;
+}
+
+.countdown-sim-switch-row {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-sim-toggle {
+  background: rgba(120, 29, 44, 0.05);
+  border: 1px dashed rgba(197, 160, 89, 0.65);
+  color: var(--crimson-wine);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.22s ease;
+  user-select: none;
+}
+
+.btn-sim-toggle:hover {
+  background: rgba(120, 29, 44, 0.1);
+  border-color: var(--crimson-wine);
+  transform: translateY(-1px);
+}
+
+.btn-sim-toggle:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.sim-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-deep);
+}
+
+.sim-dot.live {
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+}
+
 .countdown-badge {
   display: inline-flex;
   align-items: center;
@@ -2042,23 +2115,59 @@
 }
 
 /* --------------------------------------------------------------------------
-   Optical Typography Balance for 'A' in "Anshul" ('Great Vibes' Glyph Sizing)
+   Optical Typography Balance for Latin / English "Anshul"
+   CRITICAL: Strictly isolated from Hindi to prevent fracturing 'अ' and anusvara!
    -------------------------------------------------------------------------- */
-.groom-front .person-name::first-letter,
-.groom-back .card-person-name::first-letter,
-.name-groom::first-letter {
-  font-size: 1.28em;
-  display: inline-block;
-  line-height: 0.85;
-  vertical-align: -0.03em;
+:host-context(html:not([lang="hi"]):not(.lang-hi)) .groom-front .person-name::first-letter,
+:host-context(html:not([lang="hi"]):not(.lang-hi)) .groom-back .card-person-name::first-letter,
+:host-context(html:not([lang="hi"]):not(.lang-hi)) .name-groom::first-letter {
+  font-size: 1.18em;
 }
 
-.caption-names::first-letter,
-.letter-title::first-letter,
-.celebration-headline::first-letter {
-  font-size: 1.24em;
-  display: inline-block;
-  line-height: 0.85;
+:host-context(html:not([lang="hi"]):not(.lang-hi)) .caption-names::first-letter,
+:host-context(html:not([lang="hi"]):not(.lang-hi)) .letter-title::first-letter,
+:host-context(html:not([lang="hi"]):not(.lang-hi)) .celebration-headline::first-letter {
+  font-size: 1.15em;
+}
+
+/* Complete Devanagari / Hindi Glyph & Shirorekha Protection */
+:host-context(html[lang="hi"]) .groom-front .person-name::first-letter,
+:host-context(html[lang="hi"]) .groom-back .card-person-name::first-letter,
+:host-context(html[lang="hi"]) .name-groom::first-letter,
+:host-context(html[lang="hi"]) .name-bride::first-letter,
+:host-context(html[lang="hi"]) .caption-names::first-letter,
+:host-context(html[lang="hi"]) .letter-title::first-letter,
+:host-context(html[lang="hi"]) .celebration-headline::first-letter,
+:host-context(.lang-hi) .groom-front .person-name::first-letter,
+:host-context(.lang-hi) .groom-back .card-person-name::first-letter,
+:host-context(.lang-hi) .name-groom::first-letter,
+:host-context(.lang-hi) .name-bride::first-letter,
+:host-context(.lang-hi) .caption-names::first-letter,
+:host-context(.lang-hi) .letter-title::first-letter,
+:host-context(.lang-hi) .celebration-headline::first-letter {
+  font-size: inherit !important;
+  display: inline !important;
+  line-height: inherit !important;
+  vertical-align: baseline !important;
+  font-family: inherit !important;
+}
+
+/* Royal Devanagari Headline Styling for Couple Names in Hindi */
+:host-context(html[lang="hi"]) .name-groom,
+:host-context(html[lang="hi"]) .name-bride,
+:host-context(html[lang="hi"]) .person-name,
+:host-context(html[lang="hi"]) .caption-names,
+:host-context(html[lang="hi"]) .letter-title,
+:host-context(html[lang="hi"]) .celebration-headline,
+:host-context(.lang-hi) .name-groom,
+:host-context(.lang-hi) .name-bride,
+:host-context(.lang-hi) .person-name,
+:host-context(.lang-hi) .caption-names,
+:host-context(.lang-hi) .letter-title,
+:host-context(.lang-hi) .celebration-headline {
+  font-family: 'Noto Serif Devanagari', 'Tiro Devanagari Hindi', serif !important;
+  letter-spacing: 0.025em;
+  font-weight: 700;
 }
 
 .card-quote-box {

@@ -601,9 +601,11 @@ export class WeddingDataService {
 
   generateWhatsAppShareUrl(): string {
     const isHi = this.lang.currentLang() === 'hi';
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:4200';
+    const shareLink = `${baseUrl}${isHi ? '/hi' : '/en'}`;
     const text = isHi
-      ? `🌸 *शुभ विवाह निमंत्रण* 🌸\n\n*अंशुल वर्मा एवं विदिशा सिंह* के पावन विवाह समारोह में आप सपरिवार सादर आमंत्रित हैं।\n\n📅 16 – 21 नवम्बर 2026\n📍 लखनऊ एवं प्रयागराज\n\nडिजिटल विवाह निमंत्रण पत्रिका यहाँ देखें:\n${typeof window !== 'undefined' ? window.location.href : 'http://localhost:4200'}`
-      : `🌸 *Wedding Invitation* 🌸\n\nYou are cordially invited to celebrate the sacred wedding of\n*Anshul Verma & Vidisha Singh*\n\n📅 16th – 21st November 2026\n📍 Lucknow & Prayagraj\n\nView the royal digital invitation card here:\n${typeof window !== 'undefined' ? window.location.href : 'http://localhost:4200'}`;
+      ? `🌸 *शुभ विवाह निमंत्रण* 🌸\n\n*अंशुल वर्मा एवं विदिशा सिंह* के पावन विवाह समारोह में आप सपरिवार सादर आमंत्रित हैं।\n\n📅 16 – 21 नवम्बर 2026\n📍 लखनऊ एवं प्रयागराज\n\nडिजिटल विवाह निमंत्रण पत्रिका यहाँ देखें:\n${shareLink}`
+      : `🌸 *Wedding Invitation* 🌸\n\nYou are cordially invited to celebrate the sacred wedding of\n*Anshul Verma & Vidisha Singh*\n\n📅 16th – 21st November 2026\n📍 Lucknow & Prayagraj\n\nView the royal digital invitation card here:\n${shareLink}`;
     return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
   }
 

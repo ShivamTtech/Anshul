@@ -286,6 +286,20 @@ import { LanguageService } from '../../../core/services/language.service';
       letter-spacing: 0.04em;
     }
 
+    :host-context(html[lang="hi"]) .brand-names,
+    :host-context(.lang-hi) .brand-names {
+      font-family: 'Noto Serif Devanagari', serif;
+      letter-spacing: 0.04em;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    :host-context(html[lang="hi"]) .brand-sub,
+    :host-context(.lang-hi) .brand-sub {
+      font-family: 'Noto Serif Devanagari', 'Tiro Devanagari Hindi', serif;
+      letter-spacing: 0.02em;
+    }
+
     /* -------------------------------------------------------------
        3. DESKTOP NAVIGATION LINKS
        ------------------------------------------------------------- */

@@ -364,38 +364,69 @@ export class LanguageService {
     if (!isPlatformBrowser(this.platformId)) return;
 
     try {
-      // 1. Check user's saved preference
-      const saved = localStorage.getItem('wedding_lang') as AppLanguage;
-      if (saved === 'en' || saved === 'hi') {
-        this.currentLang.set(saved);
-        this.updateDocumentLang(saved);
+      // 1. URL Path or Query parameter has HIGHEST PRIORITY
+      // Check if URL contains /hi or /en or ?lang=hi / ?lang=en
+      const path = (window.location.pathname || '').toLowerCase();
+      const search = (window.location.search || '').toLowerCase();
+
+      if (path === '/hi' || path.startsWith('/hi/') || search.includes('lang=hi')) {
+        this.setLanguage('hi', false);
+        this.listenPopState();
         return;
       }
 
-      // 2. Auto-detect browser/phone language preference
-      const navLang = navigator?.language?.toLowerCase() || '';
-      const navLanguages = navigator?.languages || [];
-      const isHindiDevice = 
-        navLang.startsWith('hi') || 
-        navLanguages.some(l => l.toLowerCase().startsWith('hi'));
+      if (path === '/en' || path.startsWith('/en/') || search.includes('lang=en')) {
+        this.setLanguage('en', false);
+        this.listenPopState();
+        return;
+      }
 
-      const initialLang: AppLanguage = isHindiDevice ? 'hi' : 'en';
-      this.currentLang.set(initialLang);
-      this.updateDocumentLang(initialLang);
+      // 2. Check user's saved preference
+      const saved = localStorage.getItem('wedding_lang') as AppLanguage;
+      if (saved === 'en' || saved === 'hi') {
+        this.setLanguage(saved, false);
+        this.listenPopState();
+        return;
+      }
+
+      // 3. New User Default: ALWAYS English ('en')
+      this.setLanguage('en', false);
+      this.listenPopState();
     } catch (e) {
       // Fallback safely to English
       this.currentLang.set('en');
+      this.updateDocumentLang('en');
     }
   }
 
-  setLanguage(lang: AppLanguage) {
-    if (this.currentLang() === lang) return;
+  private listenPopState() {
+    if (typeof window === 'undefined') return;
+    window.addEventListener('popstate', () => {
+      const path = (window.location.pathname || '').toLowerCase();
+      if (path === '/hi' || path.startsWith('/hi/')) {
+        this.setLanguage('hi', false);
+      } else if (path === '/en' || path.startsWith('/en/') || path === '/') {
+        this.setLanguage('en', false);
+      }
+    });
+  }
+
+  setLanguage(lang: AppLanguage, updateUrl: boolean = true) {
     this.currentLang.set(lang);
 
     if (isPlatformBrowser(this.platformId)) {
       try {
         localStorage.setItem('wedding_lang', lang);
         this.updateDocumentLang(lang);
+
+        if (updateUrl && typeof window !== 'undefined') {
+          const targetPath = lang === 'hi' ? '/hi' : '/en';
+          const currentPath = window.location.pathname;
+          if (currentPath !== targetPath) {
+            const hash = window.location.hash || '';
+            window.history.pushState(null, '', targetPath + hash);
+          }
+        }
       } catch (e) {
         // Storage disabled or private browsing
       }
@@ -404,12 +435,18 @@ export class LanguageService {
 
   toggleLanguage() {
     const next: AppLanguage = this.currentLang() === 'en' ? 'hi' : 'en';
-    this.setLanguage(next);
+    this.setLanguage(next, true);
   }
 
   private updateDocumentLang(lang: AppLanguage) {
     if (typeof document !== 'undefined' && document.documentElement) {
       document.documentElement.setAttribute('lang', lang);
+      document.documentElement.classList.toggle('lang-hi', lang === 'hi');
+      document.documentElement.classList.toggle('lang-en', lang === 'en');
+      if (document.body) {
+        document.body.classList.toggle('lang-hi', lang === 'hi');
+        document.body.classList.toggle('lang-en', lang === 'en');
+      }
     }
   }
 }
